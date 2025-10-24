@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client';
-import { useQuery } from '@apollo/client/react';
 
-const GET_PRODUCTS = gql`
+export const GET_PRODUCTS = gql`
   query getProducts($filter: ProductAttributeFilterInput!, $pageSize: Int!, $currentPage: Int!) {
     products(
       filter: $filter
@@ -30,15 +29,3 @@ const GET_PRODUCTS = gql`
     }
   }
 `;
-
-export const useProductsQuery = ({ filter, pageSize, currentPage }) => {
-  const { data, loading, error } = useQuery(GET_PRODUCTS, {
-    variables: {
-      filter: filter,
-      pageSize: pageSize,
-      currentPage: currentPage
-    }
-  });
-
-  return { data, loading, error};
-};
