@@ -1,12 +1,6 @@
-import { useProducts } from "../model/productsModel";
 import ProductCard from "./ProductCard";
 
-function ProductList({ categoryId, skus, pageSize, currentPage }) {
-  const { products, loading, error } = useProducts({ categoryId, skus, pageSize, currentPage });
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error.message}</p>
-
+function ProductList({ products }) {
   return (
     <ol className="product-list">
       {products.map((product) => (
