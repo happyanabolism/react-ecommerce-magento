@@ -1,8 +1,11 @@
 import { gql } from '@apollo/client';
-import { useQuery } from '@apollo/client/react';
 
-const GET_PRODUCTS = gql`
-  query getProducts($filter: ProductAttributeFilterInput!, $pageSize: Int!, $currentPage: Int!) {
+export const GET_PRODUCTS = gql`
+  query getProducts(
+    $filter: ProductAttributeFilterInput!,
+    $pageSize: Int!,
+    $currentPage: Int!
+  ) {
     products(
       filter: $filter
       pageSize: $pageSize
@@ -12,6 +15,20 @@ const GET_PRODUCTS = gql`
         id
         small_image {
           url
+        }
+        custom_attributesV2 {
+          items {
+            code
+            ... on AttributeValue {
+              value
+            }
+            ... on AttributeSelectedOptions {
+              selected_options {
+                label
+                value
+              }
+            }
+          }
         }
         name
         sku
@@ -31,14 +48,30 @@ const GET_PRODUCTS = gql`
   }
 `;
 
-export const useProductsQuery = ({ filter, pageSize, currentPage }) => {
-  const { data, loading, error } = useQuery(GET_PRODUCTS, {
-    variables: {
-      filter: filter,
-      pageSize: pageSize,
-      currentPage: currentPage
+export const GET_PRODUCT_ATTRIBUTES_LIST = gql`
+  query attributesList(
+    $entityType: AttributeEntityTypeEnum = CATALOG_PRODUCT,
+    $filters: AttributeFilterInput
+  ) {
+    attributesList(
+      entityType: $entityType,
+      filters: $filters
+    ) {
+      items {
+        code
+        label
+        default_value
+        entity_type
+        frontend_class
+        frontend_input
+        is_required
+        is_unique
+        options {
+          label
+          value
+          is_default
+        }
+      }
     }
-  });
-
-  return { data, loading, error};
-};
+  }
+`;
