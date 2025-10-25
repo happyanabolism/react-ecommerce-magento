@@ -14,7 +14,7 @@ export const GET_CATEGORIES = gql`
         product_count
         url_key
         url_path
-        products {
+        products(pageSize: $pageSize, currentPage: $currentPage) {
           items {
             id
             name

@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { useCategoies } from "../model/сategoriesModel";
 
 function CategoryList({ parentCategoryId, pageSize, currentPage }) {
@@ -9,7 +10,11 @@ function CategoryList({ parentCategoryId, pageSize, currentPage }) {
   return (
     <ol>
       {categories.map(category => (
-        <li key={category.id}>{category.name}</li>
+        <li key={category.id}>
+          <Link to={`category/${category.url_key}`}>
+            {category.name}
+          </Link>
+        </li>
       ))}
     </ol>
   );
