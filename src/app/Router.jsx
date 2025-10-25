@@ -9,7 +9,7 @@ function Router() {
       <Routes>
         <Route index element={<HomePage />} />
         <Route path="cart" element={<CartPage />} />
-        <Route path="/category/:urlKey" element={<CategoryPage />} />
+        <Route path="/category/*" element={<CategoryPage />} />
       </Routes>
     </BrowserRouter>
   );
