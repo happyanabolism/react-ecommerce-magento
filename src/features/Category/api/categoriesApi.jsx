@@ -9,6 +9,7 @@ export const GET_CATEGORIES = gql`
     ) {
       items {
         id
+        uid
         name
         product_count
         url_key
