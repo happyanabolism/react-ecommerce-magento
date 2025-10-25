@@ -11,9 +11,13 @@ function CategoryList({ parentCategoryId, pageSize, currentPage }) {
     <ol>
       {categories.map(category => (
         <li key={category.id}>
-          <Link to={`category/${category.url_key}`}>
-            {category.name}
-          </Link>
+          {category.url_path ? (
+            <Link to={`category/${category.url_path}`}>
+              {category.name}
+            </Link>
+          ) : (
+            <span>{category.name}</span>
+          )}
         </li>
       ))}
     </ol>
