@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client/react"
 import { GET_CATEGORIES } from "../api/categoriesApi"
 
-export const useCategoies = ({ parentCategoryId, pageSize = 20, currentPage = 1} = {}) => {
+export const useCategoies = ({ parentCategoryId, pageSize = 5, currentPage = 1} = {}) => {
   const { data, loading, error } = useQuery(GET_CATEGORIES, {
     variables: {
       filters: parentCategoryId ? {parent_id: {eq: parentCategoryId}} : {},

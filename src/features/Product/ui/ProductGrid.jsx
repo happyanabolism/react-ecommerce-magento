@@ -1,4 +1,4 @@
-import { useProductAttributesList, useProducts } from "../model/productsModel";
+import { useProducts } from "../model/productsModel";
 import ProductCard from "./ProductCard";
 import "./ProductGrid.css";
 
@@ -6,9 +6,6 @@ const MAX_GRID_COLUMNS = 4;
 
 function ProductGrid({ categoryId, skus, pageSize, currentPage, columns = MAX_GRID_COLUMNS }) {
   const { products, loading, error } = useProducts({ categoryId, skus, pageSize, currentPage });
-
-  const { data } = useProductAttributesList();
-  console.log(data);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>

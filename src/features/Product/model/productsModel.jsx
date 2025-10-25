@@ -7,9 +7,6 @@ export const useProducts = ({ categoryId, skus, pageSize = 20, currentPage = 1 }
   if (categoryId) filter = { category_id: { eq: categoryId } };
   else if (skus) filter = { sku: { in: skus } };
 
-
-  // filter.origine = { eq: 10 }
-
   const { data, loading, error } = useQuery(GET_PRODUCTS, {
     variables: {
       filter: filter,
@@ -19,10 +16,4 @@ export const useProducts = ({ categoryId, skus, pageSize = 20, currentPage = 1 }
   });
 
   return { products: data?.products?.items || [], loading, error};
-}
-
-export const useProductAttributesList = () => {
-  const { data, loading, error } = useQuery(GET_PRODUCT_ATTRIBUTES_LIST);
-
-  return { data, loading, error };
 }
