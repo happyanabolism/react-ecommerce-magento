@@ -1,0 +1,29 @@
+form {
+  background: #dedede;
+  border-radius: 8px;
+  text-align: center;
+  padding: 20px;
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+form input {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 4px 8px;
+  outline: none;
+  transition: border-color .4s;
+}
+
+form input:focus {
+  border-color: skyblue;
+}
+
+.field-validation-error {
+  color: tomato;
+  font-size: 14px;
+}
