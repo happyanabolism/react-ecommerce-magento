@@ -11,9 +11,7 @@ form {
 form input {
   border: 1px solid #ccc;
   box-sizing: border-box;
-  display: block;
   width: 100%;
-  margin-bottom: 15px;
   padding: 4px 8px;
   outline: none;
   transition: border-color .4s;
