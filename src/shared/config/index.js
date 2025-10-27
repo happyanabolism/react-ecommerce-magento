@@ -1,4 +1,1 @@
-export {
-  ROUTE_CONSTANTS,
-  getCategoryRoute
-} from './routes';
+export { ROUTE_CONSTANTS, getCategoryRoute } from './routes';

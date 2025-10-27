@@ -1,5 +1,6 @@
 import { Header } from '@widgets/header';
-import { CategoryList } from '@widgets/category/ui';
+import { ChildCategoriesList } from '@widgets/category';
+import { CategoryNav } from '@widgets/menu';
 
 export function HomePage() {
   return (
@@ -7,10 +8,9 @@ export function HomePage() {
       <title>Home</title>
 
       <Header />
+      <CategoryNav />
       <main>
-        <CategoryList />
-        <br />
-        <CategoryList parentCategoryId={245} />
+        HomePage
       </main>
     </>
   );

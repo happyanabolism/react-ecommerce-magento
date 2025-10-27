@@ -1,5 +1,5 @@
-import { Link } from "react-router";
-import { getCategoryRoute } from "@shared/config";
+import { Link } from 'react-router';
+import { getCategoryRoute } from '@shared/config';
 
 export function CategoryLink({ category }) {
   return (

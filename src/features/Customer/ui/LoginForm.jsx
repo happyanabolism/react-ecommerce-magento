@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { useGenerateCustomerToken } from '../model/customerModel';
-import './LoginForm.css'
+import './LoginForm.scss';
 
 function LoginForm() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
