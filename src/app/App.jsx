@@ -1,6 +1,6 @@
-import { ApolloProvider } from "./providers";
-import { AppRouter } from "./routers";
-import "./styles/index.scss"
+import { ApolloProvider } from './providers/ApolloProvider';
+import { AppRouter } from './routers/AppRouter';
+import './styles/index.scss';
 
 export function App() {
   return (

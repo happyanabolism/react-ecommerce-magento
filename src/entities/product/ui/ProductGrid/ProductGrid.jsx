@@ -1,5 +1,5 @@
-import { ProductCard } from "../ProductCard";
-import "./ProductGrid.scss";
+import { ProductCard } from '@entities/product';
+import './ProductGrid.scss';
 
 const MAX_GRID_COLUMNS = 4;
 

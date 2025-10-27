@@ -1,7 +1,12 @@
 import { gql } from '@apollo/client';
 
 export const GET_CATEGORIES = gql`
-  query getCategories($filters: CategoryFilterInput!, $pageSize: Int!, $currentPage: Int!) {
+  query getCategories(
+    $filters: CategoryFilterInput!
+    $pageSize: Int!
+    $currentPage: Int!
+    $withProducts: Boolean! = false
+  ) {
     categories(
       filters: $filters
       pageSize: $pageSize
@@ -14,29 +19,20 @@ export const GET_CATEGORIES = gql`
         product_count
         url_key
         url_path
-      }
-      page_info {
-        total_pages
-      }
-    }
-  }
-`;
-
-export const GET_CATEGORIES_WITH_PRODUCTS = gql`
-  query getCategories($filters: CategoryFilterInput!, $pageSize: Int!, $currentPage: Int!) {
-    categories(
-      filters: $filters
-      pageSize: $pageSize
-      currentPage: $currentPage
-    ) {
-      items {
-        id
-        uid
-        name
-        product_count
-        url_key
-        url_path
-        products(pageSize: $pageSize, currentPage: $currentPage) {
+        relative_url
+        path_in_store
+        path
+        canonical_url
+        level
+        is_anchor
+        include_in_menu
+        children {
+          id
+          name
+          url_path
+        }
+        products(pageSize: $pageSize, currentPage: $currentPage)
+          @include(if: $withProducts) {
           items {
             id
             name

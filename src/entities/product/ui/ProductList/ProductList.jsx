@@ -1,4 +1,4 @@
-import { ProductCard } from "../ProductCard";
+import { ProductCard } from '@entities/product';
 
 export function ProductList({ products }) {
   return (
