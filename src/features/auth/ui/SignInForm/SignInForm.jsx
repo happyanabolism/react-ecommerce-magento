@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form'
-import { useGenerateCustomerToken } from '../model/customerModel';
-import './LoginForm.scss';
+import { useGenerateCustomerToken } from '@entities/customer';
+import './SignInForm.scss';
 
-function LoginForm() {
+export function SignInForm() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     mode: 'onChange',
     // defaultValues: {
@@ -69,5 +69,3 @@ function LoginForm() {
     </form>
   )
 }
-
-export default LoginForm;
