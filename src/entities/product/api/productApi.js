@@ -2,15 +2,11 @@ import { gql } from '@apollo/client';
 
 export const GET_PRODUCTS = gql`
   query getProducts(
-    $filter: ProductAttributeFilterInput!,
-    $pageSize: Int!,
+    $filter: ProductAttributeFilterInput!
+    $pageSize: Int!
     $currentPage: Int!
   ) {
-    products(
-      filter: $filter
-      pageSize: $pageSize
-      currentPage: $currentPage
-    ) {
+    products(filter: $filter, pageSize: $pageSize, currentPage: $currentPage) {
       items {
         id
         small_image {
@@ -50,13 +46,10 @@ export const GET_PRODUCTS = gql`
 
 export const GET_PRODUCT_ATTRIBUTES_LIST = gql`
   query attributesList(
-    $entityType: AttributeEntityTypeEnum = CATALOG_PRODUCT,
+    $entityType: AttributeEntityTypeEnum = CATALOG_PRODUCT
     $filters: AttributeFilterInput
   ) {
-    attributesList(
-      entityType: $entityType,
-      filters: $filters
-    ) {
+    attributesList(entityType: $entityType, filters: $filters) {
       items {
         code
         label

@@ -1,4 +1,5 @@
-import { ROOT_CATEGORY_ID, useCategory } from '@entities/category';
+import { useCategory } from '@entities/category';
+import { ROOT_CATEGORY_ID } from '@shared/constants';
 
 // TODO: pass levels: int
 export const useCategoryNav = () => {

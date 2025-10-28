@@ -5,7 +5,6 @@ export const GET_CATEGORIES = gql`
     $filters: CategoryFilterInput!
     $pageSize: Int!
     $currentPage: Int!
-    $includeProducts: Boolean! = false
   ) {
     categories(
       filters: $filters
@@ -23,25 +22,20 @@ export const GET_CATEGORIES = gql`
           url_path
           include_in_menu
         }
-        products(pageSize: $pageSize, currentPage: $currentPage)
-          @include(if: $includeProducts) {
-          items {
-            id
-            name
-            small_image {
-              url
-            }
-          }
-          page_info {
-            current_page
-            page_size
-            total_pages
-          }
-        }
       }
       page_info {
         total_pages
       }
+    }
+  }
+`;
+
+export const URL_RESOLVE = gql`
+  query route($url: String!) {
+    route(url: $url) {
+      redirect_code
+      relative_url
+      type
     }
   }
 `;

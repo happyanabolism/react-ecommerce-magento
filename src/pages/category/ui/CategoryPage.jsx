@@ -24,7 +24,7 @@ export function CategoryPage() {
         {!loading && !error && (
           <>
             <ChildCategoriesList category={category} />
-            <CategoryProductsGrid category={category} columns={4} />
+            <CategoryProductsGrid categoryUid={category.uid} columns={4} />
           </>
         )}
       </main>
