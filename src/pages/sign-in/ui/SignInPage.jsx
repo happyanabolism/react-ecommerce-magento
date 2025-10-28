@@ -1,5 +1,5 @@
-import { Header } from "@widgets/header";
-import LoginForm from "@features/Customer/ui/LoginForm";
+import { Header } from '@widgets/header';
+import { SignInForm } from '@features/auth';
 
 export function SignInPage() {
   return (
@@ -10,7 +10,7 @@ export function SignInPage() {
       <main>
         <div className="container">
           <h1>Login Form</h1>
-          <LoginForm />
+          <SignInForm />
         </div>
       </main>
     </>

@@ -1,5 +1,5 @@
-import { useMutation } from "@apollo/client/react"
-import { GENERATE_CUSTOMER_TOKEN } from "../api/customerApi"
+import { useMutation } from '@apollo/client/react'
+import { GENERATE_CUSTOMER_TOKEN } from '../api/customerApi'
 
 export const useGenerateCustomerToken = () => {
   const [generateToken, { data, loading, error }] = useMutation(GENERATE_CUSTOMER_TOKEN);
