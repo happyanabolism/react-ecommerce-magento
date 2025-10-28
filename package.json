@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^4.0.7",
+    "@feature-sliced/eslint-config": "^0.1.1",
     "axios": "^1.12.2",
     "graphql": "^16.11.0",
     "graphql-request": "^7.3.1",

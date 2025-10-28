@@ -5,7 +5,7 @@ export const GET_CATEGORIES = gql`
     $filters: CategoryFilterInput!
     $pageSize: Int!
     $currentPage: Int!
-    $withProducts: Boolean! = false
+    $includeProducts: Boolean! = false
   ) {
     categories(
       filters: $filters
@@ -13,26 +13,18 @@ export const GET_CATEGORIES = gql`
       currentPage: $currentPage
     ) {
       items {
-        id
         uid
         name
-        product_count
-        url_key
         url_path
-        relative_url
-        path_in_store
-        path
-        canonical_url
-        level
-        is_anchor
         include_in_menu
         children {
-          id
+          uid
           name
           url_path
+          include_in_menu
         }
         products(pageSize: $pageSize, currentPage: $currentPage)
-          @include(if: $withProducts) {
+          @include(if: $includeProducts) {
           items {
             id
             name
