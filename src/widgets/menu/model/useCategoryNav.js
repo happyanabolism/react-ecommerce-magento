@@ -5,5 +5,5 @@ import { ROOT_CATEGORY_ID } from '@shared/constants';
 export const useCategoryNav = () => {
   const filter = { parent_id: { eq: ROOT_CATEGORY_ID } };
 
-  return useCategory({ filter, includeProducts: false });
+  return useCategory({ filter });
 };

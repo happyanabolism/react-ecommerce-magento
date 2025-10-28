@@ -1,11 +1,10 @@
-import { generatePath, Link } from 'react-router';
-import { ROUTES } from '@shared/constants';
+import { Link } from 'react-router';
 
 export function CategoryLink({ category }) {
   return (
     <>
       {category.url_path ? (
-        <Link to={generatePath(ROUTES.CATEGORY, { 'uid': category.uid })}>
+        <Link to={'/' + category.url_path}>
           {category.name}
         </Link>
       ) : (
