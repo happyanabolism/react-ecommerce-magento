@@ -29,13 +29,3 @@ export const GET_CATEGORIES = gql`
     }
   }
 `;
-
-export const URL_RESOLVE = gql`
-  query route($url: String!) {
-    route(url: $url) {
-      redirect_code
-      relative_url
-      type
-    }
-  }
-`;

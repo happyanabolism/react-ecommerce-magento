@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router';
 import { HomePage } from '@pages/home';
-import { CategoryPage } from '@pages/category';
 import { CartPage } from '@pages/cart';
 import { SignInPage } from '@pages/sign-in';
+import { DynamicPage } from '@pages/dynamic';
 import { ROUTES } from '@shared/constants';
 
 export const router = createBrowserRouter([
@@ -12,10 +12,6 @@ export const router = createBrowserRouter([
     index: true,
   },
   {
-    path: ROUTES.CATEGORY,
-    element: <CategoryPage />,
-  },
-  {
     path: ROUTES.CART,
     element: <CartPage />,
   },
@@ -23,4 +19,8 @@ export const router = createBrowserRouter([
     path: ROUTES.SIGN_IN,
     element: <SignInPage />,
   },
+  {
+    path: ROUTES.DYNAMIC,
+    element: <DynamicPage />
+  }
 ]);
