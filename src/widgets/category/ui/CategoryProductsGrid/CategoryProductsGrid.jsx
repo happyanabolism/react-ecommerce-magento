@@ -1,13 +1,12 @@
 import { useProducts, ProductCard } from '@entities/product';
+import { Spinner } from '@shared/ui';
 import './index.scss';
 
 export function CategoryProductsGrid({ category }) {
   const filter = { 'category_uid': { 'eq': category.uid } };
   const { products, loading, error } = useProducts({ filter });
 
-
-  // TODO: Spiner component
-  if (loading) return <p>Loading products...</p>;
+  if (loading) return <Spinner />;
   // TODO: Alert component
   if (error) return <p>{error.message}</p>;
 

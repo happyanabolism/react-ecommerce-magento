@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { useGenerateCustomerToken } from '@entities/customer';
+import { Spinner } from '@shared/ui';
 import './SignInForm.scss';
 
 export function SignInForm() {
@@ -26,7 +27,7 @@ export function SignInForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      {loading && (<span>Loading...</span>)}
+      {loading && <Spinner />}
       <div>
         <input
           type="email"

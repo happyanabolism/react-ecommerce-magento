@@ -1,6 +1,7 @@
 import { useCategory } from '@entities/category';
 import { Header } from '@widgets/header';
 import { CategoryProductsGrid, ChildCategoriesList } from '@widgets/category';
+import { Spinner } from '@shared/ui';
 
 export function CategoryPage({ urlPath }) {
   const filter = { 'url_path': { 'eq': urlPath } }
@@ -12,7 +13,7 @@ export function CategoryPage({ urlPath }) {
       <Header />
       <main>
         {loading && (
-          <p>Loading...</p>
+          <Spinner />
         )}
         {error && (
           <p>{error.message}</p>
