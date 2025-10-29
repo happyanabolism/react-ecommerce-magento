@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const URL_RESOLVER = gql`
+export const ROUTE = gql`
   query route($url: String!) {
     route(url: $url) {
       redirect_code
