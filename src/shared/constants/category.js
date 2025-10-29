@@ -1,1 +1,1 @@
-export const ROOT_CATEGORY_ID = 1;
+export const ROOT_CATEGORY_ID = 2;

@@ -1,6 +1,7 @@
 import './ProductCard.scss';
 
 export function ProductCard({ product }) {
+  // TODO: price, stock status, actions (add to cart feature)
   return (
     <div className="product-card">
       <img
