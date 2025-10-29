@@ -1,8 +1,8 @@
 import { useQuery } from '@apollo/client/react';
-import { URL_RESOLVER } from '../api/routApi';
+import { ROUTE } from '../api/routApi';
 
 export const useUrlResolve = (url) => {
-  const { data, loading, error } = useQuery(URL_RESOLVER, {
+  const { data, loading, error } = useQuery(ROUTE, {
     variables: {
       url: url,
     },

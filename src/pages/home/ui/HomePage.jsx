@@ -1,5 +1,4 @@
 import { Header } from '@widgets/header';
-import { ChildCategoriesList } from '@widgets/category';
 import { CategoryNav } from '@widgets/menu';
 
 export function HomePage() {

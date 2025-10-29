@@ -21,7 +21,7 @@ export function CategoryProductsGrid({ category }) {
   return (
     <div className="grid">
       {products && products.map(product => (
-        <ProductCard product={product} />
+        <ProductCard product={product} key={product.id} />
       ))}
     </div>
   );

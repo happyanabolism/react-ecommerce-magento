@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client/react';
-import { GET_CATEGORIES } from '../api/categoryApi';
+import { CATEGORIES } from '../api/categoryApi';
 import { DEFAULT_PAGE_NUM, DEFAULT_PAGE_SIZE } from '@shared/constants';
 
 export const useCategory = ({
@@ -7,7 +7,7 @@ export const useCategory = ({
   pageSize = DEFAULT_PAGE_SIZE,
   currentPage = DEFAULT_PAGE_NUM,
 }) => {
-  const { data, loading, error } = useQuery(GET_CATEGORIES, {
+  const { data, loading, error } = useQuery(CATEGORIES, {
     variables: {
       filters: filter,
       pageSize: pageSize,

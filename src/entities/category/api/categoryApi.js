@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const GET_CATEGORIES = gql`
-  query getCategories(
+export const CATEGORIES = gql`
+  query categories(
     $filters: CategoryFilterInput!
     $pageSize: Int!
     $currentPage: Int!
