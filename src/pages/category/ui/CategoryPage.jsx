@@ -1,6 +1,6 @@
 import { useCategory } from '@entities/category';
 import { Header } from '@widgets/header';
-import { CategoryProductsGrid, ChildCategoriesList } from '@widgets/category';
+import { CategoryProductsGrid } from '@widgets/category';
 import { Spinner } from '@shared/ui';
 
 export function CategoryPage({ urlPath }) {
@@ -20,7 +20,6 @@ export function CategoryPage({ urlPath }) {
         )}
         {!loading && !error && (
           <>
-            <ChildCategoriesList category={category} />
             <CategoryProductsGrid category={category} />
           </>
         )}
