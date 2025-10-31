@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^4.0.7",
     "@feature-sliced/eslint-config": "^0.1.1",
+    "@reduxjs/toolkit": "^2.9.2",
     "axios": "^1.12.2",
     "graphql": "^16.11.0",
     "graphql-request": "^7.3.1",
@@ -19,6 +20,7 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.65.0",
+    "react-redux": "^9.2.0",
     "react-router": "^7.9.4",
     "rxjs": "^7.8.2"
   },

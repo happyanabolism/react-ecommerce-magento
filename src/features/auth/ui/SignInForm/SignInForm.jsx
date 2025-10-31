@@ -1,17 +1,17 @@
 import { useForm } from 'react-hook-form'
-import { useGenerateCustomerToken } from '@entities/customer';
+import { useLogin } from '@features/auth';
 import { Spinner } from '@shared/ui';
 import './SignInForm.scss';
 
 export function SignInForm() {
+  const [login, {loading, error: serverError }] = useLogin();
+
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     mode: 'onChange',
     // defaultValues: {
     //   email: 'testDefaultValue'
     // }
   });
-
-  const [generateCustomerToken, { loading, error: serverError }] = useGenerateCustomerToken();
 
   // useEffect(() => {
   //   // Data from server
@@ -20,9 +20,8 @@ export function SignInForm() {
   //   })
   // }, [reset])
 
-  const onSubmit = async (formData) => {
-    const data = await generateCustomerToken(formData.email, formData.password);
-    console.log(data);
+  const onSubmit = (formData) => {
+    login(formData.email, formData.password);
   }
 
   return (
