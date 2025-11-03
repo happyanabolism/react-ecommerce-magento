@@ -1,5 +1,4 @@
 import { useCustomer } from '@entities/customer/model/useCustomer';
-import { Grid } from '@shared/ui';
 import { Header } from '@widgets/header';
 import { CategoryNav } from '@widgets/menu';
 
@@ -21,13 +20,6 @@ export function HomePage() {
             <p>{customer.email}</p>
           </>
         )}
-        <Grid>
-          <p>the first item</p>
-          <p>the second item</p>
-          <p>the third item</p>
-          <p>the fourth item</p>
-          <p>the fiveth item</p>
-        </Grid>
       </main>
     </>
   );
