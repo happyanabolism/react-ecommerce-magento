@@ -1,6 +1,6 @@
 import { useProducts, ProductCard } from '@entities/product';
+import { ProductGrid } from '@entities/product/ui/ProductGrid/ProductGrid';
 import { Spinner } from '@shared/ui';
-import './index.scss';
 
 export function CategoryProductsGrid({ category }) {
   const filter = { 'category_uid': { 'eq': category.uid } };
@@ -16,12 +16,7 @@ export function CategoryProductsGrid({ category }) {
     )
   }
 
-  // TODO: Grid component
   return (
-    <div className="grid">
-      {products && products.map(product => (
-        <ProductCard product={product} key={product.id} />
-      ))}
-    </div>
+    <ProductGrid products={products} />
   );
 }
