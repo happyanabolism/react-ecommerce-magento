@@ -14,6 +14,7 @@
     "@feature-sliced/eslint-config": "^0.1.1",
     "@reduxjs/toolkit": "^2.9.2",
     "axios": "^1.12.2",
+    "clsx": "^2.1.1",
     "graphql": "^16.11.0",
     "graphql-request": "^7.3.1",
     "graphviz": "^0.0.9",
