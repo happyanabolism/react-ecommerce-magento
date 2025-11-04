@@ -10,20 +10,18 @@ export function CategoryPage({ urlPath }) {
   return (
     <>
       <title>Category</title>
-      <Header />
-      <main>
-        {loading && (
-          <Spinner />
-        )}
-        {error && (
-          <p>{error.message}</p>
-        )}
-        {!loading && !error && (
-          <>
-            <CategoryProductsGrid category={category} />
-          </>
-        )}
-      </main>
+
+      {loading && (
+        <Spinner />
+      )}
+      {error && (
+        <p>{error.message}</p>
+      )}
+      {!loading && !error && (
+        <>
+          <CategoryProductsGrid category={category} />
+        </>
+      )}
     </>
   )
 }

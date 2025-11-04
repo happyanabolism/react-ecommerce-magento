@@ -6,13 +6,10 @@ export function LoginPage() {
     <>
       <title>Login</title>
 
-      <Header />
-      <main>
-        <div className="container">
-          <h1>Login Form</h1>
-          <LoginForm />
-        </div>
-      </main>
+      <div className="container">
+        <h1>Login Form</h1>
+        <LoginForm />
+      </div>
     </>
   )
 }

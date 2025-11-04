@@ -6,11 +6,7 @@ export function HomePage() {
     <>
       <title>Home</title>
 
-      <Header />
-      <CategoryNav />
-      <main>
-        HomePage
-      </main>
+      HomePage
     </>
   );
 }
