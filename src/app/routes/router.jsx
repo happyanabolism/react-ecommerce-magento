@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router';
+import { MainLayout } from '@app/layouts';
 import { HomePage } from '@pages/home';
 import { CartPage } from '@pages/cart';
 import { LoginPage } from '@pages/login';
@@ -10,24 +11,29 @@ import { AccountDashboardPage } from '@pages/customer';
 
 export const router = createBrowserRouter([
   {
-    path: ROUTES.HOME,
-    element: <HomePage />,
-    index: true,
-  },
-  {
-    path: ROUTES.CART,
-    element: <ProtectedRoute><CartPage /></ProtectedRoute>,
-  },
-  {
-    path: ROUTES.LOGIN,
-    element: <GuestRoute><LoginPage /></GuestRoute>,
-  },
-  {
-    path: ROUTES.ACCOUNT_DASHBOARD,
-    element: <ProtectedRoute><AccountDashboardPage /></ProtectedRoute>
-  },
-  {
-    path: ROUTES.DYNAMIC,
-    element: <DynamicPage />
+    element: <MainLayout />,
+    children: [
+      {
+        path: ROUTES.HOME,
+        element: <HomePage />,
+        index: true,
+      },
+      {
+        path: ROUTES.CART,
+        element: <ProtectedRoute><CartPage /></ProtectedRoute>,
+      },
+      {
+        path: ROUTES.LOGIN,
+        element: <GuestRoute><LoginPage /></GuestRoute>,
+      },
+      {
+        path: ROUTES.ACCOUNT_DASHBOARD,
+        element: <ProtectedRoute><AccountDashboardPage /></ProtectedRoute>
+      },
+      {
+        path: ROUTES.DYNAMIC,
+        element: <DynamicPage />
+      }
+    ]
   }
 ]);

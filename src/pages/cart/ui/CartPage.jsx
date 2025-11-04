@@ -5,7 +5,7 @@ export function CartPage() {
   return (
     <>
       <title>Cart</title>
-      <Header />
+
       Cart page
     </>
   );
