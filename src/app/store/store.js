@@ -11,17 +11,15 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { customerReducer } from '@entities/customer';
-import { authReducer } from '@entities/auth';
 
 const rootReducer = combineReducers({
-  auth: authReducer,
   customer: customerReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'],
+  whitelist: ['customer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

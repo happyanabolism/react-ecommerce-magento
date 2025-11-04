@@ -12,8 +12,8 @@ export const CustomerNavigation = () => {
       )}
       {!customer && (
         <>
-          <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-          <Link to={'/sign-up'}>Sign Up</Link>
+          <Link to={ROUTES.LOGIN}>Login</Link>
+          <Link to={'/sign-up'}>Register</Link>
         </>
       )}
     </>
