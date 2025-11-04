@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  token: null,
-  name: null,
+  customer: null,
   loading: false,
   error: null,
 };
@@ -10,19 +9,7 @@ const initialState = {
 export const customerSlice = createSlice({
   name: 'customer',
   initialState,
-  reducers: {
-    startLogin(state) {
-      state.loading = true;
-    },
-    loginSuccess(state, action) {
-      state.token = action.payload.token;
-    },
-
-    logout() {
-      return initialState;
-    },
-  },
+  reducers: {},
 });
 
-export const { loginSuccess, logout } = customerSlice.actions;
 export const customerReducer = customerSlice.reducer;

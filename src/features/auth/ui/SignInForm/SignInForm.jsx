@@ -1,10 +1,16 @@
+import { useApolloClient } from '@apollo/client/react';
 import { useForm } from 'react-hook-form'
-import { useLogin } from '@features/auth';
+import { useDispatch } from 'react-redux';
+// import { useLogin } from '@features/auth';
+import { login } from '@entities/auth';
 import { Spinner } from '@shared/ui';
 import './SignInForm.scss';
 
 export function SignInForm() {
-  const [login, {loading, error: serverError }] = useLogin();
+  const dispatch = useDispatch();
+  const client = useApolloClient();
+
+  const [loading, serverError] = [false, null];
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     mode: 'onChange',
@@ -21,7 +27,11 @@ export function SignInForm() {
   // }, [reset])
 
   const onSubmit = (formData) => {
-    login(formData.email, formData.password);
+    dispatch(login({
+      email: formData.email,
+      password: formData.password,
+      client: client
+    }));
   }
 
   return (
