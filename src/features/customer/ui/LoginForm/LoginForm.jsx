@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { login, selectCustomerError, selectCustomerLoading } from '@entities/customer';
 import { Spinner } from '@shared/ui';
-import './LoginForm.module.scss';
 
 export function LoginForm() {
   const dispatch = useDispatch();

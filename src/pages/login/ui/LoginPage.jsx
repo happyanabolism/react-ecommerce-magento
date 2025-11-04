@@ -1,15 +1,16 @@
 import { Header } from '@widgets/header';
 import { LoginForm } from '@features/customer';
+import { Container } from '@shared/ui';
 
 export function LoginPage() {
   return (
     <>
       <title>Login</title>
 
-      <div className="container">
+      <Container>
         <h1>Login Form</h1>
         <LoginForm />
-      </div>
+      </Container>
     </>
   )
 }

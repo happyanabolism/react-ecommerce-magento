@@ -1,3 +1,4 @@
+import { Container } from '@shared/ui';
 import { Header } from '@widgets/header';
 import { CategoryNav } from '@widgets/menu';
 
@@ -6,7 +7,9 @@ export function HomePage() {
     <>
       <title>Home</title>
 
-      HomePage
+      <Container>
+        HomePage
+      </Container>
     </>
   );
 }

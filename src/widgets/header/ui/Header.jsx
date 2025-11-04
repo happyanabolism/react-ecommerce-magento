@@ -1,13 +1,14 @@
 import { Link } from 'react-router';
+import { CustomerNavigation } from '@features/customer';
 import { ROUTE_CONSTANTS } from '@shared/config';
+import { Container } from '@shared/ui';
 import logo from '@shared/assets/icons/react.svg';
 import './Header.scss';
-import { CustomerNavigation } from '@features/customer';
 
 export function Header() {
   return (
     <header>
-      <div className="container">
+      <Container>
         <div className="header-content">
           <div className="logo">
             <Link to={ROUTE_CONSTANTS.HOME}><img src={logo} /></Link>
@@ -17,7 +18,7 @@ export function Header() {
             <Link to={ROUTE_CONSTANTS.CART}>Cart</Link>
           </nav>
         </div>
-      </div>
+      </Container>
     </header>
   );
 }
