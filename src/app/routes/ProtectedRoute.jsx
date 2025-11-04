@@ -1,16 +1,17 @@
+import { selectCustomer, selectStatus } from "@entities/customer";
 import { ROUTES } from "@shared/constants";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
 
 export const ProtectedRoute = ({ children, redirectTo = ROUTES.LOGIN }) => {
-  // get customer is authorized from store
-  const isAuthorized = false;
-  const customerStatus = 'error';
+  const customer = useSelector(selectCustomer);
+  const status = useSelector(selectStatus);
 
-  if (customerStatus === 'idle') {
+  if (status === 'idle') {
     return <p>Customer loading...</p>
   }
 
-  if (!isAuthorized && customerStatus === 'error') {
+  if (!customer && status === 'error') {
     return <Navigate to={redirectTo} replace />
   }
 

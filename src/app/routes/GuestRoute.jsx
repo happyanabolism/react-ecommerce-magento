@@ -1,16 +1,12 @@
-import { ROUTES } from "@shared/constants";
 import { Navigate } from "react-router";
+import { useSelector } from "react-redux";
+import { selectCustomer } from "@entities/customer";
+import { ROUTES } from "@shared/constants";
 
 export const GuestRoute = ({ children, redirectTo = ROUTES.HOME }) => {
-  // get customer is authorized from store
-  const isAuthorized = false;
-  const customerStatus = 'error';
+  const customer = useSelector(selectCustomer);
 
-  if (customerStatus === 'idle') {
-    return <p>Customer loading...</p>
-  }
-
-  if (isAuthorized) {
+  if (customer) {
     return <Navigate to={redirectTo} replace />
   }
 

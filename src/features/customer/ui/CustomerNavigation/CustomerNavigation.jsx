@@ -1,9 +1,10 @@
-import { useCustomer } from "@entities/customer/model/useCustomer";
-import { ROUTES } from "@shared/constants";
 import { Link } from "react-router";
+import { useSelector } from "react-redux";
+import { selectCustomer } from "@entities/customer";
+import { ROUTES } from "@shared/constants";
 
 export const CustomerNavigation = () => {
-  const { customer } = useCustomer();
+  const customer = useSelector(selectCustomer);
 
   return (
     <>
