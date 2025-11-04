@@ -3,7 +3,7 @@ import { ApolloProvider as AProvider } from '@apollo/client/react';
 import { SetContextLink } from '@apollo/client/link/context';
 import { ErrorLink } from "@apollo/client/link/error";
 import { store } from '@app/store';
-import { selectJwt } from '@entities/customer';
+import { logout, selectJwt } from '@entities/customer';
 import { API_ERRORS } from '@shared/constants';
 
 const API_URI = 'http://localhost/graphql';
@@ -23,7 +23,7 @@ const errorLink = new ErrorLink(({ result }) => {
   for (const error of result.errors) {
     // handle error from api for non-authorized users
     if (error.extensions.category === API_ERRORS.AUTHORIZATION) {
-      console.log(error.message);
+      store.dispatch(logout());
     }
   }
 })

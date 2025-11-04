@@ -1,6 +1,18 @@
 import { gql } from '@apollo/client';
 
-const CUSTOMER = gql`
+export const CUSTOMER = gql`
+  query customer {
+    customer {
+      id
+      email
+      firstname
+      lastname
+      gender
+    }
+  }
+`;
+
+const CUSTOMER_STATE_QUERY = gql`
   query customer {
     customer {
       email
@@ -12,7 +24,7 @@ const CUSTOMER = gql`
 
 export const fetchCustomer = async (client, token) => {
   const { data } = await client.query({
-    query: CUSTOMER,
+    query: CUSTOMER_STATE_QUERY,
     fetchPolicy: 'no-cache',
     context: {
       headers: {

@@ -1,7 +1,7 @@
 import { useApolloClient } from '@apollo/client/react';
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux';
-import { login } from '@entities/customer';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, selectCustomerError, selectCustomerLoading } from '@entities/customer';
 import { Spinner } from '@shared/ui';
 import './LoginForm.module.scss';
 
@@ -9,8 +9,8 @@ export function LoginForm() {
   const dispatch = useDispatch();
   const client = useApolloClient();
 
-  // TODO: useSelector auth, get loading and error from auth slice
-  const [loading, serverError] = [false, null];
+  const loading = useSelector(selectCustomerLoading);
+  const serverError = useSelector(selectCustomerError);
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     mode: 'onChange',
@@ -68,7 +68,7 @@ export function LoginForm() {
         )}
       </div>
       {serverError && (
-        <p>{serverError.message}</p>
+        <p>{serverError}</p>
       )}
       <button
         type="submit"

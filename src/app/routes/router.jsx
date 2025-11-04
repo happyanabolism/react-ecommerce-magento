@@ -6,6 +6,7 @@ import { DynamicPage } from '@pages/dynamic';
 import { ROUTES } from '@shared/constants';
 import { ProtectedRoute } from './ProtectedRoute';
 import { GuestRoute } from './GuestRoute';
+import { AccountDashboardPage } from '@pages/customer';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.LOGIN,
     element: <GuestRoute><LoginPage /></GuestRoute>,
+  },
+  {
+    path: ROUTES.ACCOUNT_DASHBOARD,
+    element: <ProtectedRoute><AccountDashboardPage /></ProtectedRoute>
   },
   {
     path: ROUTES.DYNAMIC,

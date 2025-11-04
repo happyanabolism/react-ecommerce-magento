@@ -4,7 +4,7 @@ import { login } from '@entities/customer';
 const initialState = {
   customer: null,
   jwt: null,
-  status: 'idle',
+  loading: false,
   error: null,
 };
 
@@ -12,23 +12,21 @@ export const customerSlice = createSlice({
   name: 'customer',
   initialState,
   reducers: {
-    logout() {
-      initialState;
-    },
+    logout: () => ({ ...initialState }),
   },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
-        state.status = 'loading';
+        state.loading = true;
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.status = 'loaded';
-        state.jwt = action.payload.jwt;
+        state.loading = false;
+        state.jwt = action.payload.token;
         state.customer = action.payload.customer;
       })
       .addCase(login.rejected, (state, action) => {
-        state.status = 'error';
+        state.loading = false;
         state.error = action.error.message;
       });
   },
