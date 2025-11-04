@@ -10,6 +10,7 @@ export function SignInForm() {
   const dispatch = useDispatch();
   const client = useApolloClient();
 
+  // TODO: useSelector auth, get loading and error from auth slice
   const [loading, serverError] = [false, null];
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
