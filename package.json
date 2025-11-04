@@ -23,6 +23,7 @@
     "react-hook-form": "^7.65.0",
     "react-redux": "^9.2.0",
     "react-router": "^7.9.4",
+    "redux-persist": "^6.0.0",
     "rxjs": "^7.8.2"
   },
   "devDependencies": {

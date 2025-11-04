@@ -1,6 +1,6 @@
 import { StoreContext, useStoreConfig } from '@entities/store'
 
-export const StoreProvider = ({ children }) => {
+export const StoreConfigProvider = ({ children }) => {
   const { storeConfig } = useStoreConfig();
 
   return (

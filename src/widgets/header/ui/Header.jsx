@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import { ROUTE_CONSTANTS } from '@shared/config';
 import logo from '@shared/assets/icons/react.svg';
 import './Header.scss';
+import { CustomerNavigation } from '@features/customer';
 
 export function Header() {
   return (
@@ -12,10 +13,8 @@ export function Header() {
             <Link to={ROUTE_CONSTANTS.HOME}><img src={logo} /></Link>
           </div>
           <nav className="header-links">
-            <ol>
-              <li><Link to={ROUTE_CONSTANTS.SIGN_IN}>Sign In</Link></li>
-              <li><Link to={ROUTE_CONSTANTS.CART}>Cart</Link></li>
-            </ol>
+            <CustomerNavigation />
+            <Link to={ROUTE_CONSTANTS.CART}>Cart</Link>
           </nav>
         </div>
       </div>
