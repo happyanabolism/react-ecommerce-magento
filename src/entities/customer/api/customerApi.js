@@ -9,3 +9,17 @@ export const CUSTOMER = gql`
     }
   }
 `;
+
+export const fetchCustomer = async (client, token) => {
+  const { data } = await client.query({
+    query: CUSTOMER,
+    fetchPolicy: 'no-cache',
+    context: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  });
+
+  return data?.customer;
+};

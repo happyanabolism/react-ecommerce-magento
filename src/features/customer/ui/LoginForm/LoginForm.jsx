@@ -1,12 +1,11 @@
 import { useApolloClient } from '@apollo/client/react';
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux';
-// import { useLogin } from '@features/auth';
-import { login } from '@entities/auth';
+import { login } from '@entities/customer';
 import { Spinner } from '@shared/ui';
-import './SignInForm.scss';
+import './LoginForm.module.scss';
 
-export function SignInForm() {
+export function LoginForm() {
   const dispatch = useDispatch();
   const client = useApolloClient();
 
