@@ -1,3 +1,4 @@
+import { Container } from "@shared/ui";
 import { Header } from "@widgets/header";
 
 
@@ -6,7 +7,9 @@ export function CartPage() {
     <>
       <title>Cart</title>
 
-      Cart page
+      <Container>
+        Cart page
+      </Container>
     </>
   );
 }

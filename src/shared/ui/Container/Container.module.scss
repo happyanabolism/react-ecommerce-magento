@@ -1,0 +1,15 @@
+@use '@shared/styles/variables' as *;
+
+.container {
+  max-width: $layout-max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $layout-indent;
+  padding-right: $layout-indent;
+  box-sizing: border-box;
+
+  @media (min-width: $breakpoint-xl) {
+    padding-left: $layout-indent-xl;
+    padding-right: $layout-indent-xl;
+  }
+}
