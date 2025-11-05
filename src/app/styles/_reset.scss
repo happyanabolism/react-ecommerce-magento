@@ -11,3 +11,22 @@ button {
   appearance: none;
   cursor: pointer;
 }
+
+// link reset
+a {
+  color: inherit;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// ul, ol reset
+ol,
+ul {
+  display: flex;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}

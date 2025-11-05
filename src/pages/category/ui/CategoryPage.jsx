@@ -1,7 +1,6 @@
 import { useCategory } from '@entities/category';
-import { Header } from '@widgets/header';
 import { CategoryProductsGrid } from '@widgets/category';
-import { Spinner } from '@shared/ui';
+import { Container, Spinner } from '@shared/ui';
 
 export function CategoryPage({ urlPath }) {
   const filter = { 'url_path': { 'eq': urlPath } }
