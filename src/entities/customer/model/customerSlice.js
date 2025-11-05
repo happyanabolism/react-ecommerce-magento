@@ -18,10 +18,10 @@ export const customerSlice = createSlice({
     builder
       .addCase(login.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
+        state.error = null;
         state.jwt = action.payload.token;
         state.customer = action.payload.customer;
       })

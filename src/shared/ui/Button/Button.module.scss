@@ -1,0 +1,79 @@
+@use '@shared/styles/variables/_colors' as *;
+@use '@shared/styles/mixins/_animation' as *;
+
+$button-font-size: 16px;
+$button-line-heigh: 18px;
+
+// secondary button
+$button-secondary_color: $color-graphite-500;
+$button-secondary_background: $color-white;
+$button-secondary_border-color: $color-graphite-500;
+$button-secondary-hover_color: $color-white;
+$button-secondary-hover_background: $color-graphite-500;
+$button-secondary-hover_border-color: $color-graphite-500;
+
+// primary button
+$button-primary_color: $color-white;
+$button-primary_background: $color-graphite-500;
+$button-primary_border-color: $color-graphite-500;
+$button-primary-hover_color: $color-white;
+$button-primary-hover_background: $color-graphite-900;
+$button-primary-hover_border-color: $color-graphite-900;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  vertical-align: middle;
+  font-size: $button-font-size;
+  line-height: $button-line-heigh;
+  font-weight: 600;
+  border: 1px solid;
+  border-radius: 20px;
+  user-select: none;
+  &:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+}
+
+.variant_secondary {
+  color: $button-secondary_color;
+  border-color: $button-secondary_border-color;
+  background-color: $button-secondary_background;
+  &:hover {
+    color: $button-secondary-hover_color;
+    border-color: $button-secondary-hover_border-color;
+    background-color: $button-secondary-hover_background;
+  }
+}
+
+.variant_primary {
+  color: $button-primary_color;
+  border-color: $button-primary_border-color;
+  background-color: $button-primary_background;
+  &:hover {
+    color: $button-primary-hover_color;
+    border-color: $button-primary-hover_border-color;
+    background-color: $button-primary-hover_background;
+  }
+}
+
+.iconWrapper {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.loader {
+  width: $button-line-heigh;
+  height: $button-line-heigh;
+  border: 2px solid $color-white-50;
+  border-top-color: $color-white;
+  border-radius: 50%;
+  @include spin();
+  box-sizing: border-box;
+}

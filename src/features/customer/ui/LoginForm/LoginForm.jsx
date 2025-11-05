@@ -2,7 +2,7 @@ import { useApolloClient } from '@apollo/client/react';
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { login, selectCustomerError, selectCustomerLoading } from '@entities/customer';
-import { Spinner } from '@shared/ui';
+import { Button } from '@shared/ui';
 
 export function LoginForm() {
   const dispatch = useDispatch();
@@ -35,7 +35,6 @@ export function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      {loading && <Spinner />}
       <div>
         <input
           type="email"
@@ -69,12 +68,9 @@ export function LoginForm() {
       {serverError && (
         <p>{serverError}</p>
       )}
-      <button
-        type="submit"
-        disabled={isSubmitting || loading}
-      >
+      <Button variant="primary" loading={isSubmitting || loading}>
         {isSubmitting || loading ? 'Login...' : 'Login'}
-      </button>
+      </Button>
     </form>
   )
 }
