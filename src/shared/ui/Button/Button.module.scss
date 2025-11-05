@@ -1,36 +1,37 @@
 @use '@shared/styles/variables/_colors' as *;
+@use '@shared/styles/variables/_typography' as *;
 @use '@shared/styles/mixins/_animation' as *;
 
-$button-font-size: 16px;
-$button-line-heigh: 18px;
+$button-font-size: $font-size-base;
+$button-line-heigh: calc($button-font-size + 2px);
 
 // secondary button
-$button-secondary_color: $color-graphite-500;
+$button-secondary_color: $color-purple-800;
 $button-secondary_background: $color-white;
-$button-secondary_border-color: $color-graphite-500;
-$button-secondary-hover_color: $color-white;
-$button-secondary-hover_background: $color-graphite-500;
-$button-secondary-hover_border-color: $color-graphite-500;
+$button-secondary_border-color: $color-purple-700;
+$button-secondary-hover_color: $color-purple-800;
+$button-secondary-hover_background: $color-purple-100;
+$button-secondary-hover_border-color: $color-purple-800;
 
 // primary button
 $button-primary_color: $color-white;
-$button-primary_background: $color-graphite-500;
-$button-primary_border-color: $color-graphite-500;
+$button-primary_background: $color-purple-700;
+$button-primary_border-color: $color-purple-700;
 $button-primary-hover_color: $color-white;
-$button-primary-hover_background: $color-graphite-800;
-$button-primary-hover_border-color: $color-graphite-800;
+$button-primary-hover_background: $color-purple-800;
+$button-primary-hover_border-color: $color-purple-800;
 
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 20px;
+  padding: 8px 16px;
   vertical-align: middle;
   font-size: $button-font-size;
   line-height: $button-line-heigh;
   font-weight: 600;
-  border: 1px solid;
+  border: 2px solid;
   border-radius: 20px;
   user-select: none;
   &:disabled {
