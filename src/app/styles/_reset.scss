@@ -1,9 +1,13 @@
 body {
-  font-size: 16px;
   margin: 0;
 }
 
-p {
-  text-align: left;
-  margin-top: 0;
+// button reset
+button {
+  padding: 0;
+  font: inherit;
+  background: none;
+  border-width: 0;
+  appearance: none;
+  cursor: pointer;
 }
