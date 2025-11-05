@@ -1,0 +1,13 @@
+@use '@shared/styles/variables' as *;
+
+.header {
+  background: $color-periwinkle-100;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

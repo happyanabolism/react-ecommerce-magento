@@ -1,0 +1,13 @@
+@use '@shared/styles/variables' as *;
+
+.navigation {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: $color-periwinkle-200;
+}
+
+.categoryLink {
+  &:not(:first-child) {
+    margin-left: 20px;
+  }
+}
