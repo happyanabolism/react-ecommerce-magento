@@ -12,20 +12,22 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { customerReducer } from '@entities/customer';
 
-const rootReducer = combineReducers({
-  customer: customerReducer,
-});
-
-const persistConfig = {
-  key: 'root',
+const customerPersistConfig = {
+  key: 'customer',
   storage,
-  whitelist: ['customer'],
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistCustomerReducer = persistReducer(
+  customerPersistConfig,
+  customerReducer
+);
+
+const rootReducer = combineReducers({
+  customer: persistCustomerReducer,
+});
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

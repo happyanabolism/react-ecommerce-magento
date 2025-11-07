@@ -1,9 +1,13 @@
 @use '@shared/styles/variables' as *;
 
 .navigation {
+  display: none;
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: $color-purple-200;
+  @media (min-width: $breakpoint-md) {
+    display: block;
+  }
 }
 
 .categoryLink {

@@ -45,6 +45,10 @@ $button-primary-hover_border-color: $color-purple-800;
   color: $button-secondary_color;
   border-color: $button-secondary_border-color;
   background-color: $button-secondary_background;
+  .loader {
+    border-color: $color-purple-300;
+    border-top-color: $color-purple-800;
+  }
   &:hover {
     color: $button-secondary-hover_color;
     border-color: $button-secondary-hover_border-color;

@@ -13,6 +13,10 @@ export const customerSlice = createSlice({
   initialState,
   reducers: {
     logout: () => ({ ...initialState }),
+    clearError(state) {
+      state.loading = false;
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -32,5 +36,5 @@ export const customerSlice = createSlice({
   },
 });
 
-export const { logout } = customerSlice.actions;
+export const { logout, clearError } = customerSlice.actions;
 export const customerReducer = customerSlice.reducer;

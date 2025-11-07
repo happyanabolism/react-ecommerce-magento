@@ -1,8 +1,14 @@
 @use '@shared/styles/variables/_typography' as *;
 @use '@shared/styles/variables/_colors' as *;
+@use '@shared/styles/variables/_spacing' as *;
 
 body {
   color: $color-graphite-900;
   font-size: $font-size-base;
   line-height: normal;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: $indent-sm;
 }
