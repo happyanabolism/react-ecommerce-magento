@@ -1,0 +1,7 @@
+@use '@shared/styles/variables' as *;
+
+.form {
+  padding: 20px;
+  background-color: $color-purple-100;
+  border-radius: 20px;
+}

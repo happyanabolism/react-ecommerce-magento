@@ -1,6 +1,8 @@
 $color-white: #ffffff;
 $color-white-50: rgba(255, 255, 255, 0.5);
 
+$color-red: #e02b27;
+
 $color-graphite-100: #efefef;
 $color-graphite-150: #dedede;
 $color-graphite-200: #c7c7c7;
@@ -20,3 +22,5 @@ $color-purple-500: #b899ff;
 $color-purple-600: #a985ff;
 $color-purple-700: #9b70ff;
 $color-purple-800: #8d5cff;
+
+$color-error: $color-red;

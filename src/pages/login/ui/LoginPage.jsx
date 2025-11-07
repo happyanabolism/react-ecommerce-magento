@@ -1,6 +1,6 @@
-import { Header } from '@widgets/header';
-import { LoginForm } from '@features/customer';
-import { Container } from '@shared/ui';
+import { LoginForm, RegistrationForm } from "@features/customer";
+import { Container } from "@shared/ui";
+import styles from "./LoginPage.module.scss"
 
 export function LoginPage() {
   return (
@@ -8,8 +8,11 @@ export function LoginPage() {
       <title>Login</title>
 
       <Container>
-        <h1>Login Form</h1>
-        <LoginForm />
+        <div className={styles.loginWrapper}>
+          <h1>Account Login</h1>
+          <LoginForm />
+          <RegistrationForm />
+        </div>
       </Container>
     </>
   )

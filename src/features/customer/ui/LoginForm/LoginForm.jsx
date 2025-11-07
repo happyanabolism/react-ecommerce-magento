@@ -1,8 +1,10 @@
 import { useApolloClient } from '@apollo/client/react';
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
-import { login, selectCustomerError, selectCustomerLoading } from '@entities/customer';
-import { Button } from '@shared/ui';
+import { clearError, login, selectCustomerError, selectCustomerLoading } from '@entities/customer';
+import { Button, FormInput } from '@shared/ui';
+import { useEffect } from 'react';
+import styles from "./LoginForm.module.scss";
 
 export function LoginForm() {
   const dispatch = useDispatch();
@@ -10,6 +12,10 @@ export function LoginForm() {
 
   const loading = useSelector(selectCustomerLoading);
   const serverError = useSelector(selectCustomerError);
+
+  useEffect(() => {
+    dispatch(clearError())
+  }, [])
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     mode: 'onChange',
@@ -34,37 +40,27 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <div>
-        <input
-          type="email"
-          placeholder="Enter email:"
-          {...register('email', {
-            required: 'This field is required',
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-              message: 'Invalid email address',
-            }
-          })}
-          aria-invalid={errors.email ? 'true' : 'false'}
-        />
-        {errors.email && (
-          <p className='field-validation-error'>{errors.email.message}</p>
-        )}
-      </div>
-      <div>
-        <input
-          type="password"
-          placeholder="Enter password:"
-          {...register('password', {
-            required: 'This field is required'
-          })}
-          aria-invalid={errors.password ? 'true' : 'false'}
-        />
-        {errors.password && (
-          <p className='field-validation-error'>{errors.password.message}</p>
-        )}
-      </div>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
+      <FormInput
+        label="Email"
+        placeholder="example@gmail.com"
+        {...register('email', {
+          required: 'This field is required',
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+            message: 'Invalid email address',
+          }
+        })}
+        error={errors.email}
+      />
+      <FormInput
+        label="Password"
+        type="password"
+        {...register('password', {
+          required: 'This field is required'
+        })}
+        error={errors.password}
+      />
       {serverError && (
         <p>{serverError}</p>
       )}
