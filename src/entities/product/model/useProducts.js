@@ -14,5 +14,10 @@ export const useProducts = ({
     },
   });
 
-  return { products: data?.products?.items || [], loading, error };
+  return {
+    products: data?.products?.items || [],
+    pageInfo: data?.products?.page_info || {},
+    loading,
+    error,
+  };
 };

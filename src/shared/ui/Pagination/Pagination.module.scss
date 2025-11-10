@@ -1,0 +1,26 @@
+@use '@shared/styles/variables' as *;
+
+.pagination {
+  display: flex;
+  gap: $indent-md;
+}
+
+.page {
+  min-width: 28px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  font-weight: 600;
+  text-align: center;
+  border: 2px solid $color-purple-600;
+  border-radius: 20px;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-purple-100;
+    border-color: $color-purple-800;
+  }
+}
+
+.pageActive {
+  background-color: $color-purple-100;
+  border-color: $color-purple-800;
+}
