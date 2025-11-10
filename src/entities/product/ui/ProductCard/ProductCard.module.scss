@@ -1,0 +1,10 @@
+@use '@shared/styles/variables' as *;
+
+.productCard {
+  padding: 20px;
+  border: 1px solid $color-graphite-200;
+}
+
+.productPhoto {
+  width: 100%;
+}

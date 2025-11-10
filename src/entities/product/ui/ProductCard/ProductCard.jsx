@@ -1,11 +1,11 @@
-import './ProductCard.scss';
+import styles from './ProductCard.module.scss';
 
 export function ProductCard({ product }) {
   // TODO: price, stock status, actions (add to cart feature)
   return (
-    <div className="product-card">
+    <div className={styles.productCard}>
       <img
-        className="product-card-photo"
+        className={styles.productPhoto}
         src={product.small_image.url}
         title={product.name}
       />
