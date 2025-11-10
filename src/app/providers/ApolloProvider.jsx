@@ -26,11 +26,33 @@ const errorLink = new ErrorLink(({ result }) => {
       store.dispatch(logout());
     }
   }
-})
+});
+
+const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        products: {
+          keyArgs: ['filter', 'pageSize'],
+          merge(existing, incoming, { args }) {
+            if (!existing) return incoming;
+            return {
+              ...incoming,
+              page_info: {
+                ...existing.page_info,
+                current_page: incoming.page_info.current_page,
+              },
+            };
+          },
+        },
+      },
+    },
+  },
+});
 
 const client = new ApolloClient({
   link: errorLink.concat(authLink.concat(httpLink)),
-  cache: new InMemoryCache(),
+  cache
 });
 
 export const ApolloProvider = ({ children }) => {
