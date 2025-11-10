@@ -1,5 +1,5 @@
 import { ProductCard } from "@entities/product";
-import { Grid } from "@shared/ui"
+import { Grid, Spinner } from "@shared/ui"
 
 export const ProductGrid = ({
   products,
@@ -8,6 +8,8 @@ export const ProductGrid = ({
   className,
   ...rest
 }) => {
+  if (products.length === 0) return <Spinner />
+
   return (
     <Grid columns={columns} gap={gap} className={className} {...rest}>
       {products && products.map(product => (

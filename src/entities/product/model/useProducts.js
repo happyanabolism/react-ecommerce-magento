@@ -12,6 +12,7 @@ export const useProducts = ({
       pageSize: pageSize,
       currentPage: currentPage,
     },
+    fetchPolicy: 'cache-and-network',
   });
 
   return {

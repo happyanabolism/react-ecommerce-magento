@@ -19,7 +19,7 @@ export function CategoryPage({ urlPath }) {
         )}
         {!loading && !error && (
           <>
-            <CategoryProductsGrid category={category} />
+            <CategoryProductsGrid category={category.uid} />
           </>
         )}
       </Container>

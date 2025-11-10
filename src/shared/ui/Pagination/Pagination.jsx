@@ -18,15 +18,7 @@ const getPaginationFrame = (currentPage, lastPage) => {
 }
 
 export const Pagination = ({ currentPage = 1, totalPages = 1, onPageChange }) => {
-  const [paginationFrame, setPaginationFrame] = useState([]);
-
-  useEffect(() => {
-    setPaginationFrame(
-      getPaginationFrame(currentPage, totalPages)
-    );
-  }, [currentPage]);
-
-  if (totalPages <= 1) return null;
+  const paginationFrame = getPaginationFrame(currentPage, totalPages);
 
   return (
     <ul className={styles.pagination}>
