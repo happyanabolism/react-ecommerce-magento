@@ -15,8 +15,10 @@ export function Header() {
             <Link to={ROUTE_CONSTANTS.HOME}><img src={logo} /></Link>
           </div>
           <nav className="header-links">
-            <CustomerNavigation />
-            <Link to={ROUTE_CONSTANTS.CART}>Cart</Link>
+            <ul style={{ gap: '8px' }}>
+              <CustomerNavigation />
+              <Link to={ROUTE_CONSTANTS.CART}>Cart</Link>
+            </ul>
           </nav>
         </div>
       </Container>
