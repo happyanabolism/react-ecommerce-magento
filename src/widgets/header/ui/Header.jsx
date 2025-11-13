@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { CustomerNavigation } from "@features/customer";
+import { CustomerMenu } from "@features/customer";
 import { CategoryNav } from "@features/category";
 import { ROUTE_CONSTANTS } from "@shared/config";
 import { Container } from "@shared/ui";
@@ -16,7 +16,7 @@ export function Header() {
           </div>
           <nav className="header-links">
             <ul style={{ gap: '8px' }}>
-              <CustomerNavigation />
+              <CustomerMenu />
               <Link to={ROUTE_CONSTANTS.CART}>Cart</Link>
             </ul>
           </nav>

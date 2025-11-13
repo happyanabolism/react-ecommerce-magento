@@ -67,6 +67,15 @@ $button-primary-hover_border-color: $color-purple-800;
   }
 }
 
+.variant_link {
+  padding: 0;
+  font-weight: normal;
+  border: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .iconWrapper {
   display: flex;
   flex-shrink: 0;

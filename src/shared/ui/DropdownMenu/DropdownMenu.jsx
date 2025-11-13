@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 export const DropdownMenu = ({ anchorEl, onClose, children }) => {
   const open = anchorEl !== null;
   const ref = useRef(null);
-  const [position, setPosition] = useState({x: 0, y: 0});
+  const [position, setPosition] = useState(null);
 
   useEffect(() => {
     if (!anchorEl) return;
@@ -20,19 +20,16 @@ export const DropdownMenu = ({ anchorEl, onClose, children }) => {
 
     updateMenuPosition();
 
-    document.addEventListener('resize', updateMenuPosition);
-
-    document.documentElement.style.overflow = 'hidden';
+    window.addEventListener('resize', updateMenuPosition);
     return () => {
-      document.removeEventListener('resize', updateMenuPosition);
-      document.documentElement.style.overflow = '';
+      window.removeEventListener('resize', updateMenuPosition);
     }
   }, [anchorEl])
 
-  if (!open) return null;
+  if (!open || !position) return null;
 
   return createPortal(
-    <>
+    <div className={styles.dropdownMenuPortal}>
       <div className={styles.dropdownBackdrop} onClick={onClose}></div>
       <div
         className={styles.dropdown}
@@ -46,7 +43,7 @@ export const DropdownMenu = ({ anchorEl, onClose, children }) => {
           { children }
         </ul>
       </div>
-    </>,
+    </div>,
     document.body
   );
 }
