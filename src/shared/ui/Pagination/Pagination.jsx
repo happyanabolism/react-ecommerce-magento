@@ -1,4 +1,3 @@
-import { useEffect, useLayoutEffect, useState } from "react";
 import clsx from "clsx";
 import styles from "./Pagination.module.scss"
 

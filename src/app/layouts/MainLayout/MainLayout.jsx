@@ -1,6 +1,5 @@
 import { Outlet } from "react-router"
 import { Header } from "@widgets/header"
-import { Container } from "@shared/ui"
 
 export const MainLayout = () => {
   return (
@@ -9,9 +8,7 @@ export const MainLayout = () => {
       <main>
         <Outlet />
       </main>
-      <footer>
-        <Container>Footer</Container>
-      </footer>
+      <footer />
     </>
   )
 }

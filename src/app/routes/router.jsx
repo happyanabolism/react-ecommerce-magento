@@ -1,4 +1,6 @@
 import { createBrowserRouter } from 'react-router';
+import { AccountDashboardPage } from '@pages/customer';
+import { RegistrationPage } from '@pages/registration';
 import { MainLayout } from '@app/layouts';
 import { HomePage } from '@pages/home';
 import { CartPage } from '@pages/cart';
@@ -7,7 +9,6 @@ import { DynamicPage } from '@pages/dynamic';
 import { ROUTES } from '@shared/constants';
 import { ProtectedRoute } from './ProtectedRoute';
 import { GuestRoute } from './GuestRoute';
-import { AccountDashboardPage } from '@pages/customer';
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.LOGIN,
         element: <GuestRoute><LoginPage /></GuestRoute>,
+      },
+      {
+        path: ROUTES.REGISTRATION,
+        element: <GuestRoute><RegistrationPage /></GuestRoute>,
       },
       {
         path: ROUTES.ACCOUNT_DASHBOARD,

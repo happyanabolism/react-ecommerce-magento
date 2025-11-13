@@ -1,11 +1,12 @@
 import { useId } from "react"
 import clsx from "clsx";
+import { Input } from "@shared/ui";
 import styles from "./FormInput.module.scss"
 
 export const FormInput = ({
   label,
   className,
-  type='text',
+  type,
   error,
   ...rest
 }) => {
@@ -16,7 +17,7 @@ export const FormInput = ({
       {label && (
         <label htmlFor={id}>{label}</label>
       )}
-      <input
+      <Input
         type={type}
         id={id}
         aria-invalid={error ? 'true' : 'false'}
