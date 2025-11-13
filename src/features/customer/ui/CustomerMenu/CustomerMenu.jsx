@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectCustomer } from "@entities/customer";
 import { ROUTES } from "@shared/constants";
-import { DropdownMenu, DropdownMenuItem } from "@shared/ui";
+import { Button, DropdownMenu, DropdownMenuItem } from "@shared/ui";
 
-export const CustomerNavigation = () => {
+export const CustomerMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const customer = useSelector(selectCustomer);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setAnchorEl(null);
+  }, [customer])
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -27,18 +31,21 @@ export const CustomerNavigation = () => {
     <>
       {customer && (
         <>
-          <button onClick={handleClick}>Hello, {customer.firstname}</button>
+          <Button onClick={handleClick} variant="link">
+            Hello, {customer.firstname}
+          </Button>
           <DropdownMenu
             anchorEl={anchorEl}
             onClose={handleClose}
           >
-            <DropdownMenuItem>
-              <Link to={'/customer'}>My Account</Link>
+            <DropdownMenuItem onClick={handleClose}>
+              <Link to={ROUTES.ACCOUNT_DASHBOARD}>My Account</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <button onClick={handleLogout}>Logout</button>
+            <DropdownMenuItem onClick={handleClose}>
+              <Button onClick={handleLogout} variant="link">
+                Logout
+              </Button>
             </DropdownMenuItem>
-            <DropdownMenuItem>Link 3</DropdownMenuItem>
           </DropdownMenu>
         </>
       )}
