@@ -1,6 +1,6 @@
 @use '@shared/styles/variables' as *;
 
-.loginForm {
+.registrationForm {
   padding: 20px;
   background-color: $color-purple-100;
   border-radius: 20px;
@@ -9,9 +9,14 @@
   }
 }
 
+.fieldsRow {
+  display: flex;
+  gap: $indent-md;
+}
+
 .inputField {
   &:not(:last-child) {
-    margin-bottom: $indent-md;
+    margin-bottom: $indent-sm + $indent-xs;
   }
 }
 

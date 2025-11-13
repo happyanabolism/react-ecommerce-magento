@@ -5,13 +5,12 @@ import styles from "./LoginPage.module.scss"
 export function LoginPage() {
   return (
     <>
-      <title>Login</title>
+      <title>Log In</title>
 
       <Container>
-        <div className={styles.loginWrapper}>
-          <h1>Account Login</h1>
+        <div className={styles.loginFormWrapper}>
+          <h1>Log In</h1>
           <LoginForm />
-          <RegistrationForm />
         </div>
       </Container>
     </>

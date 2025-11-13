@@ -1,0 +1,12 @@
+@use '@shared/styles/variables' as *;
+
+.formField {
+  label {
+    display: block;
+    margin-bottom: $indent-xs;
+  }
+}
+
+.fieldError {
+  color: $color-error;
+}
