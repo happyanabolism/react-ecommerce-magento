@@ -3,41 +3,31 @@ import { Link } from "react-router";
 import { useApolloClient } from '@apollo/client/react';
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
-import { clearError, login, selectCustomerError, selectCustomerLoading } from '@entities/customer';
-import { Button, FormInput } from '@shared/ui';
+import { clearError, login, selectAuthError, selectAuthLoading } from '@entities/customer';
+import { Button, FormInput, PasswordInput } from '@shared/ui';
 import { ROUTES } from '@shared/constants';
 import styles from "./LoginForm.module.scss";
 
 export function LoginForm() {
   const dispatch = useDispatch();
-  const client = useApolloClient();
+  const apolloClient = useApolloClient();
 
-  const loading = useSelector(selectCustomerLoading);
-  const serverError = useSelector(selectCustomerError);
+  const loading = useSelector(selectAuthLoading);
+  const authError = useSelector(selectAuthError);
 
   useEffect(() => {
     dispatch(clearError())
   }, [])
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
-    mode: 'onChange',
-    // defaultValues: {
-    //   email: 'testDefaultValue'
-    // }
+    mode: 'onChange'
   });
-
-  // useEffect(() => {
-  //   // Data from server
-  //   reset({
-  //     email: 'example@gmail.com'
-  //   })
-  // }, [reset])
 
   const onSubmit = (formData) => {
     dispatch(login({
+      client: apolloClient,
       email: formData.email,
       password: formData.password,
-      client: client
     }));
   }
 
@@ -57,9 +47,8 @@ export function LoginForm() {
             }
           })}
         />
-        <FormInput
+        <PasswordInput
           label="Password"
-          type="password"
           className={styles.inputField}
           error={errors.password}
           {...register('password', {
@@ -67,8 +56,8 @@ export function LoginForm() {
           })}
         />
       </fieldset>
-      {serverError && (
-        <p>{serverError}</p>
+      {authError && (
+        <p>{authError}</p>
       )}
       <div className={styles.formActions}>
         <Button variant="primary" loading={isSubmitting || loading}>

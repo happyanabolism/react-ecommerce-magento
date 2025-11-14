@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { logout, selectCustomer } from "@entities/customer";
+import { logout, selectAuthCustomer } from "@entities/customer";
 import { ROUTES } from "@shared/constants";
 import { Button, DropdownMenu, DropdownMenuItem } from "@shared/ui";
 
 export const CustomerMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const customer = useSelector(selectCustomer);
+  const customer = useSelector(selectAuthCustomer);
 
   const dispatch = useDispatch();
 
