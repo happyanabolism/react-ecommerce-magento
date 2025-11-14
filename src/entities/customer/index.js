@@ -1,11 +1,15 @@
-export { generateAuthToken } from './api/authApi';
-export { fetchCustomer, CUSTOMER } from './api/customerApi';
-export { useCustomer } from './model/useCustomer';
-export { logout, clearError, customerReducer } from './model/customerSlice';
 export {
-  selectCustomer,
+  generateAuthToken,
+  fetchCustomer,
+  createCustomer,
+} from './api/authApi';
+export { CUSTOMER } from './api/customerApi';
+export { useCustomer } from './model/useCustomer';
+export { logout, clearError, customerReducer } from './model/authSlice';
+export {
+  selectAuthCustomer,
   selectJwt,
-  selectCustomerLoading,
-  selectCustomerError,
+  selectAuthLoading,
+  selectAuthError,
 } from './model/selectors';
-export { login } from './model/customerThunk';
+export { login, register } from './model/authThunk';
