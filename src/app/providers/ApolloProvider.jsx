@@ -20,7 +20,7 @@ const authLink =  new SetContextLink(({ headers }) => {
 });
 
 const errorLink = new ErrorLink(({ result }) => {
-  for (const error of result.errors) {
+  for (const error of result?.errors || []) {
     // handle error from api for non-authorized users
     if (error?.extensions?.category === API_ERRORS.AUTHORIZATION) {
       store.dispatch(logout());

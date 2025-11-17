@@ -8,7 +8,6 @@ import {
 export const login = createAsyncThunk(
   'customer/login',
   async ({ client, email, password }) => {
-    // TODO: reject with value
     const token = await generateAuthToken(client, email, password);
     const customer = await fetchCustomer(client, token);
 
