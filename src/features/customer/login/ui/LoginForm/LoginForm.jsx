@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import { Link } from "react-router";
 import { useApolloClient } from '@apollo/client/react';
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearError, login, selectAuthError, selectAuthLoading } from '@entities/customer';
 import { Button, FormInput, PasswordInput } from '@shared/ui';
 import { ROUTES } from '@shared/constants';
+import { schema } from '@features/customer/login';
 import styles from "./LoginForm.module.scss";
 
 export function LoginForm() {
@@ -19,8 +21,13 @@ export function LoginForm() {
     dispatch(clearError())
   }, [])
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
-    mode: 'onChange'
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm({
+    mode: 'onChange',
+    resolver: yupResolver(schema)
   });
 
   const onSubmit = (formData) => {
@@ -39,21 +46,13 @@ export function LoginForm() {
           placeholder="example@gmail.com"
           className={styles.inputField}
           error={errors.email}
-          {...register('email', {
-            required: 'This field is required',
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-              message: 'Invalid email address',
-            }
-          })}
+          {...register('email')}
         />
         <PasswordInput
           label="Password"
           className={styles.inputField}
           error={errors.password}
-          {...register('password', {
-            required: 'This field is required'
-          })}
+          {...register('password')}
         />
       </fieldset>
       {authError && (
