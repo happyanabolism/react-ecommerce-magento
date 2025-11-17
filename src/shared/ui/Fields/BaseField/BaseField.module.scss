@@ -1,6 +1,7 @@
 @use '@shared/styles/variables' as *;
 
 .formField {
+  flex: 1;
   label {
     display: block;
     margin-bottom: $indent-xs;

@@ -1,4 +1,4 @@
-import { Button, Container, Pagination } from '@shared/ui';
+import { Button, Container } from '@shared/ui';
 
 export function HomePage() {
   return (

@@ -9,15 +9,15 @@
   }
 }
 
-.fieldsRow {
+.fieldset {
   display: flex;
+  flex-direction: column;
   gap: $indent-md;
 }
 
-.inputField {
-  &:not(:last-child) {
-    margin-bottom: $indent-sm + $indent-xs;
-  }
+.fieldsetRow {
+  display: flex;
+  gap: $indent-md;
 }
 
 .formActions {
