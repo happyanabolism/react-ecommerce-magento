@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearError, login, selectAuthError, selectAuthLoading } from '@entities/customer';
-import { Button, FormInput, PasswordInput } from '@shared/ui';
+import { Button, TextField, PasswordField } from '@shared/ui';
 import { ROUTES } from '@shared/constants';
 import { schema } from '@features/customer/login';
 import styles from "./LoginForm.module.scss";
@@ -40,18 +40,16 @@ export function LoginForm() {
 
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)} noValidate>
-      <fieldset>
-        <FormInput
+      <fieldset className={styles.fieldset}>
+        <TextField
           label="Email"
+          error={errors?.email?.message}
           placeholder="example@gmail.com"
-          className={styles.inputField}
-          error={errors.email}
           {...register('email')}
         />
-        <PasswordInput
+        <PasswordField
           label="Password"
-          className={styles.inputField}
-          error={errors.password}
+          error={errors?.password?.message}
           {...register('password')}
         />
       </fieldset>

@@ -4,6 +4,7 @@ import {
   passwordField,
   firstnameField,
   lastnameField,
+  telephoneField,
 } from '@shared/lib/validation';
 
 export const schema = yup.object().shape({
@@ -11,7 +12,7 @@ export const schema = yup.object().shape({
   lastname: lastnameField,
   email: emailField,
   custom_attributes: yup.object({
-    phone_number: yup.string().required('This field is required'),
+    phone_number: telephoneField,
   }),
   password: passwordField.test(
     'not-same-as-email',
