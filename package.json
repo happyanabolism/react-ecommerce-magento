@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^4.0.7",
     "@feature-sliced/eslint-config": "^0.1.1",
+    "@hookform/resolvers": "^5.2.2",
     "@reduxjs/toolkit": "^2.9.2",
     "axios": "^1.12.2",
     "clsx": "^2.1.1",
@@ -25,7 +26,8 @@
     "react-redux": "^9.2.0",
     "react-router": "^7.9.4",
     "redux-persist": "^6.0.0",
-    "rxjs": "^7.8.2"
+    "rxjs": "^7.8.2",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
