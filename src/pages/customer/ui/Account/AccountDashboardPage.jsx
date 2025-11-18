@@ -5,8 +5,9 @@ export const AccountDashboardPage = () => {
   const { customer, loading, error } = useCustomer();
 
   return (
-    <Container>
-      Customer dashboard page
+    <>
+      <title>Account</title>
+
       {customer && (
         <>
           <p>{customer.email}</p>
@@ -14,6 +15,10 @@ export const AccountDashboardPage = () => {
           <p>{customer.lastname}</p>
         </>
       )}
-    </Container>
+
+      {/* TODO: Account info widget */}
+      {/* TODO: Addresses table widget */}
+      {/* TODO: Orders table widget */}
+    </>
   )
 }
