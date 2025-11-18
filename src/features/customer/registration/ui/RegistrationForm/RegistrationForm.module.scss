@@ -1,6 +1,9 @@
 @use '@shared/styles/variables' as *;
 
 .registrationForm {
+  display: flex;
+  flex-direction: column;
+  gap: $indent-md;
   padding: 20px;
   background-color: $color-purple-100;
   border-radius: 20px;
@@ -24,9 +27,4 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: $indent-md;
-}
-
-.formFooter {
-  margin-top: $indent-md;
 }

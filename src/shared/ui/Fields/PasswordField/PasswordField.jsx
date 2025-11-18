@@ -21,6 +21,8 @@ export const PasswordField = ({
             id={id}
             aria-invalid={!!error}
             type={visible ? 'text' : 'password'}
+            onCopy={e => e.preventDefault()}
+            onCut={e => e.preventDefault()}
           />
           <span className={styles.passwordFieldIcon} onClick={() => setVisible((prev) => !prev)}>
             {visible ? <FaEyeSlash /> : <FaEye />}

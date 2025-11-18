@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearError, login, selectAuthError, selectAuthLoading } from '@entities/customer';
-import { Button, TextField, PasswordField } from '@shared/ui';
+import { Button, TextField, PasswordField, Alert } from '@shared/ui';
 import { ROUTES } from '@shared/constants';
 import { schema } from '@features/customer/login';
 import styles from "./LoginForm.module.scss";
@@ -54,7 +54,7 @@ export function LoginForm() {
         />
       </fieldset>
       {authError && (
-        <p>{authError}</p>
+        <Alert type="error">{authError}</Alert>
       )}
       <div className={styles.formActions}>
         <Button variant="primary" loading={isSubmitting || loading}>

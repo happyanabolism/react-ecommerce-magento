@@ -1,3 +1,4 @@
+export { Alert } from './Alert/Alert';
 export { Button } from './Button/Button';
 export { Container } from './Container/Container';
 export { DropdownMenu } from './DropdownMenu/DropdownMenu';

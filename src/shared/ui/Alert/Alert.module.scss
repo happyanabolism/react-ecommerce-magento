@@ -1,0 +1,24 @@
+@use '@shared/styles/variables' as *;
+
+.alert {
+  padding: 8px 12px;
+  font-weight: 600;
+  border: 2px solid;
+  border-radius: 10px;
+}
+
+.type_default {
+  background-color: $color-graphite-100;
+}
+.type_warning {
+  color: $color-warning;
+  background-color: $color-warning-bg;
+}
+.type_error {
+  color: $color-error;
+  background-color: $color-error-bg;
+}
+.type_success {
+  color: $color-success;
+  background-color: $color-success-bg;
+}
