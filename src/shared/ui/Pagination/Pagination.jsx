@@ -16,8 +16,10 @@ const getPaginationFrame = (currentPage, lastPage) => {
   return Array.from({length: endOfFrame - startOfFrame + 1}, (_, pageNum) => startOfFrame + pageNum);
 }
 
-export const Pagination = ({ currentPage = 1, totalPages = 1, onPageChange }) => {
+export const Pagination = ({ currentPage = 1, totalPages = 0, onPageChange }) => {
   const paginationFrame = getPaginationFrame(currentPage, totalPages);
+
+  if (totalPages === 0) return null;
 
   return (
     <ul className={styles.pagination}>
