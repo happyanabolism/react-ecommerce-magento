@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 import { AccountDashboardPage } from '@pages/customer';
 import { RegistrationPage } from '@pages/registration';
-import { MainLayout } from '@app/layouts';
+import { AccountLayout, MainLayout } from '@app/layouts';
 import { HomePage } from '@pages/home';
 import { CartPage } from '@pages/cart';
 import { LoginPage } from '@pages/login';
@@ -32,8 +32,13 @@ export const router = createBrowserRouter([
         element: <GuestRoute><RegistrationPage /></GuestRoute>,
       },
       {
-        path: ROUTES.ACCOUNT_DASHBOARD,
-        element: <ProtectedRoute><AccountDashboardPage /></ProtectedRoute>
+        element: <AccountLayout />,
+        children: [
+          {
+            path: ROUTES.ACCOUNT_DASHBOARD,
+            element: <ProtectedRoute><AccountDashboardPage /></ProtectedRoute>
+          },
+        ]
       },
       {
         path: ROUTES.DYNAMIC,
