@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useApolloClient } from "@apollo/client/react";
 import { clearError, register as registerCustomer, selectAuthError, selectAuthLoading } from "@entities/customer";
 import { ROUTES } from "@shared/constants";
-import { Button, TextField, PasswordField, TelephoneField } from "@shared/ui";
+import { Button, TextField, PasswordField, TelephoneField, Alert } from "@shared/ui";
 import { schema } from "@features/customer/registration";
 import styles from "./RegistrationForm.module.scss";
 
@@ -40,7 +40,7 @@ export const RegistrationForm = () => {
   }
 
   return (
-    <form className={styles.registrationForm} onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.registrationForm} onSubmit={handleSubmit(onSubmit)} noValidate>
       <fieldset className={styles.fieldset}>
         <div className={styles.fieldsetRow}>
           <TextField
@@ -82,11 +82,12 @@ export const RegistrationForm = () => {
         <PasswordField
           label="Confirm Password"
           error={errors?.passwordConfirm?.message}
+          onPaste={e => e.preventDefault()}
           {...register('passwordConfirm')}
         />
       </fieldset>
       {authError && (
-        <p>{authError}</p>
+        <Alert type="error">{authError}</Alert>
       )}
       <div className={styles.formActions}>
         <Button variant="primary" loading={isSubmitting || loading}>
