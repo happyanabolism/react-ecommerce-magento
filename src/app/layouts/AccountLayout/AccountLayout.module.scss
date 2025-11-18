@@ -1,0 +1,24 @@
+@use '@shared/styles/variables' as *;
+
+.accountLayout {
+  display: flex;
+  flex-direction: column;
+  gap: $indent-md;
+  @media (min-width: $breakpoint-md) {
+    flex-direction: row;
+  }
+}
+
+.accountAside {
+  flex-basis: 100%;
+  @media (min-width: $breakpoint-md) {
+    flex-basis: 25%;
+  }
+}
+
+.accountSection {
+  flex-basis: 100%;
+  @media (min-width: $breakpoint-md) {
+    flex-basis: 75%;
+  }
+}

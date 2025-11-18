@@ -1,24 +1,25 @@
-import { useCustomer } from "@entities/customer"
-import { Container } from "@shared/ui";
+import { CustomerInfo } from "@widgets/customer";
 
 export const AccountDashboardPage = () => {
-  const { customer, loading, error } = useCustomer();
 
   return (
     <>
       <title>Account</title>
 
-      {customer && (
-        <>
-          <p>{customer.email}</p>
-          <p>{customer.lastname}</p>
-          <p>{customer.lastname}</p>
-        </>
-      )}
+      <h1>Account Dashboard</h1>
 
-      {/* TODO: Account info widget */}
-      {/* TODO: Addresses table widget */}
-      {/* TODO: Orders table widget */}
+      <section>
+        <h2>Customer information</h2>
+        <CustomerInfo />
+      </section>
+      <section>
+        <h2>Address book</h2>
+        {/* TODO: Addresses table widget */}
+      </section>
+      <section>
+        <h2>Recent orders</h2>
+        {/* TODO: Recent orders table widget */}
+      </section>
     </>
   )
 }
