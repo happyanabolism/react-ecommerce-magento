@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { selectAuthCustomer } from "@entities/customer";
 import { ROUTES } from "@shared/constants";
 
-export const GuestRoute = ({ children, redirectTo = ROUTES.HOME }) => {
+export const GuestRoute = ({ children, redirectTo = ROUTES.ACCOUNT_DASHBOARD }) => {
   const customer = useSelector(selectAuthCustomer);
 
   if (customer) {

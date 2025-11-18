@@ -8,6 +8,18 @@ export const CUSTOMER = gql`
       firstname
       lastname
       gender
+      custom_attributes {
+        code
+        ... on AttributeValue {
+          value
+        }
+        ... on AttributeSelectedOptions {
+          selected_options {
+            label
+            value
+          }
+        }
+      }
     }
   }
 `;

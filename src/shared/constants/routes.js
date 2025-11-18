@@ -3,6 +3,7 @@ export const ROUTES = {
   CART: '/cart',
   LOGIN: '/login',
   REGISTRATION: '/registration',
-  ACCOUNT_DASHBOARD: '/customer',
+  ACCOUNT: '/account',
+  ACCOUNT_DASHBOARD: '/account/dashboard',
   DYNAMIC: '*',
 };

@@ -32,11 +32,12 @@ export const router = createBrowserRouter([
         element: <GuestRoute><RegistrationPage /></GuestRoute>,
       },
       {
-        element: <AccountLayout />,
+        path: ROUTES.ACCOUNT,
+        element: <ProtectedRoute><AccountLayout /></ProtectedRoute>,
         children: [
           {
             path: ROUTES.ACCOUNT_DASHBOARD,
-            element: <ProtectedRoute><AccountDashboardPage /></ProtectedRoute>
+            element: <AccountDashboardPage />
           },
         ]
       },
