@@ -1,4 +1,3 @@
-import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router";
 import { useProducts, ProductCard } from "@entities/product";
 import { ProductGrid } from "@entities/product/ui/ProductGrid/ProductGrid";

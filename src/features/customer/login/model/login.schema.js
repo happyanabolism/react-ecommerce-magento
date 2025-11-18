@@ -1,7 +1,7 @@
 import * as yup from 'yup';
-import { emailField, passwordField } from '@shared/lib/validation';
+import { emailField } from '@shared/lib/validation';
 
 export const schema = yup.object().shape({
   email: emailField,
-  password: passwordField,
+  password: yup.string().required('This field is required'),
 });
