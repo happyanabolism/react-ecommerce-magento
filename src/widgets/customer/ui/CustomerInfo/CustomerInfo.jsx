@@ -1,11 +1,13 @@
 import { useCustomer } from "@entities/customer";
-import { getCustomAttributeValue } from "@shared/lib";
+import {
+  UpdatePersonalInfoForm,
+  UpdateCustomerEmailForm,
+  UpdateCustomerPasswordForm
+} from "@features/customer";
 import { Alert, Button, Spinner } from "@shared/ui";
 
 export const CustomerInfo = () => {
   const { customer, loading, error } = useCustomer();
-  const phoneNumber = getCustomAttributeValue(customer, 'phone_number');
-
 
   return (
     <>
@@ -15,8 +17,8 @@ export const CustomerInfo = () => {
         <div>
           <p>{`${customer.firstname} ${customer.lastname}`}</p>
           <p>{customer.email}</p>
-          {phoneNumber && (
-            <p>{phoneNumber}</p>
+          {customer.custom_attributes.phone_number && (
+            <p>{customer.custom_attributes.phone_number}</p>
           )}
           <Button variant="link">Edit</Button>
         </div>
