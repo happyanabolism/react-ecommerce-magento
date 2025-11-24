@@ -1,4 +1,0 @@
-export const PAGE_TYPES = {
-  CATEGORY: 'CATEGORY',
-  PRODUCT: 'PRODUCT',
-};

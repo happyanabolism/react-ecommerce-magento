@@ -21,7 +21,11 @@ export const CustomerInfo = () => {
             <p>{customer.custom_attributes.phone_number}</p>
           )}
           <Button variant="link">Edit</Button>
+          <UpdatePersonalInfoForm customer={customer} />
+          <UpdateCustomerEmailForm />
+          <UpdateCustomerPasswordForm />
         </div>
+
       )}
     </>
   );
