@@ -79,10 +79,8 @@ export const CHANGE_CUSTOMER_PASSWORD = gql`
       currentPassword: $currentPassword
       newPassword: $newPassword
     ) {
-      is_subscribed
-      job_title
+      firstname
       lastname
-      middlename
     }
   }
 `;

@@ -17,7 +17,7 @@ export const UpdateCustomerPasswordForm = () => {
     resolver: yupResolver(updatePasswordSchema),
   })
 
-  const [updatePassword, { loading, error }] = useCustomerPasswordUpdate
+  const [updatePassword, { loading, error }] = useCustomerPasswordUpdate();
 
   const onSubmit = (formData) => {
     const { currentPassword, newPassword } = formData;
