@@ -22,6 +22,7 @@ export const CUSTOMER = gql`
     }
   }
 `;
+
 export const UPDATE_PERSONAL_INFO = gql`
   mutation updateCustomerV2($input: CustomerUpdateInput!) {
     updateCustomerV2(input: $input) {
@@ -46,6 +47,7 @@ export const UPDATE_PERSONAL_INFO = gql`
     }
   }
 `;
+
 export const UPDATE_CUSTOMER_EMAIL = gql`
   mutation updateCustomerEmail($email: String!, $password: String!) {
     updateCustomerEmail(email: $email, password: $password) {
@@ -70,6 +72,7 @@ export const UPDATE_CUSTOMER_EMAIL = gql`
     }
   }
 `;
+
 export const CHANGE_CUSTOMER_PASSWORD = gql`
   mutation changeCustomerPassword(
     $currentPassword: String!

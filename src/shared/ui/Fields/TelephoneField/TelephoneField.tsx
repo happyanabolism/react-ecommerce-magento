@@ -8,6 +8,7 @@ interface TelephoneFieldProps
   error?: string;
   mask: string;
   value: string;
+  placeholder?: string;
   onChange: (value: string) => void;
 }
 

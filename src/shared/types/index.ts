@@ -21,12 +21,18 @@ export {
   type PriceRange,
   type ProductImage,
   type ProductAttributeSortInput,
+  type ProductCustomAttributes,
 } from './product';
 
 // search
 export type { SearchResultPageInfo } from './search';
 
 // attributes
-export type { ProductCustomAttributes } from './attribute';
+export type {
+  AttributeValueInterface,
+  AttributeSelectedOptionInterface,
+  AttributeValueInput,
+  FlatAttributes,
+} from './attribute';
 
 export type ID = string;
