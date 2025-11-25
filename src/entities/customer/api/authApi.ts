@@ -1,11 +1,10 @@
 import { gql, type ApolloClient } from '@apollo/client';
-import { normalizeCustomAttributes } from '@shared/utils';
 import type {
   Customer,
   CustomerCreateQuery,
   AuthCusomerData,
   CustomerCreateVars,
-  RegistrationFormData,
+  CustomerCreateInput,
 } from '../model/types';
 
 const GENERATE_CUSTOMER_TOKEN = gql`
@@ -75,14 +74,14 @@ export const fetchCustomer = async (
 
 export const createCustomer = async (
   client: ApolloClient,
-  registrationData: Omit<RegistrationFormData, 'passwordConfirm'>
+  registrationData: CustomerCreateInput
 ): Promise<Customer | null> => {
   const { data } = await client.mutate<CustomerCreateQuery, CustomerCreateVars>(
     {
       mutation: CREATE_CUSTOMER,
       fetchPolicy: 'no-cache',
       variables: {
-        input: normalizeCustomAttributes(registrationData),
+        input: registrationData,
       },
     }
   );

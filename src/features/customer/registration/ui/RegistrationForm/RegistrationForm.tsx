@@ -22,6 +22,7 @@ import {
 } from '@shared/ui';
 import { useAppDispatch } from '@shared/lib';
 import styles from './RegistrationForm.module.scss';
+import { normalizeCustomAttributes } from '@shared/utils';
 
 export const RegistrationForm = () => {
   const dispatch = useAppDispatch();
@@ -46,10 +47,16 @@ export const RegistrationForm = () => {
 
   const onSubmit = (formData: RegistrationFormData) => {
     const { passwordConfirm, ...registrationData } = formData;
+    const normalizedRegistraionData = {
+      ...registrationData,
+      custom_attributes: normalizeCustomAttributes(
+        registrationData.custom_attributes
+      ),
+    };
     dispatch(
       registerCustomer({
         client: apolloClient,
-        registrationData,
+        registrationData: normalizedRegistraionData,
       })
     );
   };

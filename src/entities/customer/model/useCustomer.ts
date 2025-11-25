@@ -1,10 +1,9 @@
 import { useQuery } from '@apollo/client/react';
 import { CUSTOMER } from '../api/customerApi';
-import type { CustomerWithFlatAttributes, CustomerQuery } from './types';
-import { flatCustomAttibutes } from '@shared/utils';
+import type { Customer, CustomerQuery } from './types';
 
 interface UseCustomerResult {
-  customer?: CustomerWithFlatAttributes;
+  customer?: Customer;
   loading: boolean;
   error?: Error;
 }
@@ -15,7 +14,7 @@ export const useCustomer = (): UseCustomerResult => {
   });
 
   return {
-    customer: data?.customer ? flatCustomAttibutes(data?.customer) : undefined,
+    customer: data?.customer,
     loading,
     error,
   };

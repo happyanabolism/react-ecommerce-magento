@@ -12,8 +12,7 @@ export interface Customer {
   custom_attributes?: AttributeValueInterface[];
 }
 
-export interface CustomerWithFlatAttributes
-  extends Omit<Customer, 'custom_attributes'> {
+export interface FlatCustomer extends Omit<Customer, 'custom_attributes'> {
   custom_attributes?: FlatAttributes;
 }
 

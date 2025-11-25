@@ -5,7 +5,7 @@ import {
   createCustomer,
   fetchCustomer,
 } from '@entities/customer';
-import type { RegistrationFormData } from './types';
+import type { CustomerCreateInput } from './types';
 
 export const login = createAsyncThunk(
   'customer/login',
@@ -36,7 +36,7 @@ export const register = createAsyncThunk(
     registrationData,
   }: {
     client: ApolloClient;
-    registrationData: Omit<RegistrationFormData, 'passwordConfirm'>;
+    registrationData: CustomerCreateInput;
   }) => {
     const customer = await createCustomer(client, registrationData);
     if (!customer) {
