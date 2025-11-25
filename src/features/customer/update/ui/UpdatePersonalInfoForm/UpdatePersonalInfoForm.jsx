@@ -40,7 +40,7 @@ export const UpdatePersonalInfoForm = ({ customer }) => {
           {...register('lastname')}
         />
         <Controller
-          name="custom_attributes[phone_number]"
+          name="custom_attributes.phone_number"
           control={control}
           render={({ field }) => (
             <TelephoneField

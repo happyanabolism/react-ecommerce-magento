@@ -1,5 +1,9 @@
 import type { Money } from './pricing';
-import type { SortEnum } from './sorting';
+import { SortEnum } from './sorting';
+import type {
+  AttributeMetadataError,
+  AttributeValueInterface,
+} from './attribute';
 
 export enum ProductStockStatus {
   IN_STOCK = 'IN_STOCK',
@@ -41,3 +45,8 @@ export interface ProductImage {
   position?: number;
   url?: string;
 }
+
+export type ProductCustomAttributes = {
+  errors: AttributeMetadataError[];
+  items: AttributeValueInterface[];
+};

@@ -1,16 +1,13 @@
 import type { ID } from '.';
 
-export type ProductCustomAttributes = {
-  errors: AttributeMetadataError[];
-  items: AttributeValueInterface[];
-};
-
 export type AttributeValueInterface = AttributeValue | AttributeSelectedOptions;
 
 export type AttributeValue = {
   code: ID;
   value: string;
 };
+
+export type FlatAttributes = Record<string, string | string[]>;
 
 export type AttributeSelectedOptions = {
   code: ID;
@@ -27,6 +24,16 @@ export type AttributeSelectedOption = {
 export type AttributeMetadataError = {
   message: string;
   type: AttributeMetadataErrorType;
+};
+
+export interface AttributeValueInput {
+  attribute_code: string;
+  selected_options?: AttributeInputSelectedOption[];
+  value?: string;
+}
+
+export type AttributeInputSelectedOption = {
+  value: string;
 };
 
 export enum AttributeMetadataErrorType {

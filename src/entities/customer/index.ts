@@ -21,4 +21,3 @@ export {
   selectAuthError,
 } from './model/selectors';
 export { login, register } from './model/authThunk';
-export { normalizeCustomer } from './model/normalizeCustomer';
