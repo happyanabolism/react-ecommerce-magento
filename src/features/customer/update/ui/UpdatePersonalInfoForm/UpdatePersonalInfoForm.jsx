@@ -1,10 +1,12 @@
 import { Controller, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { personalInfoSchema } from "@features/customer/update"
-import { Alert, Button, TelephoneField, TextField } from "@shared/ui"
 import { useCustomerUpdate } from "@entities/customer"
+import { Alert, Button, TelephoneField, TextField } from "@shared/ui"
+import { flatCustomAttributes, getAttributeValue, normalizeCustomAttributes } from "@shared/utils"
 
 export const UpdatePersonalInfoForm = ({ customer }) => {
+
   const {
     register,
     control,
@@ -22,7 +24,8 @@ export const UpdatePersonalInfoForm = ({ customer }) => {
   const [updateCustomer, { loading, error }] = useCustomerUpdate();
 
   const onSubmit = (formData) => {
-    updateCustomer(formData);
+    const normalizedFormData = { ...formData, custom_attributes: normalizeCustomAttributes(formData.custom_attributes)};
+    updateCustomer(normalizedFormData);
   }
 
   return (

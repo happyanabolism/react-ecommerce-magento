@@ -1,5 +1,5 @@
 export {
   getAttributeValue,
   normalizeCustomAttributes,
-  flatCustomAttibutes,
+  flatCustomAttributes,
 } from './magento/attributes';

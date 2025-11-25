@@ -10,72 +10,49 @@ export const getAttributeValue = (
 ): string | string[] | null => {
   if (!attributes) return null;
 
-  const attr = attributes.find((attribute) => attribute.code === code);
-  if (!attr) return null;
+  const attribute = attributes.find((attribute) => attribute.code === code);
+  if (!attribute) return null;
 
-  if ('value' in attr) return attr.value;
+  if ('value' in attribute) return attribute.value;
 
-  if ('selected_options' in attr)
-    return attr.selected_options.map((option) => option.label);
+  if ('selected_options' in attribute)
+    return attribute.selected_options.map((option) => option.label);
 
   return null;
 };
 
-type FormAttributes = FlatAttributes;
+export const normalizeCustomAttributes = (
+  customAttributes: FlatAttributes | undefined
+): AttributeValueInput[] => {
+  if (!customAttributes) return [];
 
-// --- API → FORM ---
-export function flatCustomAttibutes<
-  T extends { custom_attributes?: AttributeValueInterface[] },
->(
-  obj: T
-): Omit<T, 'custom_attributes'> & { custom_attributes?: FormAttributes } {
-  const { custom_attributes, ...rest } = obj;
+  return Object.entries(customAttributes).map(([code, value]) => ({
+    attribute_code: code,
+    value: Array.isArray(value) ? undefined : value,
+    selected_options: Array.isArray(value)
+      ? value.map((v) => ({
+          value: v,
+        }))
+      : undefined,
+  }));
+};
 
-  const mappedAttributes: FormAttributes | null = custom_attributes
-    ? custom_attributes.reduce<FormAttributes>((acc, attr) => {
-        if ('value' in attr) {
-          acc[attr.code] = attr.value;
-        } else if ('selected_options' in attr) {
-          acc[attr.code] = attr.selected_options.map((option) => option.value);
-        }
-        return acc;
-      }, {})
-    : {};
+export const flatCustomAttributes = (
+  customAttributes: AttributeValueInterface[] | undefined
+): FlatAttributes => {
+  if (!customAttributes) return {};
 
-  return {
-    ...rest,
-    custom_attributes: mappedAttributes,
-  };
-}
+  return customAttributes.reduce((acc: FlatAttributes, attribute) => {
+    if ('value' in attribute) {
+      acc[attribute.code] = attribute.value;
+    }
 
-// --- FORM → API ---
-export function normalizeCustomAttributes<
-  T extends { custom_attributes?: FormAttributes },
->(
-  obj: T
-): Omit<T, 'custom_attributes'> & {
-  custom_attributes: AttributeValueInput[];
-} {
-  const { custom_attributes, ...rest } = obj;
+    if ('selected_options' in attribute) {
+      acc[attribute.code] = attribute.selected_options.map(
+        (option) => option.label
+      );
+    }
 
-  const apiAttributes: AttributeValueInput[] | null = custom_attributes
-    ? Object.entries(custom_attributes).map(([attribute_code, value]) => {
-        if (Array.isArray(value)) {
-          return {
-            attribute_code,
-            selected_options: value.map((v) => ({ value: v })),
-          };
-        } else {
-          return {
-            attribute_code,
-            value,
-          };
-        }
-      })
-    : [];
-
-  return {
-    ...rest,
-    custom_attributes: apiAttributes,
-  };
-}
+    return acc;
+  }, {});
+};

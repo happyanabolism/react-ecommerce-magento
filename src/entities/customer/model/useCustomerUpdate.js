@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import { useMutation } from '@apollo/client/react';
 import { CUSTOMER, UPDATE_PERSONAL_INFO } from '@entities/customer';
-import { normalizeCustomAttributes } from '@shared/utils';
 
 export const useCustomerUpdate = () => {
   const [mutate, { data, loading, error }] = useMutation(UPDATE_PERSONAL_INFO, {
@@ -15,7 +14,7 @@ export const useCustomerUpdate = () => {
 
   const updateCustomer = useCallback(
     (customer) => {
-      mutate({ variables: { input: normalizeCustomAttributes(customer) } });
+      mutate({ variables: { input: customer } });
     },
     [mutate]
   );
