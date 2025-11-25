@@ -1,11 +1,12 @@
 import { ProductCard } from '@entities/product';
+import type { Product } from '@entities/product/model/types';
 import { Grid, Spinner } from '@shared/ui';
 
 interface ProductGridProps {
   className?: string;
   columns?: number;
   gap?: number;
-  products: any[];
+  products: Product[];
 }
 
 export const ProductGrid = ({
@@ -18,10 +19,9 @@ export const ProductGrid = ({
 
   return (
     <Grid columns={columns} gap={gap} className={className}>
-      {products &&
-        products.map((product) => (
-          <ProductCard product={product} key={product.id} />
-        ))}
+      {products.map((product) => (
+        <ProductCard product={product} key={product.uid} />
+      ))}
     </Grid>
   );
 };

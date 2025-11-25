@@ -2,13 +2,15 @@ import { gql } from '@apollo/client';
 
 export const PRODUCTS = gql`
   query products(
-    $filter: ProductAttributeFilterInput!
-    $pageSize: Int!
-    $currentPage: Int!
+    $filter: ProductAttributeFilterInput
+    $pageSize: Int
+    $currentPage: Int
   ) {
     products(filter: $filter, pageSize: $pageSize, currentPage: $currentPage) {
       items {
-        id
+        uid
+        name
+        sku
         small_image {
           url
         }
@@ -26,13 +28,25 @@ export const PRODUCTS = gql`
             }
           }
         }
-        name
-        sku
-        price {
-          regularPrice {
-            amount {
-              value
+        price_range {
+          minimum_price {
+            regular_price {
               currency
+              value
+            }
+            final_price {
+              currency
+              value
+            }
+          }
+          maximum_price {
+            regular_price {
+              currency
+              value
+            }
+            final_price {
+              currency
+              value
             }
           }
         }
