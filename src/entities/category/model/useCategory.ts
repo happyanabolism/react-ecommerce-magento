@@ -13,8 +13,8 @@ interface UseCategoryResult
 
 export const useCategory = ({
   filters,
-  pageSize = DEFAULT_PAGE_SIZE,
-  currentPage = DEFAULT_PAGE_NUM,
+  pageSize = 1,
+  currentPage = 1,
 }: CategoryQueryVars): UseCategoryResult => {
   const { data, ...rest } = useQuery<CategoryQuery, CategoryQueryVars>(
     CATEGORIES,

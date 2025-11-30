@@ -52,11 +52,28 @@ export interface Product {
   custom_attributesV2?: ProductCustomAttributes;
 }
 
+export interface Products {
+  aggregations: Aggregation[];
+  items: Product[];
+  page_info: SearchResultPageInfo;
+}
+
+export interface Aggregation {
+  attribute_code: string;
+  count?: number;
+  label?: string;
+  options: AggregationOption[];
+  position?: number;
+}
+
+export type AggregationOption = {
+  count?: number;
+  label?: string;
+  value: string;
+};
+
 export interface ProductQuery {
-  products: {
-    items: Product[] | null;
-    page_info?: SearchResultPageInfo;
-  };
+  products: Products;
 }
 
 export interface ProductQueryVars {
