@@ -1,48 +1,46 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-import { logout, selectAuthCustomer } from "@entities/customer";
-import { ROUTES } from "@shared/constants";
-import { Button, DropdownMenu, DropdownMenuItem } from "@shared/ui";
+import { useEffect, useState, type MouseEvent } from 'react';
+import { Link } from 'react-router';
+import { useSelector } from 'react-redux';
+import { logout, selectAuthCustomer } from '@entities/customer';
+import { ROUTES } from '@shared/constants';
+import { Button, DropdownMenu, DropdownMenuItem } from '@shared/ui';
+import { useAppDispatch } from '@shared/lib';
 
 export const CustomerMenu = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const customer = useSelector(selectAuthCustomer);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     setAnchorEl(null);
-  }, [customer])
+  }, [customer]);
 
-  const handleClick = (event) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
-  }
+  };
 
   const handleClose = () => {
     setAnchorEl(null);
-  }
+  };
 
   const handleLogout = () => {
     dispatch(logout());
-  }
+  };
 
   return (
     <>
       {customer && (
         <>
-          <Button onClick={handleClick} variant="link">
+          <Button onClick={handleClick} variant='link'>
             Hello, {customer.firstname}
           </Button>
-          <DropdownMenu
-            anchorEl={anchorEl}
-            onClose={handleClose}
-          >
+          <DropdownMenu anchorEl={anchorEl} onClose={handleClose}>
             <DropdownMenuItem onClick={handleClose}>
               <Link to={ROUTES.ACCOUNT_DASHBOARD}>My Account</Link>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleClose}>
-              <Button onClick={handleLogout} variant="link">
+              <Button onClick={handleLogout} variant='link'>
                 Logout
               </Button>
             </DropdownMenuItem>
@@ -55,5 +53,5 @@ export const CustomerMenu = () => {
         </>
       )}
     </>
-  )
-}
+  );
+};

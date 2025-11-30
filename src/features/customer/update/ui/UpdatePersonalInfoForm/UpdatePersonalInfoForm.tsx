@@ -5,12 +5,12 @@ import {
   useCustomerUpdate,
   type CustomerUpdateFormData,
 } from '@features/customer/update';
-import type { Customer } from '@entities/customer';
+import type { FlatCustomer } from '@entities/customer/model/types';
 import { Alert, Button, TelephoneField, TextField } from '@shared/ui';
 import { normalizeCustomAttributes } from '@shared/utils';
 
 interface UpdatePersonalInfoFormProps {
-  customer: Customer;
+  customer: FlatCustomer;
 }
 
 export const UpdatePersonalInfoForm = ({
