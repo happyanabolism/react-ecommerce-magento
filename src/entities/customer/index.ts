@@ -10,9 +10,6 @@ export {
   CHANGE_CUSTOMER_PASSWORD,
 } from './api/customerApi';
 export { useCustomer } from './model/useCustomer';
-export { useCustomerUpdate } from './model/useCustomerUpdate';
-export { useCustomerEmailUpdate } from './model/useCustomerEmailUpdate';
-export { useCustomerPasswordUpdate } from './model/useCustomerPasswordUpdate';
 export { logout, clearError, customerReducer } from './model/authSlice';
 export {
   selectAuthCustomer,
@@ -20,4 +17,5 @@ export {
   selectAuthLoading,
   selectAuthError,
 } from './model/selectors';
+export type { Customer } from './model/types';
 export { login, register } from './model/authThunk';

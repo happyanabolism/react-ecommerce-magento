@@ -4,3 +4,11 @@ export { UpdateCustomerPasswordForm } from './ui/UpdateCustomerPasswordForm/Upda
 export { personalInfoSchema } from './model/personalInfo.schema';
 export { updateEmailSchema } from './model/updateEmail.schema';
 export { updatePasswordSchema } from './model/updatePassword.schema';
+export { useCustomerUpdate } from './model/useCustomerUpdate';
+export { useCustomerEmailUpdate } from './model/useCustomerEmailUpdate';
+export { useCustomerPasswordUpdate } from './model/useCustomerPasswordUpdate';
+export type {
+  CustomerUpdateEmailInput,
+  CustomerUpdateFormData,
+  CustomerUpdatePasswordFormData,
+} from './model/types';

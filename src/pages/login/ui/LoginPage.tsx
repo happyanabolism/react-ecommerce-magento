@@ -1,6 +1,6 @@
-import { LoginForm, RegistrationForm } from "@features/customer";
-import { Container } from "@shared/ui";
-import styles from "./LoginPage.module.scss"
+import { LoginForm } from '@features/customer';
+import { Container } from '@shared/ui';
+import styles from './LoginPage.module.scss';
 
 export function LoginPage() {
   return (
@@ -14,5 +14,5 @@ export function LoginPage() {
         </div>
       </Container>
     </>
-  )
+  );
 }

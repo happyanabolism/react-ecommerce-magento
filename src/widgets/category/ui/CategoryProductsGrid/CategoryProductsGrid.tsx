@@ -1,6 +1,5 @@
 import { useSearchParams } from 'react-router';
-import { useProducts, ProductCard } from '@entities/product';
-import { ProductGrid } from '@entities/product/ui/ProductGrid/ProductGrid';
+import { useProducts, ProductGrid } from '@entities/product';
 import { Pagination, Spinner } from '@shared/ui';
 
 interface CategoryProductsGridProps {
@@ -26,10 +25,14 @@ export function CategoryProductsGrid({
     setSearchParams({ page: page.toString() });
   };
 
+  if (loading) return <Spinner />;
+  if (!loading && products.length === 0) {
+    return <p>No products</p>;
+  }
+
   return (
     <>
-      {!loading && <ProductGrid products={products} gap={0} />}
-      {loading && <Spinner />}
+      <ProductGrid products={products} gap={0} />
       <Pagination
         currentPage={currentPage}
         totalPages={pageInfo?.total_pages}
