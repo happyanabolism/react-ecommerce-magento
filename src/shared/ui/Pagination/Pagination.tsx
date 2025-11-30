@@ -5,7 +5,7 @@ interface PaginationProps {
   currentPage?: number;
   totalPages?: number;
   paginationFrameSize?: number;
-  onPageChange: (page: number) => void;
+  onPageChange?: (page: number) => void;
 }
 
 const getPaginationFrame = (
@@ -51,7 +51,7 @@ export const Pagination = ({
         <li key='prev'>
           <button
             className={clsx(styles.page)}
-            onClick={() => onPageChange(currentPage - 1)}
+            onClick={() => onPageChange && onPageChange(currentPage - 1)}
           >
             Prev
           </button>
@@ -64,7 +64,7 @@ export const Pagination = ({
               styles.page,
               currentPage === page ? styles.pageActive : ''
             )}
-            onClick={() => onPageChange(page)}
+            onClick={() => onPageChange && onPageChange(page)}
           >
             {page}
           </button>
@@ -74,7 +74,7 @@ export const Pagination = ({
         <li key='next'>
           <button
             className={clsx(styles.page)}
-            onClick={() => onPageChange(currentPage + 1)}
+            onClick={() => onPageChange && onPageChange(currentPage + 1)}
           >
             Next
           </button>
