@@ -10,15 +10,15 @@ export const useCategoryNav = (
   error?: Error;
 } => {
   const filters = { parent_category_uid: { eq: rootCategoryUid } };
-  const { categories, loading, error } = useCategories({
+  const { items, loading, error } = useCategories({
     filters,
     skip: !rootCategoryUid,
   });
 
   return {
-    categories: categories
-      ? categories.filter((subcategory) => subcategory.include_in_menu)
-      : categories,
+    categories: items
+      ? items.filter((subcategory) => subcategory.include_in_menu)
+      : items,
     loading,
     error,
   };

@@ -13,7 +13,7 @@ export function CategoryProductsGrid({
   const currentPage = parseInt(searchParams.get('page') ?? '1');
 
   const filter = { category_uid: { eq: categoryUid } };
-  const { products, pageInfo, loading, error } = useProducts({
+  const { items, page_info, loading, error } = useProducts({
     filter,
     currentPage,
   });
@@ -26,16 +26,16 @@ export function CategoryProductsGrid({
   };
 
   if (loading) return <Spinner />;
-  if (!loading && products.length === 0) {
+  if (!loading && items.length === 0) {
     return <p>No products</p>;
   }
 
   return (
     <>
-      <ProductGrid products={products} gap={0} />
+      <ProductGrid products={items} gap={0} />
       <Pagination
         currentPage={currentPage}
-        totalPages={pageInfo?.total_pages}
+        totalPages={page_info?.total_pages}
         onPageChange={handlePageChange}
       />
     </>

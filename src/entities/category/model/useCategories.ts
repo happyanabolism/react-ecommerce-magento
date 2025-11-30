@@ -1,22 +1,17 @@
 import { useQuery } from '@apollo/client/react';
 import { CATEGORIES } from '../api/categoryApi';
-import type { Category, CategoryQuery, CategoryQueryVars } from './types';
+import type { Categories, CategoryQuery, CategoryQueryVars } from './types';
 import { DEFAULT_PAGE_NUM, DEFAULT_PAGE_SIZE } from '@shared/constants';
 
-interface useCategoriesResult
-  extends Omit<
-    ReturnType<typeof useQuery<CategoryQuery, CategoryQueryVars>>,
-    'data'
-  > {
-  categories: Category[];
-}
+type UseCategoriesResult = Categories &
+  Omit<ReturnType<typeof useQuery<CategoryQuery, CategoryQueryVars>>, 'data'>;
 
 export const useCategories = ({
   filters,
   pageSize = DEFAULT_PAGE_SIZE,
   currentPage = DEFAULT_PAGE_NUM,
   skip = false,
-}: CategoryQueryVars & { skip?: boolean }): useCategoriesResult => {
+}: CategoryQueryVars & { skip?: boolean }): UseCategoriesResult => {
   const { data, ...rest } = useQuery<CategoryQuery, CategoryQueryVars>(
     CATEGORIES,
     {
@@ -29,5 +24,9 @@ export const useCategories = ({
     }
   );
 
-  return { categories: data?.categories.items || [], ...rest };
+  return {
+    items: data?.categories.items || [],
+    page_info: data?.categories.page_info || {},
+    ...rest,
+  };
 };

@@ -15,8 +15,8 @@ export function CategoryPage({ urlPath }: CategoryPageProps) {
   } = useCategory({ filters: { url_path: { eq: urlPath } } });
 
   const {
-    products,
-    pageInfo,
+    items: producst,
+    page_info,
     loading: productsLoading,
     error: productsError,
     fetchMore: fetchMoreProducts,

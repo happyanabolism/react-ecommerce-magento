@@ -22,11 +22,13 @@ export interface Category {
   children: Category[];
 }
 
+export interface Categories {
+  items: Category[];
+  page_info: SearchResultPageInfo;
+}
+
 export interface CategoryQuery {
-  categories: {
-    items: Category[];
-    page_info?: SearchResultPageInfo;
-  };
+  categories: Categories;
 }
 
 export interface CategoryQueryVars {

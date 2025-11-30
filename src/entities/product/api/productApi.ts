@@ -7,6 +7,17 @@ export const PRODUCTS = gql`
     $currentPage: Int
   ) {
     products(filter: $filter, pageSize: $pageSize, currentPage: $currentPage) {
+      aggregations {
+        attribute_code
+        count
+        label
+        options {
+          count
+          label
+          value
+        }
+        position
+      }
       items {
         uid
         name

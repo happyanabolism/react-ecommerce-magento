@@ -1,16 +1,9 @@
-import { useQuery, type QueryResult } from '@apollo/client/react';
-import type { SearchResultPageInfo } from '@shared/types';
+import { useQuery } from '@apollo/client/react';
 import { PRODUCTS } from '../api/productApi';
-import type { Product, ProductQuery, ProductQueryVars } from './types';
+import type { ProductQuery, ProductQueryVars, Products } from './types';
 
-interface UseProductsResult
-  extends Omit<
-    ReturnType<typeof useQuery<ProductQuery, ProductQueryVars>>,
-    'data'
-  > {
-  products: Product[];
-  pageInfo?: SearchResultPageInfo;
-}
+type UseProductsResult = Products &
+  Omit<ReturnType<typeof useQuery<ProductQuery, ProductQueryVars>>, 'data'>;
 
 export const useProducts = ({
   filter,
@@ -21,16 +14,17 @@ export const useProducts = ({
   const { data, ...rest } = useQuery<ProductQuery, ProductQueryVars>(PRODUCTS, {
     variables: {
       filter,
-      pageSize: pageSize,
-      currentPage: currentPage,
+      pageSize,
+      currentPage,
     },
     skip,
     fetchPolicy: 'cache-and-network',
   });
 
   return {
-    products: data?.products.items || [],
-    pageInfo: data?.products.page_info,
+    aggregations: data?.products.aggregations || [],
+    items: data?.products.items || [],
+    page_info: data?.products.page_info || {},
     ...rest,
   };
 };
