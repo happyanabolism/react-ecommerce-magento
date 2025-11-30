@@ -5,7 +5,7 @@ import type {
 } from '@shared/types';
 
 export const getAttributeValue = (
-  attributes: AttributeValueInterface[] | null,
+  attributes: AttributeValueInterface[] | undefined,
   code: string
 ): string | string[] | null => {
   if (!attributes) return null;
