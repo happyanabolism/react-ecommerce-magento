@@ -3,10 +3,12 @@ import { CATEGORIES } from '../api/categoryApi';
 import type { Category, CategoryQuery, CategoryQueryVars } from './types';
 import { DEFAULT_PAGE_NUM, DEFAULT_PAGE_SIZE } from '@shared/constants';
 
-interface useCategoriesResult {
+interface useCategoriesResult
+  extends Omit<
+    ReturnType<typeof useQuery<CategoryQuery, CategoryQueryVars>>,
+    'data'
+  > {
   categories: Category[];
-  loading: boolean;
-  error?: Error;
 }
 
 export const useCategories = ({
@@ -15,7 +17,7 @@ export const useCategories = ({
   currentPage = DEFAULT_PAGE_NUM,
   skip = false,
 }: CategoryQueryVars & { skip?: boolean }): useCategoriesResult => {
-  const { data, loading, error } = useQuery<CategoryQuery, CategoryQueryVars>(
+  const { data, ...rest } = useQuery<CategoryQuery, CategoryQueryVars>(
     CATEGORIES,
     {
       variables: {
@@ -23,9 +25,9 @@ export const useCategories = ({
         pageSize,
         currentPage,
       },
-      skip: skip,
+      skip,
     }
   );
 
-  return { categories: data?.categories.items || [], loading, error };
+  return { categories: data?.categories.items || [], ...rest };
 };
