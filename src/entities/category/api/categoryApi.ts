@@ -16,6 +16,7 @@ export const CATEGORIES = gql`
         name
         url_path
         include_in_menu
+        default_sort_by
         children {
           uid
           name

@@ -1,6 +1,8 @@
+import { CategorySidebarLayout } from '@pages/category';
+import { ProductListing } from '@widgets/product';
+import { ProductFilters, ProductsProvider } from '@features/product';
 import { useCategory } from '@entities/category';
 import { Container, Spinner } from '@shared/ui';
-import { FilterableProductListing } from './FilterableProductListing';
 
 interface CategoryPageProps {
   urlPath: string;
@@ -13,22 +15,33 @@ export function CategoryPage({ urlPath }: CategoryPageProps) {
     error: categoryError,
   } = useCategory({ filters: { url_path: { eq: urlPath } } });
 
-  if (categoryLoading) return <Spinner />;
-  // TODO: 404 page
-  if (!category || categoryError) return <p>Page not found</p>;
-
   return (
     <>
       <title>Category</title>
 
       {/* Category Header Component in category/entity */}
       <Container>
-        <h1>{category.name}</h1>
-        <div>description</div>
+        {categoryLoading ? (
+          <Spinner />
+        ) : !category || categoryError ? (
+          <p>Page not found</p>
+        ) : (
+          <>
+            <h1>{category.name}</h1>
+            <div>description</div>
+          </>
+        )}
       </Container>
 
       <Container>
-        <FilterableProductListing categoryUid={category.uid} />
+        {category && (
+          <ProductsProvider categoryUid={category.uid}>
+            <CategorySidebarLayout
+              sidebar={[<ProductFilters key='filters' />]}
+              content={[<ProductListing key='listing' />]}
+            />
+          </ProductsProvider>
+        )}
       </Container>
     </>
   );

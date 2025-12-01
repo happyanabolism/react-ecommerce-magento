@@ -1,31 +1,35 @@
-import { ProductCard } from '@entities/product';
+import { ProductCard, ProductsContext } from '@entities/product';
 import type { Product } from '@entities/product/model/types';
 import type { SearchResultPageInfo } from '@shared/types';
-import { Grid, Pagination } from '@shared/ui';
+import { Grid, Pagination, Spinner } from '@shared/ui';
+import styles from './ProductListing.module.scss';
+import { useContext } from 'react';
 
-interface ProductListingProps {
-  products: Product[];
-  pageInfo: SearchResultPageInfo;
-  onPageChange: (page: number) => void;
-}
+export const ProductListing = () => {
+  const context = useContext(ProductsContext);
 
-export const ProductListing = ({
-  products,
-  pageInfo,
-  onPageChange,
-}: ProductListingProps) => {
+  if (!context || context?.loading) {
+    return <Spinner />;
+  }
+
+  const { items: products, page_info } = context;
+
+  const onPageChange = (page: number) => {
+    console.log(page);
+  };
+
   return (
-    <>
+    <div className={styles.productListing}>
       <Grid>
         {products.map((product) => (
           <ProductCard product={product} key={product.uid} />
         ))}
       </Grid>
       <Pagination
-        currentPage={pageInfo.current_page}
-        totalPages={pageInfo.total_pages}
+        currentPage={page_info.current_page}
+        totalPages={page_info.total_pages}
         onPageChange={onPageChange}
       />
-    </>
+    </div>
   );
 };
