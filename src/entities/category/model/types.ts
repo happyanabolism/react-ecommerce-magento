@@ -19,6 +19,7 @@ export interface Category {
   name?: string;
   url_path?: string;
   include_in_menu?: number;
+  default_sort_by?: string;
   children: Category[];
 }
 

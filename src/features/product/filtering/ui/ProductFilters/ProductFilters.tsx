@@ -1,10 +1,15 @@
-import type { Aggregation } from '@entities/product/model/types';
+import { ProductsContext } from '@entities/product';
+import { Spinner } from '@shared/ui';
+import { useContext } from 'react';
 
-interface ProductFiltersProps {
-  aggregations: Aggregation[];
-}
+export const ProductFilters = () => {
+  const context = useContext(ProductsContext);
+  if (!context || context?.loading) {
+    return <Spinner />;
+  }
 
-export const ProductFilters = ({ aggregations }: ProductFiltersProps) => {
+  const { aggregations } = context;
+
   return (
     <ul>
       {aggregations.map((aggregation) => (
