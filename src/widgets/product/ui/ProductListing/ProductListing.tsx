@@ -12,10 +12,10 @@ export const ProductListing = () => {
     return <Spinner />;
   }
 
-  const { items: products, page_info } = context;
+  const { items: products, page_info, setSearchParams } = context;
 
   const onPageChange = (page: number) => {
-    console.log(page);
+    setSearchParams({ page: page.toString() });
   };
 
   return (
