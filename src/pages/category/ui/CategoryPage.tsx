@@ -34,14 +34,12 @@ export function CategoryPage({ urlPath }: CategoryPageProps) {
       </Container>
 
       <Container>
-        {category && (
-          <ProductsProvider categoryUid={category.uid}>
-            <CategorySidebarLayout
-              sidebar={[<ProductFilters key='filters' />]}
-              content={[<ProductListing key='listing' />]}
-            />
-          </ProductsProvider>
-        )}
+        <ProductsProvider categoryUid={category?.uid}>
+          <CategorySidebarLayout
+            sidebar={[<ProductFilters key='filters' />]}
+            content={[<ProductListing key='listing' />]}
+          />
+        </ProductsProvider>
       </Container>
     </>
   );
