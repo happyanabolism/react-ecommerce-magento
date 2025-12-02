@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client/react';
 import { PRODUCTS } from '../api/productApi';
 import type { ProductQuery, ProductQueryVars, Products } from './types';
 
-type UseProductsResult = Products &
+export type UseProductsResult = Products &
   Omit<ReturnType<typeof useQuery<ProductQuery, ProductQueryVars>>, 'data'>;
 
 export const useProducts = ({

@@ -1,8 +1,11 @@
 import { CategorySidebarLayout } from '@pages/category';
-import { ProductListing } from '@widgets/product';
-import { ProductFilters, ProductsProvider } from '@features/product';
+import { CategoryProductsProvider } from '@features/category';
 import { useCategory } from '@entities/category';
 import { Container, Spinner } from '@shared/ui';
+import {
+  CategoryProductListing,
+  CategoryProductFilters,
+} from '@widgets/category';
 
 interface CategoryPageProps {
   urlPath: string;
@@ -34,12 +37,12 @@ export function CategoryPage({ urlPath }: CategoryPageProps) {
       </Container>
 
       <Container>
-        <ProductsProvider categoryUid={category?.uid}>
+        <CategoryProductsProvider categoryUid={category?.uid}>
           <CategorySidebarLayout
-            sidebar={[<ProductFilters key='filters' />]}
-            content={[<ProductListing key='listing' />]}
+            sidebar={<CategoryProductFilters />}
+            content={<CategoryProductListing />}
           />
-        </ProductsProvider>
+        </CategoryProductsProvider>
       </Container>
     </>
   );
