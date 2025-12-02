@@ -1,9 +1,9 @@
-import { Children, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import styles from './CategorySidebarLayout.module.scss';
 
 interface CategorySidebarLayoutProps {
-  sidebar: ReactNode | ReactNode[];
-  content: ReactNode | ReactNode[];
+  sidebar: ReactNode;
+  content: ReactNode;
 }
 
 export const CategorySidebarLayout = ({
@@ -12,8 +12,8 @@ export const CategorySidebarLayout = ({
 }: CategorySidebarLayoutProps) => {
   return (
     <div className={styles.categorySidebarLayout}>
-      <aside>{Children.toArray(sidebar)}</aside>
-      <div>{Children.toArray(content)}</div>
+      <aside>{sidebar}</aside>
+      <div>{content}</div>
     </div>
   );
 };

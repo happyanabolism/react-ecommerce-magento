@@ -1,11 +1,12 @@
+import type { ReactNode } from 'react';
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { ApolloProvider as AProvider } from '@apollo/client/react';
 import { SetContextLink } from '@apollo/client/link/context';
 import { ErrorLink } from '@apollo/client/link/error';
 import { store } from '@app/store';
 import { logout, selectJwt } from '@entities/customer';
+import type { Products } from '@entities/product';
 import { API_ERRORS } from '@shared/constants';
-import type { ReactNode } from 'react';
 
 const API_URI = 'http://localhost/graphql';
 const httpLink = new HttpLink({ uri: API_URI });
@@ -29,31 +30,9 @@ const errorLink = new ErrorLink(({ result }) => {
   }
 });
 
-const cache = new InMemoryCache({
-  typePolicies: {
-    Query: {
-      fields: {
-        products: {
-          keyArgs: ['filter', 'pageSize'],
-          merge(existing, incoming, { args }) {
-            if (!existing) return incoming;
-            return {
-              ...incoming,
-              page_info: {
-                ...existing.page_info,
-                current_page: incoming.page_info.current_page,
-              },
-            };
-          },
-        },
-      },
-    },
-  },
-});
-
 const client = new ApolloClient({
   link: errorLink.concat(authLink.concat(httpLink)),
-  cache,
+  cache: new InMemoryCache(),
 });
 
 export const ApolloProvider = ({ children }: { children: ReactNode }) => {
