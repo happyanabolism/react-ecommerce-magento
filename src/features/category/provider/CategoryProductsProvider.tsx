@@ -1,8 +1,9 @@
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { useSearchParams } from 'react-router';
 import { useProducts, type ProductQueryVars } from '@entities/product';
 import {
   CategoryProductsContext,
+  useCategorySearchParams,
   type CategoryProductsContextValue,
 } from '@features/category';
 import type { ID } from '@shared/types';
@@ -16,34 +17,15 @@ export const CategoryProductsProvider = ({
   children,
   categoryUid,
 }: CategoryProductsProviderProps) => {
-  const [searchParams] = useSearchParams();
-  const currentPage = parseInt(searchParams.get('page') ?? '1');
+  const [{ currentPage }, setCategorySearchParams] = useCategorySearchParams();
 
-  const { aggregations, items, page_info, loading, error, fetchMore } =
-    useProducts({
-      filter: {
-        category_uid: { eq: categoryUid },
-      },
-      currentPage: currentPage,
-      skip: !categoryUid,
-    });
-
-  const setFilters = (filter: Partial<ProductQueryVars>) => {
-    fetchMore({
-      variables: { ...filter },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        return fetchMoreResult ?? prev;
-      },
-    }).finally(() => {
-      if (filter.currentPage) {
-        if (filter.currentPage != null) {
-          const url = new URL(window.location.href);
-          url.searchParams.set('page', filter.currentPage.toString());
-          window.history.replaceState(null, '', url.toString());
-        }
-      }
-    });
-  };
+  const { aggregations, items, page_info, loading, error } = useProducts({
+    filter: {
+      category_uid: { eq: categoryUid },
+    },
+    currentPage,
+    skip: !categoryUid,
+  });
 
   const contextValue: CategoryProductsContextValue = {
     aggregations,
@@ -51,7 +33,7 @@ export const CategoryProductsProvider = ({
     page_info,
     loading,
     error,
-    setFilters,
+    setFilters: setCategorySearchParams,
   };
 
   return (

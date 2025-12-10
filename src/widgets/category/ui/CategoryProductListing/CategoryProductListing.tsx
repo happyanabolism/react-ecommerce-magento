@@ -13,7 +13,7 @@ export const CategoryProductListing = () => {
     setFilters,
   } = useContext(CategoryProductsContext);
 
-  //if (loading) return <Spinner />;
+  if (loading) return <Spinner />;
   if (error) return <Alert>{error.message}</Alert>;
 
   const onPageChange = (page: number) => {

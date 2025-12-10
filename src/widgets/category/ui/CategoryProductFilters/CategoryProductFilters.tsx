@@ -3,9 +3,11 @@ import { CategoryProductsContext } from '@features/category';
 import { Spinner } from '@shared/ui';
 
 export const CategoryProductFilters = () => {
-  const { aggregations, loading, error } = useContext(CategoryProductsContext);
+  const { aggregations, loading, error, setFilters } = useContext(
+    CategoryProductsContext
+  );
 
-  // if (loading) return <Spinner />;
+  if (loading) return <Spinner />;
   if (error) return null;
 
   return (
