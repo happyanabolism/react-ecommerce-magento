@@ -5,7 +5,6 @@
 input {
   width: 100%;
   box-sizing: border-box;
-  padding: $input-padding;
   border: 2px solid $color-graphite-900;
   border-radius: 20px;
   outline: none;
@@ -19,5 +18,19 @@ input {
   }
   &[aria-invalid='true'] {
     border-color: $color-error;
+  }
+}
+
+input {
+  &[type='text'],
+  &[type='number'],
+  &[type='email'],
+  &[type='password'] {
+    padding: $input-padding;
+  }
+
+  &[type='checkbox'] {
+    width: 20px;
+    height: 20px;
   }
 }

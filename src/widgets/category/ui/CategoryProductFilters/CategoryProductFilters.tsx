@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { CategoryProductsContext } from '@features/category';
+import { FiltersController } from '@features/product';
 import { Spinner } from '@shared/ui';
 
 export const CategoryProductFilters = () => {
@@ -10,11 +11,5 @@ export const CategoryProductFilters = () => {
   if (loading) return <Spinner />;
   if (error) return null;
 
-  return (
-    <ul>
-      {aggregations.map((aggregation) => (
-        <li key={aggregation.attribute_code}>{aggregation.label}</li>
-      ))}
-    </ul>
-  );
+  return <FiltersController aggregations={aggregations} />;
 };
