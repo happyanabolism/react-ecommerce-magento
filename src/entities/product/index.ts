@@ -9,4 +9,6 @@ export type {
   Products,
   ProductQuery,
   ProductQueryVars,
+  FlatProductQueryVars,
+  ProductAttributeFilterInput,
 } from './model/types';

@@ -4,6 +4,7 @@ import type {
   Products,
   ProductQuery,
   ProductQueryVars,
+  FlatProductQueryVars,
 } from '@entities/product';
 
 export type CategoryProductsContextValue = Products &
@@ -11,7 +12,7 @@ export type CategoryProductsContextValue = Products &
     ReturnType<typeof useQuery<ProductQuery, ProductQueryVars>>,
     'loading' | 'error'
   > & {
-    setFilters: (filters: Partial<ProductQueryVars>) => void;
+    setFilters: (filters: Partial<FlatProductQueryVars>) => void;
   };
 
 const defaultProducts: CategoryProductsContextValue = {

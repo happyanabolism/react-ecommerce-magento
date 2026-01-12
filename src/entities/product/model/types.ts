@@ -41,6 +41,7 @@ export interface ProductAttributeFilterInput {
   style_bottom?: FilterEqualTypeInput;
   style_general?: FilterEqualTypeInput;
   url_key?: FilterEqualTypeInput;
+  origine?: FilterEqualTypeInput;
 }
 
 export interface Product {
@@ -82,4 +83,8 @@ export interface ProductQueryVars {
   pageSize?: number;
   currentPage?: number;
   sort?: ProductAttributeSortInput;
+}
+
+export interface FlatProductQueryVars extends ProductQueryVars {
+  filter?: Record<string, string[]>;
 }

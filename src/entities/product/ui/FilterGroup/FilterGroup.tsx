@@ -1,11 +1,16 @@
-import { FilterOption, type Aggregation } from '@entities/product';
+import {
+  FilterOption,
+  type Aggregation,
+  type AggregationOption,
+} from '@entities/product';
 import styles from './FilterGroup.module.scss';
 
 interface FilterGroupProps {
   aggregation: Aggregation;
+  onChange: (attributeCode: string, value: string) => void;
 }
 
-export const FilterGroup = ({ aggregation }: FilterGroupProps) => {
+export const FilterGroup = ({ aggregation, onChange }: FilterGroupProps) => {
   return (
     <div>
       {aggregation.label && <strong>{aggregation.label}</strong>}
@@ -14,8 +19,7 @@ export const FilterGroup = ({ aggregation }: FilterGroupProps) => {
           <li key={option.value}>
             <FilterOption
               aggregationOption={option}
-              checked={true}
-              onChange={(aggregationValue) => console.log(aggregationValue)}
+              onChange={(value) => onChange(aggregation.attribute_code, value)}
             />
           </li>
         ))}

@@ -11,5 +11,15 @@ export const CategoryProductFilters = () => {
   if (loading) return <Spinner />;
   if (error) return null;
 
-  return <FiltersController aggregations={aggregations} />;
+  const handleChange = (attributeCode: string, value: string): void => {
+    setFilters({
+      filter: {
+        [attributeCode]: [value],
+      },
+    });
+  };
+
+  return (
+    <FiltersController aggregations={aggregations} onChange={handleChange} />
+  );
 };
