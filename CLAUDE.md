@@ -20,6 +20,7 @@ npm run format    # prettier --write . (format:check in CI)
 There is no test setup.
 
 Notes:
+
 - TypeScript uses project references: `tsconfig.app.json` (browser, `src/`, `vite/client` types) and `tsconfig.node.json` (Node, config files). Vite does not type-check; only `tsc -b` does.
 - ESLint (flat config): `typescript-eslint`, `react-hooks` v7 (incl. React Compiler rules like `set-state-in-effect`), `react-refresh`; formatting rules are disabled via `eslint-config-prettier`. Prettier runs separately (`.prettierrc`: single quotes, JSX single quotes, semicolons, trailing commas `es5`, width 80).
 - The dev server proxies `/graphql` to the Magento instance set in `MAGENTO_BACKEND_URL` (`.env.local`, see `.env.example`; `vite dev` refuses to start without it). The Apollo client uses the relative URI `/graphql` (`src/app/providers/ApolloProvider.tsx`), so a reachable Magento backend is required to see any data.
@@ -34,6 +35,7 @@ Notes:
 Path aliases: `@app/*`, `@pages/*`, `@widgets/*`, `@features/*`, `@entities/*`, `@shared/*`.
 
 Each slice exposes a public API through its `index.ts`; import from `@entities/customer`, not from deep paths. Inside a slice, segments are:
+
 - `api/` — `gql` documents and imperative Apollo calls
 - `model/` — types, hooks wrapping `useQuery`/`useMutation`, Redux slices/thunks, contexts, yup schemas (`*.schema.ts`)
 - `ui/` — components, each in its own folder with a `Component.module.scss`
@@ -62,4 +64,4 @@ Provider order (`src/app/entrypoint/main.tsx`): Redux `Provider` → `PersistGat
 
 - SCSS modules per component. Pull in shared tokens with `@use '@shared/styles/variables/_colors' as *;` etc. (variables in `src/shared/styles/variables`, mixins in `src/shared/styles/mixins`). Global styles live in `src/app/styles`.
 - Component-level SCSS variables are declared at the top of the module (e.g. `$button-primary_background`), then used in the rules.
-- Property order inside a selector (see `styles_order_rule.png`): **Layout** (display, flex/grid, padding, margin, width, box-sizing) → **Typography** (font-*, line-height, text-align, color) → **Visual** (background, border, border-radius, box-shadow) → **Interaction** (cursor, transition) → **Misc** (z-index).
+- Property order inside a selector (see `styles_order_rule.png`): **Layout** (display, flex/grid, padding, margin, width, box-sizing) → **Typography** (font-\*, line-height, text-align, color) → **Visual** (background, border, border-radius, box-shadow) → **Interaction** (cursor, transition) → **Misc** (z-index).

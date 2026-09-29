@@ -21,30 +21,46 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTES.CART,
-        element: <ProtectedRoute><CartPage /></ProtectedRoute>,
+        element: (
+          <ProtectedRoute>
+            <CartPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: ROUTES.LOGIN,
-        element: <GuestRoute><LoginPage /></GuestRoute>,
+        element: (
+          <GuestRoute>
+            <LoginPage />
+          </GuestRoute>
+        ),
       },
       {
         path: ROUTES.REGISTRATION,
-        element: <GuestRoute><RegistrationPage /></GuestRoute>,
+        element: (
+          <GuestRoute>
+            <RegistrationPage />
+          </GuestRoute>
+        ),
       },
       {
         path: ROUTES.ACCOUNT,
-        element: <ProtectedRoute><AccountLayout /></ProtectedRoute>,
+        element: (
+          <ProtectedRoute>
+            <AccountLayout />
+          </ProtectedRoute>
+        ),
         children: [
           {
             path: ROUTES.ACCOUNT_DASHBOARD,
-            element: <AccountDashboardPage />
+            element: <AccountDashboardPage />,
           },
-        ]
+        ],
       },
       {
         path: ROUTES.DYNAMIC,
-        element: <DynamicPage />
-      }
-    ]
-  }
+        element: <DynamicPage />,
+      },
+    ],
+  },
 ]);

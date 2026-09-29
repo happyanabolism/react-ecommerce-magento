@@ -1,6 +1,6 @@
-import { RegistrationForm } from "@features/customer";
-import { Container } from "@shared/ui";
-import styles from "./RegistrationPage.module.scss"
+import { RegistrationForm } from '@features/customer';
+import { Container } from '@shared/ui';
+import styles from './RegistrationPage.module.scss';
 
 export const RegistrationPage = () => {
   return (
@@ -14,5 +14,5 @@ export const RegistrationPage = () => {
         </div>
       </Container>
     </>
-  )
-}
+  );
+};

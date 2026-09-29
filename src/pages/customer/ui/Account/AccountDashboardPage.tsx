@@ -1,7 +1,6 @@
-import { CustomerInfo } from "@widgets/customer";
+import { CustomerInfo } from '@widgets/customer';
 
 export const AccountDashboardPage = () => {
-
   return (
     <>
       <title>Account</title>
@@ -21,5 +20,5 @@ export const AccountDashboardPage = () => {
         {/* TODO: Recent orders table widget */}
       </section>
     </>
-  )
-}
+  );
+};

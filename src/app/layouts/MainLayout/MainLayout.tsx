@@ -1,5 +1,5 @@
-import { Outlet } from "react-router"
-import { Header } from "@widgets/header"
+import { Outlet } from 'react-router';
+import { Header } from '@widgets/header';
 
 export const MainLayout = () => {
   return (
@@ -10,5 +10,5 @@ export const MainLayout = () => {
       </main>
       <footer />
     </>
-  )
-}
+  );
+};

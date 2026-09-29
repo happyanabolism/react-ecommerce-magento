@@ -1,7 +1,7 @@
-import { Outlet } from "react-router"
-import { Container } from "@shared/ui"
-import { AccountNavigation } from "@widgets/customer"
-import styles from './AccountLayout.module.scss'
+import { Outlet } from 'react-router';
+import { Container } from '@shared/ui';
+import { AccountNavigation } from '@widgets/customer';
+import styles from './AccountLayout.module.scss';
 
 export const AccountLayout = () => {
   return (
@@ -10,8 +10,8 @@ export const AccountLayout = () => {
         <AccountNavigation />
       </aside>
       <div className={styles.accountSection}>
-        <Outlet  />
+        <Outlet />
       </div>
     </Container>
-  )
-}
+  );
+};

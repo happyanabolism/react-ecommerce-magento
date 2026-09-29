@@ -5,5 +5,5 @@ export const AccountNavigation = () => {
         <li>Account Navigation</li>
       </ul>
     </nav>
-  )
-}
+  );
+};
