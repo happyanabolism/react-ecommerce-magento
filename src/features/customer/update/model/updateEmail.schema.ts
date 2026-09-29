@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { emailField, passwordField } from '@shared/lib/validation';
+import { emailField } from '@shared/lib/validation';
 
 export const updateEmailSchema = yup.object().shape({
   email: emailField,

@@ -5,7 +5,6 @@ import { SetContextLink } from '@apollo/client/link/context';
 import { ErrorLink } from '@apollo/client/link/error';
 import { store } from '@app/store';
 import { logout, selectJwt } from '@entities/customer';
-import type { Products } from '@entities/product';
 import { API_ERRORS } from '@shared/constants';
 
 const API_URI = '/graphql';

@@ -11,7 +11,7 @@ interface UseCategoryProducts extends UseProductsResult {
 }
 
 export const useCategoryProducts = (categoryUid?: ID): UseCategoryProducts => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const initialPage = parseInt(searchParams.get('page') ?? '1');
 

@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/client/react';
 import { CATEGORIES } from '../api/categoryApi';
-import { DEFAULT_PAGE_NUM, DEFAULT_PAGE_SIZE } from '@shared/constants';
 import type { Category, CategoryQuery, CategoryQueryVars } from './types';
 
 interface UseCategoryResult

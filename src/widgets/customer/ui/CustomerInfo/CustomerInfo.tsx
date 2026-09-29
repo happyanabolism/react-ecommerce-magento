@@ -1,12 +1,11 @@
 import { useCustomer } from '@entities/customer';
-import type { FlatCustomer } from '@entities/customer/model/types';
 import {
   UpdatePersonalInfoForm,
   UpdateCustomerEmailForm,
   UpdateCustomerPasswordForm,
 } from '@features/customer';
 import { Alert, Button, Spinner } from '@shared/ui';
-import { flatCustomAttributes, getAttributeValue } from '@shared/utils';
+import { flatCustomAttributes } from '@shared/utils';
 
 export const CustomerInfo = () => {
   const { customer, loading, error } = useCustomer();

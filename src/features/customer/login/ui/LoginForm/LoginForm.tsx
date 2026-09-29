@@ -30,7 +30,7 @@ export function LoginForm() {
 
   useEffect(() => {
     dispatch(clearError());
-  }, []);
+  }, [dispatch]);
 
   const {
     register,

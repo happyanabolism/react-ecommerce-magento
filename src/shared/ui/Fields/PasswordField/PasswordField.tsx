@@ -18,7 +18,7 @@ export const PasswordField = ({
   const [visible, setVisible] = useState(false);
 
   return (
-    <BaseField label={label} error={error}>
+    <BaseField label={label} error={error} className={className}>
       {(id) => (
         <div className={styles.passwordField}>
           <input

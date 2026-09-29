@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useApolloClient } from '@apollo/client/react';
 import {
   clearError,
@@ -33,7 +33,7 @@ export const RegistrationForm = () => {
 
   useEffect(() => {
     dispatch(clearError());
-  }, []);
+  }, [dispatch]);
 
   const {
     register,

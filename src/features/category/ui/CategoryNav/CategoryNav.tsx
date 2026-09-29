@@ -12,6 +12,7 @@ export function CategoryNav() {
   );
 
   if (error) return <p>{error.message}</p>;
+  if (loading) return <Spinner />;
 
   return (
     <nav className={styles.navigation}>

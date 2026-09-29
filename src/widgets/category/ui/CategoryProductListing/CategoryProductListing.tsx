@@ -1,19 +1,17 @@
 import { useContext } from 'react';
 import { CategoryProductsContext } from '@features/category';
 import { ProductCard } from '@entities/product';
-import { Alert, Grid, Pagination, Spinner } from '@shared/ui';
+import { Alert, Grid, Pagination } from '@shared/ui';
 import styles from './CategoryProductListing.module.scss';
 
 export const CategoryProductListing = () => {
   const {
     items: products,
-    loading,
     error,
     page_info,
     setFilters,
   } = useContext(CategoryProductsContext);
 
-  //if (loading) return <Spinner />;
   if (error) return <Alert>{error.message}</Alert>;
 
   const onPageChange = (page: number) => {
