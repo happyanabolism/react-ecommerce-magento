@@ -2,11 +2,10 @@ import { useQuery } from '@apollo/client/react';
 import { CATEGORIES } from '../api/categoryApi';
 import type { Category, CategoryQuery, CategoryQueryVars } from './types';
 
-interface UseCategoryResult
-  extends Omit<
-    ReturnType<typeof useQuery<CategoryQuery, CategoryQueryVars>>,
-    'data'
-  > {
+interface UseCategoryResult extends Omit<
+  ReturnType<typeof useQuery<CategoryQuery, CategoryQueryVars>>,
+  'data'
+> {
   category: Category | null;
 }
 

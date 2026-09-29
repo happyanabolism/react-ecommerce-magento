@@ -40,8 +40,10 @@ export type FlatCustomerAttributes = FlatAttributes & {
   phone_number: string;
 };
 
-export interface RegistrationFormData
-  extends Omit<CustomerCreateInput, 'custom_attributes'> {
+export interface RegistrationFormData extends Omit<
+  CustomerCreateInput,
+  'custom_attributes'
+> {
   passwordConfirm: string;
   custom_attributes: FlatCustomerAttributes;
 }

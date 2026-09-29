@@ -1,8 +1,10 @@
 import { IMaskInput, type ReactMaskProps } from 'react-imask';
 import { BaseField } from '../BaseField/BaseField';
 
-interface TelephoneFieldProps
-  extends Omit<ReactMaskProps<HTMLInputElement>, 'onAccept'> {
+interface TelephoneFieldProps extends Omit<
+  ReactMaskProps<HTMLInputElement>,
+  'onAccept'
+> {
   className?: string;
   label?: string;
   error?: string;

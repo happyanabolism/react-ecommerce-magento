@@ -28,8 +28,10 @@ export interface CustomerUpdateQueryVars {
   input: CustomerUpdateInput;
 }
 
-export interface CustomerUpdateFormData
-  extends Omit<CustomerUpdateInput, 'custom_attributes'> {
+export interface CustomerUpdateFormData extends Omit<
+  CustomerUpdateInput,
+  'custom_attributes'
+> {
   custom_attributes: FlatCustomerAttributes;
 }
 
