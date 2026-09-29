@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+
+    // Environment: Node (no DOM)
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "types": ["node"],
+
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+
+    "noEmit": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+
+    "strict": true,
+    "noUncheckedSideEffectImports": true,
+
+    "skipLibCheck": true
+  },
+  "include": ["vite.config.ts", "eslint.config.ts"]
+}

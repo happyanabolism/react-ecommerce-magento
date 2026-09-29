@@ -10,18 +10,19 @@ React 19 + Vite storefront (PWA-style headless frontend) for a **Magento 2 Graph
 
 ```bash
 npm run dev       # Vite dev server on :5173
-npm run build     # production build
+npm run build     # type check (tsc -b) + production build
+npm run typecheck # tsc -b only
 npm run preview   # serve the build
 npm run lint      # eslint .
-npx tsc --noEmit  # type check (no npm script for it)
 ```
 
 There is no test setup.
 
 Notes:
-- `eslint.config.ts` only targets `**/*.{js,jsx}`, so `.ts/.tsx` files are **not** linted; use `tsc` for checking TS code. Formatting is Prettier (`.prettierrc`: single quotes, JSX single quotes, semicolons, trailing commas `es5`, width 80).
+- TypeScript uses project references: `tsconfig.app.json` (browser, `src/`, `vite/client` types) and `tsconfig.node.json` (Node, config files). Vite does not type-check; only `tsc -b` does.
+- `eslint.config.ts` only targets `**/*.{js,jsx}`, so `.ts/.tsx` files are **not** linted. Formatting is Prettier (`.prettierrc`: single quotes, JSX single quotes, semicolons, trailing commas `es5`, width 80).
 - The dev server proxies `/graphql` to the Magento instance set in `MAGENTO_BACKEND_URL` (`.env.local`, see `.env.example`; `vite dev` refuses to start without it). The Apollo client uses the relative URI `/graphql` (`src/app/providers/ApolloProvider.tsx`), so a reachable Magento backend is required to see any data.
-- Path aliases live in two places that must stay in sync: `paths` in `tsconfig.json` (for TS/IDE) and `resolve.alias` in `vite.config.ts` (for the bundler, including Sass `@use '@shared/...'`, which `vite-tsconfig-paths` can't resolve).
+- Path aliases live in two places that must stay in sync: `paths` in `tsconfig.app.json` (for TS/IDE) and `resolve.alias` in `vite.config.ts` (for the bundler, including Sass `@use '@shared/...'`, which `vite-tsconfig-paths` can't resolve).
 
 ## Architecture: Feature-Sliced Design
 

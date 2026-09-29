@@ -5,10 +5,16 @@ import { Provider } from 'react-redux';
 import { StoreConfigProvider, ApolloProvider } from '@app/providers';
 import { router } from '@app/routes/router';
 import { persistor, store } from '@app/store/store';
-import '../styles/index.scss';
 import { PersistGate } from 'redux-persist/integration/react';
+import '../styles/index.scss';
 
-createRoot(document.getElementById('root')).render(
+const rootElement = document.getElementById('root');
+
+if (!rootElement) {
+  throw new Error('Root element not found');
+}
+
+createRoot(rootElement).render(
   <StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

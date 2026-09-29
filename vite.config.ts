@@ -17,7 +17,7 @@ export default defineConfig(({ command, mode }) => {
 
   return {
     plugins: [react()],
-    // Aliases must stay in sync with "paths" in tsconfig.json.
+    // Aliases must stay in sync with "paths" in tsconfig.app.json.
     // They are defined here (not via vite-tsconfig-paths) because Sass
     // `@use '@shared/...'` is resolved only through resolve.alias.
     resolve: {

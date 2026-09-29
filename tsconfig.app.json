@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+
+    // Environment: browser
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    // Vite client types: *.module.scss, *.scss, *.svg imports, import.meta.env
+    "types": ["vite/client"],
+
+    // Modules: resolved by Vite
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    // Must stay in sync with resolve.alias in vite.config.ts
+    "paths": {
+      "@app/*": ["./src/app/*"],
+      "@entities/*": ["./src/entities/*"],
+      "@features/*": ["./src/features/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@widgets/*": ["./src/widgets/*"]
+    },
+
+    // Type checking only, JS is emitted by Vite (esbuild)
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    // Every file must be transpilable on its own (esbuild)
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+
+    // Strictness
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noUncheckedSideEffectImports": true,
+
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}
