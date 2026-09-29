@@ -15,14 +15,10 @@
   },
   "dependencies": {
     "@apollo/client": "^4.0.7",
-    "@feature-sliced/eslint-config": "^0.1.1",
     "@hookform/resolvers": "^5.2.2",
     "@reduxjs/toolkit": "^2.9.2",
-    "axios": "^1.12.2",
     "clsx": "^2.1.1",
     "graphql": "^16.11.0",
-    "graphql-request": "^7.3.1",
-    "graphviz": "^0.0.9",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.65.0",
@@ -35,22 +31,22 @@
     "yup": "^1.7.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.36.0",
+    "@eslint/js": "^10.0.1",
     "@types/node": "^24.19.0",
     "@types/react": "^19.2.6",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.0.4",
+    "@vitejs/plugin-react": "^6.1.1",
     "dependency-cruiser": "^17.1.0",
-    "eslint": "^9.36.0",
+    "eslint": "^10.11.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.1.1",
-    "eslint-plugin-react-refresh": "^0.4.22",
-    "globals": "^16.4.0",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.12.0",
     "jiti": "^2.7.0",
-    "prettier": "^3.6.2",
+    "prettier": "3.9.9",
     "sass": "^1.93.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.71.0",
-    "vite": "^7.1.7"
+    "vite": "^8.3.1"
   }
 }
