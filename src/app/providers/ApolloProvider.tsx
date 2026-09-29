@@ -8,7 +8,7 @@ import { logout, selectJwt } from '@entities/customer';
 import type { Products } from '@entities/product';
 import { API_ERRORS } from '@shared/constants';
 
-const API_URI = 'http://localhost/graphql';
+const API_URI = '/graphql';
 const httpLink = new HttpLink({ uri: API_URI });
 
 const authLink = new SetContextLink(({ headers }) => {
