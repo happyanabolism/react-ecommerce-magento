@@ -16,6 +16,7 @@ export const Button = ({
   loading = false,
   disabled = false,
   className,
+  type = 'button',
   ...rest
 }: ButtonProps) => {
   const isDisabled = disabled || loading;
@@ -28,6 +29,7 @@ export const Button = ({
         loading && styles.loading,
         className
       )}
+      type={type}
       disabled={isDisabled}
       {...rest}
     >

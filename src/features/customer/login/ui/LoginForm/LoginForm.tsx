@@ -72,7 +72,11 @@ export function LoginForm() {
       </fieldset>
       {authError && <Alert type='error'>{authError}</Alert>}
       <div className={styles.formActions}>
-        <Button variant='primary' loading={isSubmitting || loading}>
+        <Button
+          type='submit'
+          variant='primary'
+          loading={isSubmitting || loading}
+        >
           {isSubmitting || loading ? 'Logging In...' : 'Log In'}
         </Button>
         <Link to={'#'}>Forgot password?</Link>

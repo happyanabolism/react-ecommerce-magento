@@ -114,7 +114,11 @@ export const RegistrationForm = () => {
       </fieldset>
       {authError && <Alert type='error'>{authError}</Alert>}
       <div className={styles.formActions}>
-        <Button variant='primary' loading={isSubmitting || loading}>
+        <Button
+          type='submit'
+          variant='primary'
+          loading={isSubmitting || loading}
+        >
           {isSubmitting || loading ? 'Signing up...' : 'Sign Up'}
         </Button>
       </div>

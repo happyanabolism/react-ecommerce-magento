@@ -46,7 +46,7 @@ export const UpdateCustomerEmailForm = () => {
         />
       </fieldset>
       {error && <Alert type='error'>{error.message}</Alert>}
-      <Button variant='primary' loading={loading || isSubmitting}>
+      <Button type='submit' variant='primary' loading={loading || isSubmitting}>
         {loading || isSubmitting ? 'Updating...' : 'Update'}
       </Button>
     </form>

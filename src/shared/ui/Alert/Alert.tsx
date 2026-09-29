@@ -12,11 +12,13 @@ export const Alert = ({
   children,
   className,
   type = 'default',
+  ...rest
 }: AlertProps) => {
   return (
     <div
       role='alert'
       className={clsx(styles.alert, className, styles[`type_${type}`])}
+      {...rest}
     >
       {children}
     </div>
