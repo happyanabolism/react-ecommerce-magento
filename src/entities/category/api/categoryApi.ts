@@ -30,3 +30,20 @@ export const CATEGORIES = gql`
     }
   }
 `;
+
+export const CATEGORY_MENU = gql`
+  query categoryMenu($rootUid: String!) {
+    categories(filters: { category_uid: { eq: $rootUid } }) {
+      items {
+        uid
+        children {
+          uid
+          name
+          url_path
+          include_in_menu
+          position
+        }
+      }
+    }
+  }
+`;

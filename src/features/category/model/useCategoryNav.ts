@@ -1,25 +1,21 @@
-import { useCategories } from '@entities/category';
-import type { Category } from '@entities/category/model/types';
+import { useCategoryMenu } from '@entities/category';
 
-// TODO: pass levels: int
-export const useCategoryNav = (
-  rootCategoryUid?: string
-): {
-  categories: Category[] | null;
-  loading: boolean;
-  error?: Error;
-} => {
-  const filters = { parent_category_uid: { eq: rootCategoryUid } };
-  const { items, loading, error } = useCategories({
-    filters,
-    skip: !rootCategoryUid,
+export const useCategoryNav = ({
+  rootCategoryUid,
+  limit,
+}: {
+  rootCategoryUid?: string;
+  limit?: number;
+}): ReturnType<typeof useCategoryMenu> => {
+  const { categories, ...rest } = useCategoryMenu({
+    rootUid: rootCategoryUid,
   });
 
   return {
-    categories: items
-      ? items.filter((subcategory) => subcategory.include_in_menu)
-      : items,
-    loading,
-    error,
+    categories: categories
+      .filter((subcategory) => subcategory.include_in_menu)
+      .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
+      .slice(0, limit),
+    ...rest,
   };
 };

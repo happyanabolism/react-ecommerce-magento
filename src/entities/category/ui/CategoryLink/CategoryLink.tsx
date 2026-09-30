@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import type { Category } from '@entities/category/model/types';
 
 interface CategoryLinkProps {
-  category: Category;
+  category: Pick<Category, 'name' | 'url_path'>;
 }
 
 export function CategoryLink({ category }: CategoryLinkProps) {

@@ -25,7 +25,7 @@ export function Header() {
           </nav>
         </div>
       </Container>
-      <CategoryNav />
+      <CategoryNav limit={5} />
     </header>
   );
 }
