@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm /*, Controller */ } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
 import { useApolloClient } from '@apollo/client/react';
@@ -17,7 +17,7 @@ import {
   Button,
   TextField,
   PasswordField,
-  TelephoneField,
+  // TelephoneField,
   Alert,
 } from '@shared/ui';
 import { useAppDispatch } from '@shared/lib';
@@ -37,7 +37,7 @@ export const RegistrationForm = () => {
 
   const {
     register,
-    control,
+    // control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<RegistrationFormData>({
@@ -87,6 +87,7 @@ export const RegistrationForm = () => {
           placeholder='example@gmail.com'
           {...register('email')}
         />
+        {/* TODO(customer-attributes): render custom attributes from attributesForm metadata
         <Controller
           name='custom_attributes.phone_number'
           control={control}
@@ -100,6 +101,7 @@ export const RegistrationForm = () => {
             />
           )}
         />
+        */}
         <PasswordField
           label='Password'
           error={errors?.password?.message}

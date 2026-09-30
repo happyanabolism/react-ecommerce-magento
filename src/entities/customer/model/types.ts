@@ -36,8 +36,9 @@ export interface CustomerCreateVars {
   input: CustomerCreateInput;
 }
 
+// TODO(customer-attributes): replace with attributes from attributesForm metadata
 export type FlatCustomerAttributes = FlatAttributes & {
-  phone_number: string;
+  phone_number?: string;
 };
 
 export interface RegistrationFormData extends Omit<

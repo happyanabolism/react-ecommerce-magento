@@ -1,7 +1,7 @@
 import {
   firstnameField,
   lastnameField,
-  telephoneField,
+  // telephoneField,
 } from '@shared/lib/validation';
 import * as yup from 'yup';
 
@@ -9,6 +9,8 @@ export const personalInfoSchema = yup.object().shape({
   firstname: firstnameField,
   lastname: lastnameField,
   custom_attributes: yup.object({
-    phone_number: telephoneField,
+    // TODO(customer-attributes): custom attributes differ per backend, build
+    // fields and validation from attributesForm metadata instead of hardcoding
+    // phone_number: telephoneField,
   }),
 });

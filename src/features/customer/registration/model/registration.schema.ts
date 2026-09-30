@@ -4,7 +4,7 @@ import {
   passwordField,
   firstnameField,
   lastnameField,
-  telephoneField,
+  // telephoneField,
 } from '@shared/lib/validation';
 
 export const schema = yup.object().shape({
@@ -12,7 +12,9 @@ export const schema = yup.object().shape({
   lastname: lastnameField,
   email: emailField,
   custom_attributes: yup.object({
-    phone_number: telephoneField,
+    // TODO(customer-attributes): custom attributes differ per backend, build
+    // fields and validation from attributesForm metadata instead of hardcoding
+    // phone_number: telephoneField,
   }),
   password: passwordField.test(
     'not-same-as-email',
