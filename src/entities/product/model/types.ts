@@ -5,7 +5,6 @@ import type {
   FilterRangeTypeInput,
   ProductImage,
   PriceRange,
-  ProductCustomAttributes,
   ProductAttributeSortInput,
 } from '@shared/types';
 
@@ -49,7 +48,6 @@ export interface Product {
   sku?: string;
   small_image?: ProductImage;
   price_range: PriceRange;
-  custom_attributesV2?: ProductCustomAttributes;
 }
 
 export interface Products {

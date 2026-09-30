@@ -25,20 +25,6 @@ export const PRODUCTS = gql`
         small_image {
           url
         }
-        custom_attributesV2 {
-          items {
-            code
-            ... on AttributeValue {
-              value
-            }
-            ... on AttributeSelectedOptions {
-              selected_options {
-                label
-                value
-              }
-            }
-          }
-        }
         price_range {
           minimum_price {
             regular_price {
