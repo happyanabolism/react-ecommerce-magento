@@ -11,7 +11,7 @@ interface UseCustomerResult extends Omit<
 
 export const useCustomer = (): UseCustomerResult => {
   const { data, ...rest } = useQuery<CustomerQuery>(CUSTOMER, {
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
   });
 
   return {

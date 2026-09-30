@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client/react';
-import { CUSTOMER, UPDATE_CUSTOMER_EMAIL } from '@entities/customer';
+import { UPDATE_CUSTOMER_EMAIL } from '@entities/customer';
 import { useCallback } from 'react';
 import type {
   CustomerUpdateEmailInput,
@@ -19,16 +19,7 @@ export const useCustomerEmailUpdate = (): UseCustomerEmailUpdateResult => {
   const [mutate, result] = useMutation<
     CustomerUpdateEmailQuery,
     CustomerUpdateEmailInput
-  >(UPDATE_CUSTOMER_EMAIL, {
-    update(cache, { data }) {
-      if (data) {
-        cache.writeQuery({
-          query: CUSTOMER,
-          data: { customer: data.updateCustomerEmail.customer },
-        });
-      }
-    },
-  });
+  >(UPDATE_CUSTOMER_EMAIL);
 
   const updateCustomerEmail = useCallback(
     (updateCustomerEmailData: CustomerUpdateEmailInput) => {
