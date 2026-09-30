@@ -4,6 +4,7 @@ import { useUrlResolve } from '@entities/route';
 import { getRelativePath } from '@shared/lib';
 import { UrlRewriteEntityTypeEnum } from '@shared/types';
 import { Alert, Container, Spinner } from '@shared/ui';
+import { getMagentoErrorMessage } from '@shared/utils';
 
 export function DynamicPage() {
   const location = useLocation();
@@ -17,7 +18,7 @@ export function DynamicPage() {
       </Container>
     );
   }
-  if (error) return <p>{error.message}</p>;
+  if (error) return <p>{getMagentoErrorMessage(error)}</p>;
   if (!route) return <Alert>Page not found</Alert>;
 
   // TODO: handle 'Product page' and 'Cms page'

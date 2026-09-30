@@ -1,4 +1,4 @@
-import { Controller, useForm } from 'react-hook-form';
+import { useForm /*, Controller */ } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   personalInfoSchema,
@@ -6,8 +6,8 @@ import {
   type CustomerUpdateFormData,
 } from '@features/customer/update';
 import type { FlatCustomer } from '@entities/customer/model/types';
-import { Alert, Button, TelephoneField, TextField } from '@shared/ui';
-import { normalizeCustomAttributes } from '@shared/utils';
+import { Alert, Button, /* TelephoneField, */ TextField } from '@shared/ui';
+import { getMagentoErrorMessage, normalizeCustomAttributes } from '@shared/utils';
 
 interface UpdatePersonalInfoFormProps {
   customer: FlatCustomer;
@@ -18,7 +18,7 @@ export const UpdatePersonalInfoForm = ({
 }: UpdatePersonalInfoFormProps) => {
   const {
     register,
-    control,
+    // control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
@@ -51,6 +51,7 @@ export const UpdatePersonalInfoForm = ({
           error={errors?.lastname?.message}
           {...register('lastname')}
         />
+        {/* TODO(customer-attributes): render custom attributes from attributesForm metadata
         <Controller
           name='custom_attributes.phone_number'
           control={control}
@@ -64,8 +65,11 @@ export const UpdatePersonalInfoForm = ({
             />
           )}
         />
+        */}
       </fieldset>
-      {error && <Alert type='error'>{error.message}</Alert>}
+      {error && (
+        <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>
+      )}
       <Button type='submit' variant='primary' loading={loading || isSubmitting}>
         {loading || isSubmitting ? 'Updating...' : 'Update'}
       </Button>

@@ -6,6 +6,7 @@ import {
   type CustomerUpdateEmailInput,
 } from '@features/customer/update';
 import { Alert, Button, PasswordField, TextField } from '@shared/ui';
+import { getMagentoErrorMessage } from '@shared/utils';
 
 export const UpdateCustomerEmailForm = () => {
   const {
@@ -45,7 +46,9 @@ export const UpdateCustomerEmailForm = () => {
           {...register('passwordConfirm')}
         />
       </fieldset>
-      {error && <Alert type='error'>{error.message}</Alert>}
+      {error && (
+        <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>
+      )}
       <Button type='submit' variant='primary' loading={loading || isSubmitting}>
         {loading || isSubmitting ? 'Updating...' : 'Update'}
       </Button>

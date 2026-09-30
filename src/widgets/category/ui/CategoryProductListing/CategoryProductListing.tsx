@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { CategoryProductsContext } from '@features/category';
 import { ProductCard } from '@entities/product';
 import { Alert, Grid, Pagination } from '@shared/ui';
+import { getMagentoErrorMessage } from '@shared/utils';
 import styles from './CategoryProductListing.module.scss';
 
 export const CategoryProductListing = () => {
@@ -12,7 +13,7 @@ export const CategoryProductListing = () => {
     setFilters,
   } = useContext(CategoryProductsContext);
 
-  if (error) return <Alert>{error.message}</Alert>;
+  if (error) return <Alert>{getMagentoErrorMessage(error)}</Alert>;
 
   const onPageChange = (page: number) => {
     setFilters({

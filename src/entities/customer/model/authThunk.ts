@@ -5,50 +5,70 @@ import {
   createCustomer,
   fetchCustomer,
 } from '@entities/customer';
+import { getMagentoErrorMessage } from '@shared/utils';
 import type { CustomerCreateInput } from './types';
 
-export const login = createAsyncThunk(
+// rejected actions carry the error message to show in the form
+const createAuthThunk = createAsyncThunk.withTypes<{ rejectValue: string }>();
+
+export const login = createAuthThunk(
   'customer/login',
-  async ({
-    client,
-    email,
-    password,
-  }: {
-    client: ApolloClient;
-    email: string;
-    password: string;
-  }) => {
-    const token = await generateAuthToken(client, email, password);
-    if (!token) {
-      throw new Error('Customer login failed!');
+  async (
+    {
+      client,
+      email,
+      password,
+    }: {
+      client: ApolloClient;
+      email: string;
+      password: string;
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      const token = await generateAuthToken(client, email, password);
+      if (!token) {
+        return rejectWithValue('Customer login failed!');
+      }
+
+      const customer = await fetchCustomer(client, token);
+
+      return { token, customer };
+    } catch (error) {
+      if (!(error instanceof Error)) throw error;
+      return rejectWithValue(getMagentoErrorMessage(error));
     }
-
-    const customer = await fetchCustomer(client, token);
-
-    return { token, customer };
   }
 );
 
-export const register = createAsyncThunk(
+export const register = createAuthThunk(
   'customer/register',
-  async ({
-    client,
-    registrationData,
-  }: {
-    client: ApolloClient;
-    registrationData: CustomerCreateInput;
-  }) => {
-    const customer = await createCustomer(client, registrationData);
-    if (!customer) {
-      throw new Error('Customer creation failed!');
-    }
-
-    const token = await generateAuthToken(
+  async (
+    {
       client,
-      customer.email,
-      registrationData.password
-    );
+      registrationData,
+    }: {
+      client: ApolloClient;
+      registrationData: CustomerCreateInput;
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      const customer = await createCustomer(client, registrationData);
+      if (!customer) {
+        return rejectWithValue('Customer creation failed!');
+      }
 
-    return { token, customer };
+      const token = await generateAuthToken(
+        client,
+        customer.email,
+        registrationData.password
+      );
+
+      return { token, customer };
+    } catch (error) {
+      if (!(error instanceof Error)) throw error;
+      return rejectWithValue(getMagentoErrorMessage(error));
+    }
   }
 );

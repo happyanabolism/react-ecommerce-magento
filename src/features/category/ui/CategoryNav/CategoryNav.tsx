@@ -3,6 +3,7 @@ import { CategoryLink } from '@entities/category';
 import { StoreContext } from '@entities/store';
 import { useCategoryNav } from '@features/category';
 import { Container, Spinner } from '@shared/ui';
+import { getMagentoErrorMessage } from '@shared/utils';
 import styles from './CategoryNav.module.scss';
 
 export function CategoryNav() {
@@ -11,7 +12,7 @@ export function CategoryNav() {
     storeConfig?.root_category_uid
   );
 
-  if (error) return <p>{error.message}</p>;
+  if (error) return <p>{getMagentoErrorMessage(error)}</p>;
   if (loading) return <Spinner />;
 
   return (

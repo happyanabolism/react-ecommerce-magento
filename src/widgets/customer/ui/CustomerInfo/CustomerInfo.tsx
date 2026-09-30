@@ -5,13 +5,13 @@ import {
   UpdateCustomerPasswordForm,
 } from '@features/customer';
 import { Alert, Button, Spinner } from '@shared/ui';
-import { flatCustomAttributes } from '@shared/utils';
+import { flatCustomAttributes, getMagentoErrorMessage } from '@shared/utils';
 
 export const CustomerInfo = () => {
   const { customer, loading, error } = useCustomer();
 
   if (loading) return <Spinner />;
-  if (error) return <Alert type='error'>{error.message}</Alert>;
+  if (error) return <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>;
   if (!customer) return <Alert type='error'>Something went wrong!</Alert>;
 
   const flatCustomer = {
