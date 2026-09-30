@@ -9,7 +9,8 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+// ESM build: the CommonJS one (lib/) breaks default import interop in Vite 8
+import storage from 'redux-persist/es/storage';
 import { customerReducer } from '@entities/customer';
 
 const customerPersistConfig = {
