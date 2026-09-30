@@ -6,6 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 React 19 + Vite storefront (PWA-style headless frontend) for a **Magento 2 GraphQL** backend. TypeScript, Apollo Client 4, Redux Toolkit, React Router 7, SCSS modules.
 
+Learning project: working agreements, plan, decisions and backlog are in the local (git-ignored) file below. Read it and follow it; update it when a step completes or a decision is made.
+
+@docs/agreements.md
+
 ## Commands
 
 ```bash
@@ -47,7 +51,8 @@ Entities: `customer`, `product`, `category`, `route`, `store`. Features: `catego
 
 - **Apollo** is the main data layer. Entity hooks (`useProducts`, `useCategory`, `useUrlResolve`, `useCustomer`, ...) wrap `useQuery` and return the unwrapped data plus the rest of the query result (`{ items, loading, error, fetchMore, ... }`). Magento GraphQL types are hand-written in each entity's `model/types.ts` and in `src/shared/types` (filters, sorting, pricing, attributes, `UrlRewriteEntityTypeEnum`). There is no codegen.
 - **Redux** (with `redux-persist` to localStorage) only holds auth state: the `customer` slice (`entities/customer/model/authSlice.ts`) stores `customer` and `jwt`. `login`/`register` thunks take the Apollo `client` as an argument and call the imperative functions in `entities/customer/api/authApi.ts`. `RootState`/`AppDispatch` are declared as globals in `src/app/store/store.ts`; typed hooks are in `@shared/lib` (`store/redux.ts`).
-- **Auth link**: `ApolloProvider` reads the JWT from the Redux store for the `Authorization: Bearer` header, and dispatches `logout()` on any GraphQL error with `extensions.category === 'graphql-authorization'`.
+- **Auth link**: `ApolloProvider` reads the JWT from the Redux store for the `Authorization: Bearer` header. `errorLink` logs out and retries the operation as a guest on an invalid/expired token (`graphql-authentication` without `path`), and logs out on `graphql-authorization`.
+- **Errors**: Magento answers auth errors with HTTP 401/403, so Apollo gives a `ServerError` whose GraphQL errors are only in `bodyText`. Never show `error.message` directly: use `getMagentoErrorMessage(error)` from `@shared/utils` (all Magento messages joined, like Venia's `deriveErrorMessage`), or `getMagentoErrors(error)` to inspect categories. Auth thunks pass the message via `rejectWithValue` into `state.customer.error`.
 - **Store config**: `StoreConfigProvider` fetches Magento store config once and exposes it via `StoreContext` (`entities/store`).
 
 Provider order (`src/app/entrypoint/main.tsx`): Redux `Provider` → `PersistGate` → `ApolloProvider` → `StoreConfigProvider` → `RouterProvider`.
