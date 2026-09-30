@@ -15,6 +15,11 @@ dist-ssr
 # private working notes for Claude Code sessions (imported in CLAUDE.md)
 docs/agreements.md
 
+# GraphQL schema of the Magento instance and types generated from it:
+# they describe a private backend, generate locally (npm run schema:fetch && npm run codegen)
+schema.graphql
+src/shared/api/gql/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

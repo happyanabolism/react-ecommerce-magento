@@ -19,7 +19,11 @@ npm run typecheck # tsc -b only
 npm run preview   # serve the build
 npm run lint      # eslint . (lint:fix to autofix)
 npm run format    # prettier --write . (format:check in CI)
+npm run schema:fetch  # download the Magento GraphQL schema into schema.graphql (needs MAGENTO_BACKEND_URL)
+npm run codegen       # generate operation types into src/shared/api/gql/ (codegen:watch while editing queries)
 ```
+
+`schema.graphql` and `src/shared/api/gql/` are git-ignored (they describe a private backend): run `schema:fetch` + `codegen` after cloning and after changing any `gql` document. `scripts/fetch-schema.ts` strips the parts of the Magento schema that are not valid GraphQL (attribute codes with umlauts/hyphens, broken `implements`). Every operation must have a unique name.
 
 There is no test setup.
 

@@ -7,7 +7,7 @@ import prettier from 'eslint-config-prettier';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'src/shared/api/gql']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -28,8 +28,8 @@ export default defineConfig([
     },
   },
   {
-    // config files run in Node, not in the browser
-    files: ['*.config.ts'],
+    // config files and scripts run in Node, not in the browser
+    files: ['*.config.ts', 'codegen.ts', 'scripts/**/*.ts'],
     languageOptions: {
       globals: globals.node,
     },
