@@ -6,6 +6,9 @@ export const ROUTE = gql`
       redirect_code
       relative_url
       type
+      ... on CategoryTree {
+        uid
+      }
     }
   }
 `;

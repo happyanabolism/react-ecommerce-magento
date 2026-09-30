@@ -56,7 +56,13 @@ const errorLink = new ErrorLink(({ error, operation, forward }) => {
 
 const client = new ApolloClient({
   link: errorLink.concat(authLink.concat(httpLink)),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      ConfigurableProduct: { keyFields: ['uid'] },
+      SimpleProduct: { keyFields: ['uid'] },
+      CategoryTree: { keyFields: ['uid'] },
+    },
+  }),
 });
 
 export const ApolloProvider = ({ children }: { children: ReactNode }) => {
