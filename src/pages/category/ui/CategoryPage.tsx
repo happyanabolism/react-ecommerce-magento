@@ -16,7 +16,7 @@ export function CategoryPage({ urlPath }: CategoryPageProps) {
     category,
     loading: categoryLoading,
     error: categoryError,
-  } = useCategory({ filters: { url_path: { eq: urlPath } } });
+  } = useCategory({ urlPath });
 
   return (
     <>

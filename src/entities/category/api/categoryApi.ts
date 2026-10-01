@@ -1,36 +1,16 @@
-import { gql } from '@apollo/client';
 import { graphql } from '@shared/api/gql';
 
-export const CATEGORIES = gql`
-  query categories(
-    $filters: CategoryFilterInput!
-    $pageSize: Int!
-    $currentPage: Int!
-  ) {
-    categories(
-      filters: $filters
-      pageSize: $pageSize
-      currentPage: $currentPage
-    ) {
+export const CATEGORY_PAGE = graphql(`
+  query categoryPage($urlPath: String!) {
+    categories(filters: { url_path: { eq: $urlPath } }) {
       items {
         uid
         name
-        url_path
-        include_in_menu
-        default_sort_by
-        children {
-          uid
-          name
-          url_path
-          include_in_menu
-        }
-      }
-      page_info {
-        total_pages
+        description
       }
     }
   }
-`;
+`);
 
 export const CATEGORY_MENU = graphql(`
   query categoryMenu {
