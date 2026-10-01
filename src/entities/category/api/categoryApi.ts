@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { graphql } from '@shared/api/gql';
 
 export const CATEGORIES = gql`
   query categories(
@@ -31,19 +32,25 @@ export const CATEGORIES = gql`
   }
 `;
 
-export const CATEGORY_MENU = gql`
+export const CATEGORY_MENU = graphql(`
   query categoryMenu($rootUid: String!) {
     categories(filters: { category_uid: { eq: $rootUid } }) {
       items {
         uid
         children {
-          uid
-          name
-          url_path
-          include_in_menu
-          position
+          ...CategoryMenuItem
         }
       }
     }
   }
-`;
+`);
+
+export const CATEGORY_MENU_ITEM = graphql(`
+  fragment CategoryMenuItem on CategoryTree {
+    uid
+    name
+    url_path
+    include_in_menu
+    position
+  }
+`);

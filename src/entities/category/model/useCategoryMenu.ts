@@ -1,29 +1,30 @@
 import { useQuery } from '@apollo/client/react';
 import { CATEGORY_MENU } from '../api/categoryApi';
 import type {
-  CategoryMenuItem,
+  CategoryMenuItemFragment,
   CategoryMenuQuery,
-  CategoryMenuQueryVars,
-} from './types';
+  CategoryMenuQueryVariables,
+} from '@shared/api/gql/graphql';
 
-interface UseCategorieMenuResult
-  extends Omit<
-    ReturnType<typeof useQuery<CategoryMenuQuery, CategoryMenuQueryVars>>,
-    'data'
-  > {
-  categories: CategoryMenuItem[];
+interface UseCategorieMenuResult extends Omit<
+  ReturnType<typeof useQuery<CategoryMenuQuery, CategoryMenuQueryVariables>>,
+  'data'
+> {
+  categories: CategoryMenuItemFragment[];
 }
 
 export const useCategoryMenu = ({
   rootUid,
-}: CategoryMenuQueryVars): UseCategorieMenuResult => {
-  const { data, ...rest } = useQuery<CategoryMenuQuery, CategoryMenuQueryVars>(
-    CATEGORY_MENU,
-    { variables: { rootUid: rootUid ?? '' }, skip: !rootUid }
-  );
+}: Partial<CategoryMenuQueryVariables>): UseCategorieMenuResult => {
+  const { data, ...rest } = useQuery(CATEGORY_MENU, {
+    variables: { rootUid: rootUid ?? '' },
+    skip: !rootUid,
+  });
+
+  const children = data?.categories?.items?.[0]?.children ?? [];
 
   return {
-    categories: data?.categories?.items[0]?.children ?? [],
+    categories: children.filter((item) => item !== null),
     ...rest,
   };
 };
