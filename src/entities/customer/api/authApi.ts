@@ -28,7 +28,7 @@ const CREATE_CUSTOMER = gql`
 `;
 
 const CUSTOMER_STATE_QUERY = gql`
-  query customer {
+  query customerAfterLogin {
     customer {
       email
       firstname

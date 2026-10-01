@@ -82,21 +82,19 @@ export const CHANGE_CUSTOMER_PASSWORD = gql`
       currentPassword: $currentPassword
       newPassword: $newPassword
     ) {
-      customer {
-        email
-        firstname
-        lastname
-        gender
-        custom_attributes {
-          code
-          ... on AttributeValue {
+      email
+      firstname
+      lastname
+      gender
+      custom_attributes {
+        code
+        ... on AttributeValue {
+          value
+        }
+        ... on AttributeSelectedOptions {
+          selected_options {
+            label
             value
-          }
-          ... on AttributeSelectedOptions {
-            selected_options {
-              label
-              value
-            }
           }
         }
       }
