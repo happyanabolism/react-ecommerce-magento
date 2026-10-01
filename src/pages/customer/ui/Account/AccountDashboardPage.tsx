@@ -1,4 +1,4 @@
-import { CustomerInfo } from '@widgets/customer';
+import { CustomerAddressBook, CustomerInfo } from '@widgets/customer';
 
 export const AccountDashboardPage = () => {
   return (
@@ -13,7 +13,7 @@ export const AccountDashboardPage = () => {
       </section>
       <section>
         <h2>Address book</h2>
-        {/* TODO: Addresses table widget */}
+        <CustomerAddressBook />
       </section>
       <section>
         <h2>Recent orders</h2>
