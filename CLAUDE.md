@@ -23,6 +23,8 @@ npm run schema:fetch  # download the Magento GraphQL schema into schema.graphql 
 npm run codegen       # generate operation types into src/shared/api/gql/ (codegen:watch while editing queries)
 ```
 
+Magento bug: a named fragment nested inside an inline fragment (`... on CategoryTree { ...X }`) makes Magento skip loading those attributes (they come back `null`). Spread named fragments directly on the field (`route { ...CategoryPageFields }`).
+
 `schema.graphql` and `src/shared/api/gql/` are git-ignored (they describe a private backend): run `schema:fetch` + `codegen` after cloning and after changing any `gql` document. `scripts/fetch-schema.ts` strips the parts of the Magento schema that are not valid GraphQL (attribute codes with umlauts/hyphens, broken `implements`). Every operation must have a unique name.
 
 There is no test setup.

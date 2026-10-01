@@ -21,9 +21,9 @@ export function DynamicPage() {
   if (!route) return <Alert>Page not found</Alert>;
 
   // TODO: handle 'Product page' and 'Cms page'
-  switch (route.type) {
-    case 'CATEGORY':
-      return <CategoryPage urlPath={relativeUrl} />;
+  switch (route.__typename) {
+    case 'CategoryTree':
+      return <CategoryPage category={route} />;
     default:
       return <Alert>Page not found</Alert>;
   }

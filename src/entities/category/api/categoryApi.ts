@@ -1,14 +1,10 @@
 import { graphql } from '@shared/api/gql';
 
-export const CATEGORY_PAGE = graphql(`
-  query categoryPage($urlPath: String!) {
-    categories(filters: { url_path: { eq: $urlPath } }) {
-      items {
-        uid
-        name
-        description
-      }
-    }
+export const CATEGORY_PAGE_FIELDS = graphql(`
+  fragment CategoryPageFields on CategoryTree {
+    uid
+    name
+    description
   }
 `);
 
