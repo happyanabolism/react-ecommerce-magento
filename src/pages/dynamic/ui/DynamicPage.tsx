@@ -2,7 +2,6 @@ import { useLocation } from 'react-router';
 import { CategoryPage } from '@pages/category';
 import { useUrlResolve } from '@entities/route';
 import { getRelativePath } from '@shared/lib';
-import { UrlRewriteEntityTypeEnum } from '@shared/types';
 import { Alert, Container, Spinner } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/utils';
 
@@ -23,7 +22,7 @@ export function DynamicPage() {
 
   // TODO: handle 'Product page' and 'Cms page'
   switch (route.type) {
-    case UrlRewriteEntityTypeEnum.CATEGORY:
+    case 'CATEGORY':
       return <CategoryPage urlPath={relativeUrl} />;
     default:
       return <Alert>Page not found</Alert>;

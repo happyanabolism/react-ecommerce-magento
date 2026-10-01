@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { graphql } from '@shared/api/gql';
 
-export const ROUTE = gql`
+export const ROUTE = graphql(`
   query route($url: String!) {
     route(url: $url) {
       redirect_code
@@ -11,4 +11,4 @@ export const ROUTE = gql`
       }
     }
   }
-`;
+`);

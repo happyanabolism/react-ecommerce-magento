@@ -12,9 +12,6 @@ export { SortEnum } from './sorting';
 // pricing
 export { CurrencyEnum, type Money } from './pricing';
 
-// store
-export { UrlRewriteEntityTypeEnum } from './store';
-
 // product
 export {
   ProductStockStatus,
