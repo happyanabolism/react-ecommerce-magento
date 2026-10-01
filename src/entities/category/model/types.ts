@@ -2,7 +2,6 @@ import type {
   SearchResultPageInfo,
   FilterEqualTypeInput,
   FilterMatchTypeInput,
-  ID,
 } from '@shared/types';
 
 interface CategoryFilterInput {
