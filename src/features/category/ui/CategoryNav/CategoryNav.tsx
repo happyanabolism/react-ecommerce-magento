@@ -1,15 +1,11 @@
-import { useContext } from 'react';
-import { CategoryLink, useCategoryMenu } from '@entities/category';
-import { StoreContext } from '@entities/store';
+import { CategoryLink } from '@entities/category';
 import { useCategoryNav } from '@features/category';
 import { Container, Spinner } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/utils';
 import styles from './CategoryNav.module.scss';
 
 export function CategoryNav({ limit }: { limit?: number }) {
-  const storeConfig = useContext(StoreContext);
   const { categories, loading, error } = useCategoryNav({
-    rootCategoryUid: storeConfig?.root_category_uid,
     limit,
   });
 

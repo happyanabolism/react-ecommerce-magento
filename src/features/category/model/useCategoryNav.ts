@@ -1,15 +1,11 @@
 import { useCategoryMenu } from '@entities/category';
 
 export const useCategoryNav = ({
-  rootCategoryUid,
   limit,
 }: {
-  rootCategoryUid?: string;
   limit?: number;
 }): ReturnType<typeof useCategoryMenu> => {
-  const { categories, ...rest } = useCategoryMenu({
-    rootUid: rootCategoryUid,
-  });
+  const { categories, ...rest } = useCategoryMenu();
 
   return {
     categories: categories

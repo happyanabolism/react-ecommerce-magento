@@ -44,22 +44,22 @@ Path aliases: `@app/*`, `@pages/*`, `@widgets/*`, `@features/*`, `@entities/*`, 
 
 Each slice exposes a public API through its `index.ts`; import from `@entities/customer`, not from deep paths. Inside a slice, segments are:
 
-- `api/` — `gql` documents and imperative Apollo calls
+- `api/` — GraphQL documents (`graphql()` from `@shared/api/gql`; some still on `gql`, being migrated) and imperative Apollo calls
 - `model/` — types, hooks wrapping `useQuery`/`useMutation`, Redux slices/thunks, contexts, yup schemas (`*.schema.ts`)
 - `ui/` — components, each in its own folder with a `Component.module.scss`
 - `provider/` — context providers (e.g. `features/category/provider`)
 
-Entities: `customer`, `product`, `category`, `route`, `store`. Features: `category` (nav, product listing state), `customer/{login,registration,update}`.
+Entities: `customer`, `address`, `product`, `category`, `route`. Features: `category` (nav, product listing state), `customer/{login,registration,update}`.
 
 ### Data flow
 
-- **Apollo** is the main data layer. Entity hooks (`useProducts`, `useCategory`, `useUrlResolve`, `useCustomer`, ...) wrap `useQuery` and return the unwrapped data plus the rest of the query result (`{ items, loading, error, fetchMore, ... }`). Magento GraphQL types are hand-written in each entity's `model/types.ts` and in `src/shared/types` (filters, sorting, pricing, attributes, `UrlRewriteEntityTypeEnum`). There is no codegen.
+- **Apollo** is the main data layer. Entity hooks (`useProducts`, `useCategory`, `useUrlResolve`, `useCustomer`, ...) wrap `useQuery` and return the unwrapped data plus the rest of the query result (`{ items, loading, error, fetchMore, ... }`). Operation types come from GraphQL Codegen (`src/shared/api/gql/graphql.ts`); queries written with `graphql()` are `TypedDocumentNode`s, so `useQuery` needs no generics. Older hand-written Magento types still exist in some `model/types.ts` and `src/shared/types` and are being replaced. App/domain types (`Address`, `CustomerAddress` with mappers in `entities/address/lib`, form data, `AuthState`) stay hand-written.
+- **Cache** (`InMemoryCache` in `ApolloProvider`): `keyFields: ['uid']` for `SimpleProduct`, `ConfigurableProduct`, `CategoryTree`; `StoreConfig` by `store_code`; `Customer` is a singleton. Any query returning these types must request the key field. Types with `id` (e.g. `CustomerAddress`) are normalized by default.
+- **Store config**: no global provider/context. A feature that needs store settings queries the `storeConfig` fields it needs itself (with `store_code`), Apollo merges them into one cached `StoreConfig` (Venia approach). The category menu doesn't need `root_category_uid`: `categories` without filters returns the store's root category.
 - **Redux** (with `redux-persist` to localStorage) only holds auth state: the `customer` slice (`entities/customer/model/authSlice.ts`) stores `customer` and `jwt`. `login`/`register` thunks take the Apollo `client` as an argument and call the imperative functions in `entities/customer/api/authApi.ts`. `RootState`/`AppDispatch` are declared as globals in `src/app/store/store.ts`; typed hooks are in `@shared/lib` (`store/redux.ts`).
 - **Auth link**: `ApolloProvider` reads the JWT from the Redux store for the `Authorization: Bearer` header. `errorLink` logs out and retries the operation as a guest on an invalid/expired token (`graphql-authentication` without `path`), and logs out on `graphql-authorization`.
 - **Errors**: Magento answers auth errors with HTTP 401/403, so Apollo gives a `ServerError` whose GraphQL errors are only in `bodyText`. Never show `error.message` directly: use `getMagentoErrorMessage(error)` from `@shared/utils` (all Magento messages joined, like Venia's `deriveErrorMessage`), or `getMagentoErrors(error)` to inspect categories. Auth thunks pass the message via `rejectWithValue` into `state.customer.error`.
-- **Store config**: `StoreConfigProvider` fetches Magento store config once and exposes it via `StoreContext` (`entities/store`).
-
-Provider order (`src/app/entrypoint/main.tsx`): Redux `Provider` → `PersistGate` → `ApolloProvider` → `StoreConfigProvider` → `RouterProvider`.
+  Provider order (`src/app/entrypoint/main.tsx`): Redux `Provider` → `PersistGate` → `ApolloProvider` → `RouterProvider`.
 
 ### Routing
 

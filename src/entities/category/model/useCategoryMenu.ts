@@ -13,13 +13,8 @@ interface UseCategorieMenuResult extends Omit<
   categories: CategoryMenuItemFragment[];
 }
 
-export const useCategoryMenu = ({
-  rootUid,
-}: Partial<CategoryMenuQueryVariables>): UseCategorieMenuResult => {
-  const { data, ...rest } = useQuery(CATEGORY_MENU, {
-    variables: { rootUid: rootUid ?? '' },
-    skip: !rootUid,
-  });
+export const useCategoryMenu = (): UseCategorieMenuResult => {
+  const { data, ...rest } = useQuery(CATEGORY_MENU);
 
   const children = data?.categories?.items?.[0]?.children ?? [];
 

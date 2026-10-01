@@ -61,6 +61,7 @@ const client = new ApolloClient({
       ConfigurableProduct: { keyFields: ['uid'] },
       SimpleProduct: { keyFields: ['uid'] },
       CategoryTree: { keyFields: ['uid'] },
+      StoreConfig: { keyFields: ['store_code'] },
       Customer: { keyFields: () => 'customer' },
     },
   }),

@@ -33,8 +33,8 @@ export const CATEGORIES = gql`
 `;
 
 export const CATEGORY_MENU = graphql(`
-  query categoryMenu($rootUid: String!) {
-    categories(filters: { category_uid: { eq: $rootUid } }) {
+  query categoryMenu {
+    categories {
       items {
         uid
         children {
