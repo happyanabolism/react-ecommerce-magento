@@ -1,79 +1,46 @@
-import { gql } from '@apollo/client';
+import { graphql } from '@shared/api/gql';
 
-export const CUSTOMER = gql`
-  query customer {
-    customer {
-      email
-      firstname
-      lastname
-      gender
-      custom_attributes {
-        code
-        ... on AttributeValue {
-          value
-        }
-        ... on AttributeSelectedOptions {
-          selected_options {
-            label
-            value
-          }
-        }
-      }
+export const CUSTOMER_FIELDS = graphql(`
+  fragment CustomerFields on Customer {
+    email
+    firstname
+    lastname
+    gender
+    custom_attributes {
+      ...CustomAttributeFields
     }
   }
-`;
+`);
 
-export const UPDATE_PERSONAL_INFO = gql`
+export const CUSTOMER = graphql(`
+  query customer {
+    customer {
+      ...CustomerFields
+    }
+  }
+`);
+
+export const UPDATE_PERSONAL_INFO = graphql(`
   mutation updateCustomerV2($input: CustomerUpdateInput!) {
     updateCustomerV2(input: $input) {
       customer {
-        email
-        firstname
-        lastname
-        gender
-        custom_attributes {
-          code
-          ... on AttributeValue {
-            value
-          }
-          ... on AttributeSelectedOptions {
-            selected_options {
-              label
-              value
-            }
-          }
-        }
+        ...CustomerFields
       }
     }
   }
-`;
+`);
 
-export const UPDATE_CUSTOMER_EMAIL = gql`
+export const UPDATE_CUSTOMER_EMAIL = graphql(`
   mutation updateCustomerEmail($email: String!, $password: String!) {
     updateCustomerEmail(email: $email, password: $password) {
       customer {
-        email
-        firstname
-        lastname
-        gender
-        custom_attributes {
-          code
-          ... on AttributeValue {
-            value
-          }
-          ... on AttributeSelectedOptions {
-            selected_options {
-              label
-              value
-            }
-          }
-        }
+        ...CustomerFields
       }
     }
   }
-`;
+`);
 
-export const CHANGE_CUSTOMER_PASSWORD = gql`
+export const CHANGE_CUSTOMER_PASSWORD = graphql(`
   mutation changeCustomerPassword(
     $currentPassword: String!
     $newPassword: String!
@@ -82,22 +49,7 @@ export const CHANGE_CUSTOMER_PASSWORD = gql`
       currentPassword: $currentPassword
       newPassword: $newPassword
     ) {
-      email
-      firstname
-      lastname
-      gender
-      custom_attributes {
-        code
-        ... on AttributeValue {
-          value
-        }
-        ... on AttributeSelectedOptions {
-          selected_options {
-            label
-            value
-          }
-        }
-      }
+      ...CustomerFields
     }
   }
-`;
+`);

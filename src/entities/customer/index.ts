@@ -1,8 +1,4 @@
-export {
-  generateAuthToken,
-  fetchCustomer,
-  createCustomer,
-} from './api/authApi';
+export { generateAuthToken, createCustomer } from './api/authApi';
 export {
   CUSTOMER,
   UPDATE_PERSONAL_INFO,
@@ -12,10 +8,8 @@ export {
 export { useCustomer } from './model/useCustomer';
 export { logout, clearError, customerReducer } from './model/authSlice';
 export {
-  selectAuthCustomer,
   selectJwt,
   selectAuthLoading,
   selectAuthError,
 } from './model/selectors';
-export type { Customer } from './model/types';
 export { login, register } from './model/authThunk';

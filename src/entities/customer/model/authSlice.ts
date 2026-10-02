@@ -3,7 +3,6 @@ import { login, register } from '@entities/customer';
 import type { AuthState } from './types';
 
 const initialState: AuthState = {
-  customer: null,
   jwt: null,
   loading: false,
   error: null,
@@ -27,7 +26,6 @@ export const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.customer = action.payload.customer;
         state.jwt = action.payload.token;
       })
       .addCase(login.rejected, (state, action) => {
@@ -40,7 +38,6 @@ export const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.customer = action.payload.customer;
         state.jwt = action.payload.token;
       })
       .addCase(register.rejected, (state, action) => {

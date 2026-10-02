@@ -1,12 +1,8 @@
 import type { ApolloClient } from '@apollo/client';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  generateAuthToken,
-  createCustomer,
-  fetchCustomer,
-} from '@entities/customer';
+import { generateAuthToken, createCustomer } from '@entities/customer';
 import { getMagentoErrorMessage } from '@shared/utils';
-import type { CustomerCreateInput } from './types';
+import type { CustomerCreateInput } from '@shared/api/gql/graphql';
 
 // rejected actions carry the error message to show in the form
 const createAuthThunk = createAsyncThunk.withTypes<{ rejectValue: string }>();
@@ -26,14 +22,12 @@ export const login = createAuthThunk(
     { rejectWithValue }
   ) => {
     try {
-      const token = await generateAuthToken(client, email, password);
+      const token = await generateAuthToken(client, { email, password });
       if (!token) {
         return rejectWithValue('Customer login failed!');
       }
 
-      const customer = await fetchCustomer(client, token);
-
-      return { token, customer };
+      return { token };
     } catch (error) {
       if (!(error instanceof Error)) throw error;
       return rejectWithValue(getMagentoErrorMessage(error));
@@ -49,7 +43,7 @@ export const register = createAuthThunk(
       registrationData,
     }: {
       client: ApolloClient;
-      registrationData: CustomerCreateInput;
+      registrationData: CustomerCreateInput & { password: string };
     },
     { rejectWithValue }
   ) => {
@@ -59,13 +53,12 @@ export const register = createAuthThunk(
         return rejectWithValue('Customer creation failed!');
       }
 
-      const token = await generateAuthToken(
-        client,
-        customer.email,
-        registrationData.password
-      );
+      const token = await generateAuthToken(client, {
+        email: registrationData.email,
+        password: registrationData.password,
+      });
 
-      return { token, customer };
+      return { token };
     } catch (error) {
       if (!(error instanceof Error)) throw error;
       return rejectWithValue(getMagentoErrorMessage(error));

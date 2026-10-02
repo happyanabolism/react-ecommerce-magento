@@ -1,37 +1,19 @@
 import { useMutation } from '@apollo/client/react';
 import { UPDATE_CUSTOMER_EMAIL } from '@entities/customer';
 import { useCallback } from 'react';
-import type {
-  CustomerUpdateEmailInput,
-  CustomerUpdateEmailQuery,
-} from './types';
+import type { UpdateCustomerEmailMutationVariables } from '@shared/api/gql/graphql';
 
-type UseCustomerEmailUpdateResult = [
-  updateCustomerEmail: (
-    updateCustomerEmailData: CustomerUpdateEmailInput
-  ) => void,
-  result: ReturnType<
-    typeof useMutation<CustomerUpdateEmailQuery, CustomerUpdateEmailInput>
-  >[1],
-];
-
-export const useCustomerEmailUpdate = (): UseCustomerEmailUpdateResult => {
-  const [mutate, result] = useMutation<
-    CustomerUpdateEmailQuery,
-    CustomerUpdateEmailInput
-  >(UPDATE_CUSTOMER_EMAIL);
+export const useCustomerEmailUpdate = () => {
+  const [mutate, result] = useMutation(UPDATE_CUSTOMER_EMAIL);
 
   const updateCustomerEmail = useCallback(
-    (updateCustomerEmailData: CustomerUpdateEmailInput) => {
+    (variables: UpdateCustomerEmailMutationVariables) => {
       mutate({
-        variables: {
-          email: updateCustomerEmailData.email,
-          password: updateCustomerEmailData.password,
-        },
+        variables,
       });
     },
     [mutate]
   );
 
-  return [updateCustomerEmail, result];
+  return [updateCustomerEmail, result] as const;
 };

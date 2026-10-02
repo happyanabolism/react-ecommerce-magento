@@ -1,15 +1,16 @@
 import { useState, type MouseEvent } from 'react';
 import { Link } from 'react-router';
-import { logout, type Customer } from '@entities/customer';
+import { logout } from '@entities/customer';
 import { Button, DropdownMenu, DropdownMenuItem } from '@shared/ui';
 import { useAppDispatch } from '@shared/lib';
 import { ROUTES } from '@shared/constants';
+import type { CustomerFieldsFragment } from '@shared/api/gql/graphql';
 
-type CustomerDropdownProps = {
-  customer: Customer;
-};
-
-export const CustomerDropdown = ({ customer }: CustomerDropdownProps) => {
+export const CustomerDropdown = ({
+  customer,
+}: {
+  customer: CustomerFieldsFragment;
+}) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const dispatch = useAppDispatch();
 

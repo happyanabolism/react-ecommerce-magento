@@ -3,22 +3,21 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {
   personalInfoSchema,
   useCustomerUpdate,
-  type CustomerUpdateFormData,
+  type PersonalInfoFormData,
 } from '@features/customer/update';
-import type { FlatCustomer } from '@entities/customer/model/types';
 import { Alert, Button, /* TelephoneField, */ TextField } from '@shared/ui';
 import {
+  flatCustomAttributes,
   getMagentoErrorMessage,
   normalizeCustomAttributes,
 } from '@shared/utils';
-
-interface UpdatePersonalInfoFormProps {
-  customer: FlatCustomer;
-}
+import type { CustomerFieldsFragment } from '@shared/api/gql/graphql';
 
 export const UpdatePersonalInfoForm = ({
   customer,
-}: UpdatePersonalInfoFormProps) => {
+}: {
+  customer: CustomerFieldsFragment;
+}) => {
   const {
     register,
     // control,
@@ -27,12 +26,18 @@ export const UpdatePersonalInfoForm = ({
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(personalInfoSchema),
-    defaultValues: personalInfoSchema.cast(customer, { stripUnknown: true }),
+    defaultValues: personalInfoSchema.cast(
+      {
+        ...customer,
+        custom_attributes: flatCustomAttributes(customer.custom_attributes),
+      },
+      { stripUnknown: true }
+    ),
   });
 
   const [updateCustomer, { loading, error }] = useCustomerUpdate();
 
-  const onSubmit = (formData: CustomerUpdateFormData) => {
+  const onSubmit = (formData: PersonalInfoFormData) => {
     const normalizedFormData = {
       ...formData,
       custom_attributes: normalizeCustomAttributes(formData.custom_attributes),

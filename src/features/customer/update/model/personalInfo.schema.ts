@@ -14,3 +14,5 @@ export const personalInfoSchema = yup.object().shape({
     // phone_number: telephoneField,
   }),
 });
+
+export type PersonalInfoFormData = yup.InferType<typeof personalInfoSchema>;

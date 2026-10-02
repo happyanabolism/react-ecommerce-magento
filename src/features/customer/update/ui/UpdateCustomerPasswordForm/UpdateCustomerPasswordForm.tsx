@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {
   useCustomerPasswordUpdate,
   updatePasswordSchema,
-  type CustomerUpdatePasswordFormData,
+  type UpdatePasswordFormData,
 } from '@features/customer/update';
 import { Alert, Button, PasswordField } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/utils';
@@ -20,8 +20,9 @@ export const UpdateCustomerPasswordForm = () => {
 
   const [updatePassword, { loading, error }] = useCustomerPasswordUpdate();
 
-  const onSubmit = (formData: CustomerUpdatePasswordFormData) => {
-    updatePassword(formData);
+  const onSubmit = (formData: UpdatePasswordFormData) => {
+    const { newPasswordConfirm, ...variables } = formData;
+    updatePassword(variables);
   };
 
   return (

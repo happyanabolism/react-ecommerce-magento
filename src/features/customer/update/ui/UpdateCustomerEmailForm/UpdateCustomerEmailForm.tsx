@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {
   useCustomerEmailUpdate,
   updateEmailSchema,
-  type CustomerUpdateEmailInput,
+  type UpdateEmailFormData,
 } from '@features/customer/update';
 import { Alert, Button, PasswordField, TextField } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/utils';
@@ -20,8 +20,9 @@ export const UpdateCustomerEmailForm = () => {
 
   const [updateEmail, { loading, error }] = useCustomerEmailUpdate();
 
-  const onSubmit = (formData: CustomerUpdateEmailInput) => {
-    updateEmail(formData);
+  const onSubmit = (formData: UpdateEmailFormData) => {
+    const { passwordConfirm, ...variables } = formData;
+    updateEmail(variables);
   };
 
   return (

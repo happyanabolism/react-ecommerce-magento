@@ -33,3 +33,5 @@ export const schema = yup.object().shape({
     .required('This field is required')
     .oneOf([yup.ref('password')], 'Passwords do not match'),
 });
+
+export type RegistrationFormData = yup.InferType<typeof schema>;

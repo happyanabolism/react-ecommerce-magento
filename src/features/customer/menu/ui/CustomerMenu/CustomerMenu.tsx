@@ -1,19 +1,15 @@
 import { Link } from 'react-router';
-import { useSelector } from 'react-redux';
-import { selectAuthCustomer } from '@entities/customer';
+import { selectJwt, useCustomer } from '@entities/customer';
 import { CustomerDropdown } from '@features/customer';
 import { ROUTES } from '@shared/constants';
+import { useAppSelector } from '@shared/lib';
 
 export const CustomerMenu = () => {
-  const customer = useSelector(selectAuthCustomer);
+  const jwt = useAppSelector(selectJwt);
+  const { customer } = useCustomer();
 
-  return (
-    <>
-      {customer ? (
-        <CustomerDropdown customer={customer} />
-      ) : (
-        <Link to={ROUTES.LOGIN}>Login</Link>
-      )}
-    </>
-  );
+  if (!jwt) return <Link to={ROUTES.LOGIN}>Login</Link>;
+  if (!customer) return <span>Hello</span>;
+
+  return <CustomerDropdown customer={customer} />;
 };

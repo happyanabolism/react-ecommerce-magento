@@ -10,8 +10,10 @@ import {
   selectAuthError,
   selectAuthLoading,
 } from '@entities/customer';
-import type { RegistrationFormData } from '@entities/customer/model/types';
-import { schema } from '@features/customer/registration';
+import {
+  schema,
+  type RegistrationFormData,
+} from '@features/customer/registration';
 import { ROUTES } from '@shared/constants';
 import {
   Button,

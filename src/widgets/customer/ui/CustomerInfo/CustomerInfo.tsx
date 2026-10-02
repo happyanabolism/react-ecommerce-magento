@@ -5,7 +5,7 @@ import {
   UpdateCustomerPasswordForm,
 } from '@features/customer';
 import { Alert, Button, Spinner } from '@shared/ui';
-import { flatCustomAttributes, getMagentoErrorMessage } from '@shared/utils';
+import { getMagentoErrorMessage } from '@shared/utils';
 
 export const CustomerInfo = () => {
   const { customer, loading, error } = useCustomer();
@@ -14,20 +14,13 @@ export const CustomerInfo = () => {
   if (error) return <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>;
   if (!customer) return <Alert type='error'>Something went wrong!</Alert>;
 
-  const flatCustomer = {
-    ...customer,
-    custom_attributes: flatCustomAttributes(customer?.custom_attributes),
-  };
-
   return (
+    /* TODO(customer-attributes): show custom attributes from attributesForm metadata */
     <div>
-      <p>{`${flatCustomer.firstname} ${flatCustomer.lastname}`}</p>
-      <p>{flatCustomer.email}</p>
-      {flatCustomer.custom_attributes?.phone_number && (
-        <p>{flatCustomer.custom_attributes?.phone_number}</p>
-      )}
+      <p>{`${customer.firstname} ${customer.lastname}`}</p>
+      <p>{customer.email}</p>
       <Button variant='link'>Edit</Button>
-      <UpdatePersonalInfoForm customer={flatCustomer} />
+      <UpdatePersonalInfoForm customer={customer} />
       <UpdateCustomerEmailForm />
       <UpdateCustomerPasswordForm />
     </div>

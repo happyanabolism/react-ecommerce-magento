@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Navigate } from 'react-router';
 import { useSelector } from 'react-redux';
-import { selectAuthCustomer } from '@entities/customer';
+import { selectJwt } from '@entities/customer';
 import { ROUTES } from '@shared/constants';
 
 interface GuestRouteProps {
@@ -13,9 +13,9 @@ export const GuestRoute = ({
   children,
   redirectTo = ROUTES.ACCOUNT_DASHBOARD,
 }: GuestRouteProps) => {
-  const customer = useSelector(selectAuthCustomer);
+  const jwt = useSelector(selectJwt);
 
-  if (customer) {
+  if (jwt) {
     return <Navigate to={redirectTo} replace />;
   }
 

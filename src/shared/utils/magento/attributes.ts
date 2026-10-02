@@ -1,25 +1,8 @@
 import type {
-  AttributeValueInterface,
   AttributeValueInput,
-  FlatAttributes,
-} from '@shared/types';
-
-export const getAttributeValue = (
-  attributes: AttributeValueInterface[] | undefined,
-  code: string
-): string | string[] | null => {
-  if (!attributes) return null;
-
-  const attribute = attributes.find((attribute) => attribute.code === code);
-  if (!attribute) return null;
-
-  if ('value' in attribute) return attribute.value;
-
-  if ('selected_options' in attribute)
-    return attribute.selected_options.map((option) => option.label);
-
-  return null;
-};
+  CustomAttributeFieldsFragment,
+} from '@shared/api/gql/graphql';
+import type { FlatAttributes } from '@shared/types';
 
 export const normalizeCustomAttributes = (
   customAttributes: FlatAttributes | undefined
@@ -38,19 +21,21 @@ export const normalizeCustomAttributes = (
 };
 
 export const flatCustomAttributes = (
-  customAttributes: AttributeValueInterface[] | undefined
+  customAttributes: (CustomAttributeFieldsFragment | null)[] | null | undefined
 ): FlatAttributes => {
   if (!customAttributes) return {};
 
   return customAttributes.reduce((acc: FlatAttributes, attribute) => {
+    if (!attribute) return acc;
+
     if ('value' in attribute) {
       acc[attribute.code] = attribute.value;
     }
 
     if ('selected_options' in attribute) {
-      acc[attribute.code] = attribute.selected_options.map(
-        (option) => option.label
-      );
+      acc[attribute.code] = attribute.selected_options
+        .filter((option) => option !== null)
+        .map((option) => option.label);
     }
 
     return acc;

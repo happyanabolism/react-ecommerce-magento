@@ -1,17 +1,13 @@
 import { useQuery } from '@apollo/client/react';
 import { CUSTOMER } from '../api/customerApi';
-import type { Customer, CustomerQuery } from './types';
+import { useAppSelector } from '@shared/lib';
+import { selectJwt } from './selectors';
 
-interface UseCustomerResult extends Omit<
-  ReturnType<typeof useQuery<CustomerQuery>>,
-  'data'
-> {
-  customer?: Customer;
-}
-
-export const useCustomer = (): UseCustomerResult => {
-  const { data, ...rest } = useQuery<CustomerQuery>(CUSTOMER, {
+export const useCustomer = () => {
+  const jwt = useAppSelector(selectJwt);
+  const { data, ...rest } = useQuery(CUSTOMER, {
     fetchPolicy: 'cache-and-network',
+    skip: !jwt,
   });
 
   return {

@@ -1,24 +1,10 @@
 import { useCallback } from 'react';
 import { useMutation } from '@apollo/client/react';
 import { UPDATE_PERSONAL_INFO } from '@entities/customer';
-import type {
-  CustomerUpdateInput,
-  CustomerUpdateQuery,
-  CustomerUpdateQueryVars,
-} from './types';
+import type { CustomerUpdateInput } from '@shared/api/gql/graphql';
 
-type UseCustomerUpdateResult = [
-  updateCustomer: (updateCustomerData: CustomerUpdateInput) => void,
-  result: ReturnType<
-    typeof useMutation<CustomerUpdateQuery, CustomerUpdateQueryVars>
-  >[1],
-];
-
-export const useCustomerUpdate = (): UseCustomerUpdateResult => {
-  const [mutate, result] = useMutation<
-    CustomerUpdateQuery,
-    CustomerUpdateQueryVars
-  >(UPDATE_PERSONAL_INFO);
+export const useCustomerUpdate = () => {
+  const [mutate, result] = useMutation(UPDATE_PERSONAL_INFO);
 
   const updateCustomer = useCallback(
     (updateCustomerData: CustomerUpdateInput) => {
@@ -27,5 +13,5 @@ export const useCustomerUpdate = (): UseCustomerUpdateResult => {
     [mutate]
   );
 
-  return [updateCustomer, result];
+  return [updateCustomer, result] as const;
 };

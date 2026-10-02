@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { selectAuthCustomer } from '@entities/customer';
+import { selectJwt } from '@entities/customer';
 import { ROUTES } from '@shared/constants';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
@@ -13,9 +13,9 @@ export const ProtectedRoute = ({
   children,
   redirectTo = ROUTES.LOGIN,
 }: ProtectedRouteProps) => {
-  const customer = useSelector(selectAuthCustomer);
+  const jwt = useSelector(selectJwt);
 
-  if (!customer) {
+  if (!jwt) {
     return <Navigate to={redirectTo} replace />;
   }
 

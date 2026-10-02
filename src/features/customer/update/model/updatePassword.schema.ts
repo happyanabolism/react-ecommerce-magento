@@ -9,3 +9,5 @@ export const updatePasswordSchema = yup.object().shape({
     .required('This field is required')
     .oneOf([yup.ref('newPassword')], 'Passwords do not match'),
 });
+
+export type UpdatePasswordFormData = yup.InferType<typeof updatePasswordSchema>;
