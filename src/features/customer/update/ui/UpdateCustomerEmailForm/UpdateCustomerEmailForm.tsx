@@ -46,9 +46,7 @@ export const UpdateCustomerEmailForm = () => {
           {...register('passwordConfirm')}
         />
       </fieldset>
-      {error && (
-        <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>
-      )}
+      {error && <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>}
       <Button type='submit' variant='primary' loading={loading || isSubmitting}>
         {loading || isSubmitting ? 'Updating...' : 'Update'}
       </Button>

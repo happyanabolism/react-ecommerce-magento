@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import styles from './Pagination.module.scss';
 
 interface PaginationProps {
-  currentPage?: number;
-  totalPages?: number;
+  currentPage?: number | null;
+  totalPages?: number | null;
   paginationFrameSize?: number;
   onPageChange?: (page: number) => void;
 }
@@ -32,49 +32,48 @@ const getPaginationFrame = (
 };
 
 export const Pagination = ({
-  currentPage = 1,
-  totalPages = 0,
+  currentPage,
+  totalPages,
   paginationFrameSize = 5,
   onPageChange,
 }: PaginationProps) => {
-  const paginationFrame = getPaginationFrame(
-    currentPage,
-    totalPages,
-    paginationFrameSize
-  );
+  const page = currentPage ?? 1;
+  const total = totalPages ?? 0;
 
-  if (totalPages === 0) return null;
+  const paginationFrame = getPaginationFrame(page, total, paginationFrameSize);
+
+  if (total === 0) return null;
 
   return (
     <ul className={styles.pagination}>
-      {currentPage > 1 && (
+      {page > 1 && (
         <li key='prev'>
           <button
             className={clsx(styles.page)}
-            onClick={() => onPageChange && onPageChange(currentPage - 1)}
+            onClick={() => onPageChange && onPageChange(page - 1)}
           >
             Prev
           </button>
         </li>
       )}
-      {paginationFrame.map((page) => (
-        <li key={page}>
+      {paginationFrame.map((activePage) => (
+        <li key={activePage}>
           <button
             className={clsx(
               styles.page,
-              currentPage === page ? styles.pageActive : ''
+              page === activePage ? styles.pageActive : ''
             )}
-            onClick={() => onPageChange && onPageChange(page)}
+            onClick={() => onPageChange && onPageChange(activePage)}
           >
-            {page}
+            {activePage}
           </button>
         </li>
       ))}
-      {currentPage < totalPages && (
+      {page < total && (
         <li key='next'>
           <button
             className={clsx(styles.page)}
-            onClick={() => onPageChange && onPageChange(currentPage + 1)}
+            onClick={() => onPageChange && onPageChange(page + 1)}
           >
             Next
           </button>

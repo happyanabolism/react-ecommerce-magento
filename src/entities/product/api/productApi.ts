@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { graphql } from '@shared/api/gql';
 
-export const PRODUCTS = gql`
+export const PRODUCTS = graphql(`
   query products(
     $filter: ProductAttributeFilterInput
     $pageSize: Int
@@ -19,34 +19,7 @@ export const PRODUCTS = gql`
         position
       }
       items {
-        uid
-        name
-        sku
-        small_image {
-          url
-        }
-        price_range {
-          minimum_price {
-            regular_price {
-              currency
-              value
-            }
-            final_price {
-              currency
-              value
-            }
-          }
-          maximum_price {
-            regular_price {
-              currency
-              value
-            }
-            final_price {
-              currency
-              value
-            }
-          }
-        }
+        ...productCardFields
       }
       page_info {
         total_pages
@@ -54,7 +27,40 @@ export const PRODUCTS = gql`
       }
     }
   }
-`;
+`);
+
+export const PRODUCT_CART_FIELDS = graphql(`
+  fragment productCardFields on ProductInterface {
+    uid
+    name
+    sku
+    small_image {
+      url
+    }
+    price_range {
+      minimum_price {
+        regular_price {
+          currency
+          value
+        }
+        final_price {
+          currency
+          value
+        }
+      }
+      maximum_price {
+        regular_price {
+          currency
+          value
+        }
+        final_price {
+          currency
+          value
+        }
+      }
+    }
+  }
+`);
 
 // export const GET_PRODUCT_ATTRIBUTES_LIST = gql`
 //   query attributesList(

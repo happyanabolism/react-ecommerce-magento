@@ -7,7 +7,10 @@ import {
 } from '@features/customer/update';
 import type { FlatCustomer } from '@entities/customer/model/types';
 import { Alert, Button, /* TelephoneField, */ TextField } from '@shared/ui';
-import { getMagentoErrorMessage, normalizeCustomAttributes } from '@shared/utils';
+import {
+  getMagentoErrorMessage,
+  normalizeCustomAttributes,
+} from '@shared/utils';
 
 interface UpdatePersonalInfoFormProps {
   customer: FlatCustomer;
@@ -67,9 +70,7 @@ export const UpdatePersonalInfoForm = ({
         />
         */}
       </fieldset>
-      {error && (
-        <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>
-      )}
+      {error && <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>}
       <Button type='submit' variant='primary' loading={loading || isSubmitting}>
         {loading || isSubmitting ? 'Updating...' : 'Update'}
       </Button>

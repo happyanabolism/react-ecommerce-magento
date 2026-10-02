@@ -1,5 +1,4 @@
 import { CategorySidebarLayout } from '@pages/category';
-import { CategoryProductsProvider } from '@features/category';
 import { Container } from '@shared/ui';
 import {
   CategoryProductListing,
@@ -12,6 +11,8 @@ export function CategoryPage({
 }: {
   category: CategoryPageFieldsFragment;
 }) {
+  const criteria = { filter: { category_uid: { eq: category.uid } } };
+
   return (
     <>
       <title>{category.name}</title>
@@ -23,12 +24,10 @@ export function CategoryPage({
       </Container>
 
       <Container>
-        <CategoryProductsProvider categoryUid={category.uid}>
-          <CategorySidebarLayout
-            sidebar={<CategoryProductFilters />}
-            content={<CategoryProductListing />}
-          />
-        </CategoryProductsProvider>
+        <CategorySidebarLayout
+          sidebar={<CategoryProductFilters criteria={criteria} />}
+          content={<CategoryProductListing criteria={criteria} />}
+        />
       </Container>
     </>
   );

@@ -69,7 +69,9 @@ Entities: `customer`, `address`, `product`, `category`, `route`. Features: `cate
 
 ### Category listing
 
-`CategoryPage` wraps its content in `CategoryProductsProvider` (`features/category`). It runs `useProducts` filtered by `category_uid`, reads `?page=` from the URL, and exposes `{ items, aggregations, page_info, loading, error, setFilters }` through `CategoryProductsContext`. `setFilters` re-queries through `fetchMore` (replacing the previous result) and syncs `page` into the URL with `history.replaceState`. Widgets (`CategoryProductListing`, `CategoryProductFilters`) read it with `useContext(CategoryProductsContext)`. Filter aggregations come from the API. (`features/category/model/useCategoryProducts.ts` is an older, unused variant of the same logic.)
+No context or provider. `CategoryPage` builds a listing criteria object (`{ filter: { category_uid: { eq } } }`) and passes it to both widgets (`CategoryProductFilters`, `CategoryProductListing`). Each widget calls `useProductListing(criteria)` (`features/product-listing`): it reads `?page=` from the URL, calls `useProducts`, and returns products, aggregations, `pageInfo`, `setPage` (updates the URL via `setSearchParams`). Both widgets use the same query with the same variables, so Apollo sends one request. The criteria is meant to grow (`search` for a search page); filters/sorting in the URL are planned (A9).
+
+`ProductCard` takes a `ProductCardFieldsFragment` (fragment on `ProductInterface`). Fragments on interfaces need `possibleTypes` in `InMemoryCache` (generated `src/shared/api/gql/possibleTypes.ts`); without it Apollo drops the fragment fields when writing to the cache.
 
 ## Styling conventions
 

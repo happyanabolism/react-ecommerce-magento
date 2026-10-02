@@ -1,26 +1,22 @@
-import { useContext } from 'react';
-import { CategoryProductsContext } from '@features/category';
 import { ProductCard } from '@entities/product';
 import { Alert, Grid, Pagination } from '@shared/ui';
-import { getMagentoErrorMessage } from '@shared/utils';
 import styles from './CategoryProductListing.module.scss';
+import {
+  useProductListing,
+  type ProductListingCriteria,
+} from '@features/product-listing';
+import { getMagentoErrorMessage } from '@shared/utils';
 
-export const CategoryProductListing = () => {
-  const {
-    items: products,
-    error,
-    page_info,
-    setFilters,
-  } = useContext(CategoryProductsContext);
+interface CategoryProductListingProps {
+  criteria: ProductListingCriteria;
+}
 
-  if (error) return <Alert>{getMagentoErrorMessage(error)}</Alert>;
+export const CategoryProductListing = ({
+  criteria,
+}: CategoryProductListingProps) => {
+  const { products, pageInfo, setPage, error } = useProductListing(criteria);
 
-  const onPageChange = (page: number) => {
-    setFilters({
-      currentPage: page,
-    });
-  };
-
+  if (error) return <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>;
   return (
     <div className={styles.productListing}>
       <Grid>
@@ -29,9 +25,9 @@ export const CategoryProductListing = () => {
         ))}
       </Grid>
       <Pagination
-        currentPage={page_info.current_page}
-        totalPages={page_info.total_pages}
-        onPageChange={onPageChange}
+        currentPage={pageInfo?.current_page}
+        totalPages={pageInfo?.total_pages}
+        onPageChange={setPage}
       />
     </div>
   );

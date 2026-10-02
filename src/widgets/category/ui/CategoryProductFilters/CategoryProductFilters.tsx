@@ -1,10 +1,16 @@
-import { useContext } from 'react';
-import { CategoryProductsContext } from '@features/category';
+import {
+  useProductListing,
+  type ProductListingCriteria,
+} from '@features/product-listing';
 
-export const CategoryProductFilters = () => {
-  const { aggregations, error } = useContext(CategoryProductsContext);
+interface CategoryProductFiltersProps {
+  criteria: ProductListingCriteria;
+}
 
-  if (error) return null;
+export const CategoryProductFilters = ({
+  criteria,
+}: CategoryProductFiltersProps) => {
+  const { aggregations } = useProductListing(criteria);
 
   return (
     <ul>

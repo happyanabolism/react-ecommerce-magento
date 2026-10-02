@@ -7,6 +7,7 @@ import { store } from '@app/store';
 import { logout, selectJwt } from '@entities/customer';
 import { API_ERRORS } from '@shared/constants';
 import { getMagentoErrors } from '@shared/utils';
+import introspection from '@shared/api/gql/possibleTypes';
 
 const API_URI = '/graphql';
 const httpLink = new HttpLink({ uri: API_URI });
@@ -57,6 +58,7 @@ const errorLink = new ErrorLink(({ error, operation, forward }) => {
 const client = new ApolloClient({
   link: errorLink.concat(authLink.concat(httpLink)),
   cache: new InMemoryCache({
+    possibleTypes: introspection.possibleTypes,
     typePolicies: {
       ConfigurableProduct: { keyFields: ['uid'] },
       SimpleProduct: { keyFields: ['uid'] },

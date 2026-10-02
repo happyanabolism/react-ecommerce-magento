@@ -1,29 +1,28 @@
 import { useQuery } from '@apollo/client/react';
 import { PRODUCTS } from '../api/productApi';
-import type { ProductQuery, ProductQueryVars, Products } from './types';
-
-export type UseProductsResult = Products &
-  Omit<ReturnType<typeof useQuery<ProductQuery, ProductQueryVars>>, 'data'>;
+import type { ProductsQueryVariables } from '@shared/api/gql/graphql';
 
 export const useProducts = ({
   filter,
   pageSize,
   currentPage,
-  skip = false,
-}: ProductQueryVars & { skip?: boolean }): UseProductsResult => {
-  const { data, ...rest } = useQuery<ProductQuery, ProductQueryVars>(PRODUCTS, {
+}: ProductsQueryVariables) => {
+  const { data, ...rest } = useQuery(PRODUCTS, {
     variables: {
       filter,
       pageSize,
       currentPage,
     },
-    skip,
   });
 
   return {
-    aggregations: data?.products.aggregations || [],
-    items: data?.products.items || [],
-    page_info: data?.products.page_info || {},
+    aggregations: (data?.products?.aggregations || []).filter(
+      (aggregation) => aggregation !== null
+    ),
+    products: (data?.products?.items || []).filter(
+      (product) => product !== null
+    ),
+    pageInfo: data?.products?.page_info ?? null,
     ...rest,
   };
 };

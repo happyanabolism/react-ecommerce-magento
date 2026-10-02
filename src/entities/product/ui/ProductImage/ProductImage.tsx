@@ -1,26 +1,13 @@
-import type { ProductImage as ProductImageType } from '@shared/types';
-
 interface ProductImageProps {
   className?: string;
-  image?: ProductImageType;
-  productName?: string;
+  url?: string | null;
+  alt?: string | null;
 }
 
-export const ProductImage = ({
-  className,
-  image,
-  productName,
-}: ProductImageProps) => {
-  if (!image || !image?.url || image?.url.length === 0) {
+export const ProductImage = ({ className, url, alt }: ProductImageProps) => {
+  if (!url) {
     return <>Placeholder Image</>;
   }
 
-  return (
-    <img
-      className={className}
-      src={image.url}
-      alt={productName}
-      title={productName}
-    />
-  );
+  return <img className={className} src={url} alt={alt ?? ''} />;
 };
