@@ -8,6 +8,7 @@ import { logout, selectJwt } from '@entities/session';
 import { API_ERRORS } from '@shared/constants';
 import { getMagentoErrors } from '@shared/utils';
 import introspection from '@shared/api/gql/possibleTypes';
+import { addNotification } from '@entities/notification';
 
 const API_URI = '/graphql';
 const httpLink = new HttpLink({ uri: API_URI });
@@ -42,6 +43,12 @@ const errorLink = new ErrorLink(({ error, operation, forward }) => {
   // retry as a guest; the token check guarantees a single retry
   if (isAuthenticationError && token) {
     store.dispatch(logout());
+    store.dispatch(
+      addNotification({
+        type: 'error',
+        message: 'Your session has expired, please log in again	',
+      })
+    );
     // the operation still has the expired Authorization header set by authLink
     // on the first attempt, remove it so the retry goes without a token
     operation.setContext(({ headers }) => {

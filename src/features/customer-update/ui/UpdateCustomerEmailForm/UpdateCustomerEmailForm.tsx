@@ -18,11 +18,11 @@ export const UpdateCustomerEmailForm = () => {
     resolver: yupResolver(updateEmailSchema),
   });
 
-  const [updateEmail, { loading, error }] = useCustomerEmailUpdate();
+  const [updateCustomerEmail, { loading, error }] = useCustomerEmailUpdate();
 
   const onSubmit = (formData: UpdateEmailFormData) => {
     const { passwordConfirm, ...variables } = formData;
-    updateEmail(variables);
+    updateCustomerEmail(variables);
   };
 
   return (

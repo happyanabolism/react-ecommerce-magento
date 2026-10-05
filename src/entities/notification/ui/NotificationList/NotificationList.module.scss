@@ -1,0 +1,16 @@
+@use '@shared/styles/variables' as *;
+
+$notification-list_z-index: 1100; // выше PageLoader (1000)
+
+.list {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: $notification-list_z-index;
+}

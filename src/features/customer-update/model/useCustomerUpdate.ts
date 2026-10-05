@@ -1,17 +1,23 @@
-import { useCallback } from 'react';
 import { useMutation } from '@apollo/client/react';
 import { UPDATE_PERSONAL_INFO } from '../api/customerUpdateApi';
 import type { CustomerUpdateInput } from '@shared/api/gql/graphql';
+import { useAppDispatch } from '@shared/lib';
+import { addNotification } from '@entities/notification';
 
 export const useCustomerUpdate = () => {
-  const [mutate, result] = useMutation(UPDATE_PERSONAL_INFO);
+  const [updatePersonalInfo, result] = useMutation(UPDATE_PERSONAL_INFO);
+  const dispatch = useAppDispatch();
 
-  const updateCustomer = useCallback(
-    (updateCustomerData: CustomerUpdateInput) => {
-      mutate({ variables: { input: updateCustomerData } });
-    },
-    [mutate]
-  );
+  const updateCustomer = async (input: CustomerUpdateInput) => {
+    try {
+      await updatePersonalInfo({ variables: { input } });
+      dispatch(
+        addNotification({ type: 'success', message: 'Personal data updated' })
+      );
+    } catch {
+      // error will arrive in result.error
+    }
+  };
 
   return [updateCustomer, result] as const;
 };

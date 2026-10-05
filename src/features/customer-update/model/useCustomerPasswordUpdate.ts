@@ -1,18 +1,27 @@
-import { useCallback } from 'react';
 import { useMutation } from '@apollo/client/react';
 import { CHANGE_CUSTOMER_PASSWORD } from '../api/customerUpdateApi';
+import { addNotification } from '@entities/notification';
 import type { ChangeCustomerPasswordMutationVariables } from '@shared/api/gql/graphql';
+import { useAppDispatch } from '@shared/lib';
 
 export const useCustomerPasswordUpdate = () => {
-  const [mutate, result] = useMutation(CHANGE_CUSTOMER_PASSWORD);
+  const [changePassword, result] = useMutation(CHANGE_CUSTOMER_PASSWORD);
+  const dispatch = useAppDispatch();
 
-  const updateCustomerPassword = useCallback(
-    (variables: ChangeCustomerPasswordMutationVariables) => {
-      mutate({
-        variables,
-      });
-    },
-    [mutate]
-  );
-  return [updateCustomerPassword, result] as const;
+  const changeCustomerPassword = async (
+    variables: ChangeCustomerPasswordMutationVariables
+  ) => {
+    try {
+      await changePassword({ variables });
+      dispatch(
+        addNotification({
+          type: 'success',
+          message: 'Customer password updated',
+        })
+      );
+    } catch {
+      // error will arrive in result.error
+    }
+  };
+  return [changeCustomerPassword, result] as const;
 };

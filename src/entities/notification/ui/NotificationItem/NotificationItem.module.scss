@@ -1,0 +1,24 @@
+@use '@shared/styles/variables' as *;
+
+.notification {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 280px;
+  max-width: min(400px, calc(100vw - 32px));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.message {
+  flex: 1;
+}
+
+.close {
+  padding: 0;
+  font-size: 18px;
+  line-height: 1;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}

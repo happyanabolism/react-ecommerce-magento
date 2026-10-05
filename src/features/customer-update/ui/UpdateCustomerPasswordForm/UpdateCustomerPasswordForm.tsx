@@ -18,11 +18,12 @@ export const UpdateCustomerPasswordForm = () => {
     resolver: yupResolver(updatePasswordSchema),
   });
 
-  const [updatePassword, { loading, error }] = useCustomerPasswordUpdate();
+  const [changeCustomerPassword, { loading, error }] =
+    useCustomerPasswordUpdate();
 
   const onSubmit = (formData: UpdatePasswordFormData) => {
     const { newPasswordConfirm, ...variables } = formData;
-    updatePassword(variables);
+    changeCustomerPassword(variables);
   };
 
   return (

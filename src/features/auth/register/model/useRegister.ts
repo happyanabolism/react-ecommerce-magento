@@ -4,6 +4,7 @@ import { GENERATE_CUSTOMER_TOKEN, setToken } from '@entities/session';
 import { useAppDispatch } from '@shared/lib';
 import type { RegistrationFormData } from './registration.schema';
 import { normalizeCustomAttributes } from '@shared/utils';
+import { addNotification } from '@entities/notification';
 
 export const useRegister = () => {
   const [createCustomer, createCustomerResult] = useMutation(CREATE_CUSTOMER);
@@ -35,6 +36,12 @@ export const useRegister = () => {
 
       if (token) {
         dispatch(setToken(token));
+        dispatch(
+          addNotification({
+            type: 'success',
+            message: 'Account successfully created',
+          })
+        );
       }
     } catch {
       // errors are returned in error
