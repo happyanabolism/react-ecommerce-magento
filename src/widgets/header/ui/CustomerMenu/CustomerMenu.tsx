@@ -1,9 +1,9 @@
 import { Link } from 'react-router';
 import { useCustomer } from '@entities/customer';
 import { selectJwt } from '@entities/session';
-import { CustomerDropdown } from '@features/customer';
 import { ROUTES } from '@shared/constants';
 import { useAppSelector } from '@shared/lib';
+import { CustomerDropdown } from '../CustomerDropdown/CustomerDropdown';
 
 export const CustomerMenu = () => {
   const jwt = useAppSelector(selectJwt);

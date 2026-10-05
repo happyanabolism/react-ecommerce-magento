@@ -1,18 +1,17 @@
 import { useState, type MouseEvent } from 'react';
 import { Link } from 'react-router';
-import { logout } from '@entities/session';
-import { Button, DropdownMenu, DropdownMenuItem } from '@shared/ui';
-import { useAppDispatch } from '@shared/lib';
+import { Button, DropdownMenu, DropdownMenuItem, PageLoader } from '@shared/ui';
 import { ROUTES } from '@shared/constants';
 import type { CustomerFieldsFragment } from '@shared/api/gql/graphql';
+import { useLogout } from '@features/auth/logout/model/useLogout';
 
 export const CustomerDropdown = ({
   customer,
 }: {
   customer: CustomerFieldsFragment;
 }) => {
+  const [logout, { loading }] = useLogout();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const dispatch = useAppDispatch();
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -23,7 +22,7 @@ export const CustomerDropdown = ({
   };
 
   const handleLogout = () => {
-    dispatch(logout());
+    logout();
   };
 
   return (
@@ -41,6 +40,7 @@ export const CustomerDropdown = ({
           </Button>
         </DropdownMenuItem>
       </DropdownMenu>
+      {loading && <PageLoader />}
     </>
   );
 };
