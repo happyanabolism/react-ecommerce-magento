@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client/react';
-import { UPDATE_CUSTOMER_EMAIL } from '@entities/customer';
+import { UPDATE_CUSTOMER_EMAIL } from '../api/customerUpdateApi';
 import { useCallback } from 'react';
 import type { UpdateCustomerEmailMutationVariables } from '@shared/api/gql/graphql';
 

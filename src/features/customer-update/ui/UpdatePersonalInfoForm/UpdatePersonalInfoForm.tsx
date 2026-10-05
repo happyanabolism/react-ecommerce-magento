@@ -1,10 +1,5 @@
 import { useForm /*, Controller */ } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  personalInfoSchema,
-  useCustomerUpdate,
-  type PersonalInfoFormData,
-} from '@features/customer/update';
 import { Alert, Button, /* TelephoneField, */ TextField } from '@shared/ui';
 import {
   flatCustomAttributes,
@@ -12,6 +7,11 @@ import {
   normalizeCustomAttributes,
 } from '@shared/utils';
 import type { CustomerFieldsFragment } from '@shared/api/gql/graphql';
+import { useCustomerUpdate } from '../../model/useCustomerUpdate';
+import {
+  personalInfoSchema,
+  type PersonalInfoFormData,
+} from '../../model/personalInfo.schema';
 
 export const UpdatePersonalInfoForm = ({
   customer,

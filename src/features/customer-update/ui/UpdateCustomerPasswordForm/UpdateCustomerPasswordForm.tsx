@@ -1,12 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  useCustomerPasswordUpdate,
-  updatePasswordSchema,
-  type UpdatePasswordFormData,
-} from '@features/customer/update';
 import { Alert, Button, PasswordField } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/utils';
+import { useCustomerPasswordUpdate } from '../../model/useCustomerPasswordUpdate';
+import {
+  updatePasswordSchema,
+  type UpdatePasswordFormData,
+} from '../../model/updatePassword.schema';
 
 export const UpdateCustomerPasswordForm = () => {
   const {

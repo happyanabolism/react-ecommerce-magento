@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useMutation } from '@apollo/client/react';
-import { CHANGE_CUSTOMER_PASSWORD } from '@entities/customer';
+import { CHANGE_CUSTOMER_PASSWORD } from '../api/customerUpdateApi';
 import type { ChangeCustomerPasswordMutationVariables } from '@shared/api/gql/graphql';
 
 export const useCustomerPasswordUpdate = () => {

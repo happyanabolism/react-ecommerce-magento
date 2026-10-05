@@ -3,7 +3,7 @@ import {
   UpdatePersonalInfoForm,
   UpdateCustomerEmailForm,
   UpdateCustomerPasswordForm,
-} from '@features/customer';
+} from '@features/customer-update';
 import { Alert, Button, Spinner } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/utils';
 

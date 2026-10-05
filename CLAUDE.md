@@ -46,26 +46,28 @@ Path aliases: `@app/*`, `@pages/*`, `@widgets/*`, `@features/*`, `@entities/*`, 
 
 Each slice exposes a public API through its `index.ts`; import from `@entities/customer`, not from deep paths. Inside a slice, segments are:
 
-- `api/` — GraphQL documents (`graphql()` from `@shared/api/gql`; some still on `gql`, being migrated) and imperative Apollo calls
-- `model/` — types, hooks wrapping `useQuery`/`useMutation`, Redux slices/thunks, contexts, yup schemas (`*.schema.ts`)
+- `api/` — GraphQL documents (`graphql()` from `@shared/api/gql`)
+- `model/` — types, hooks wrapping `useQuery`/`useMutation`, Redux slices, yup schemas (`*.schema.ts`)
+- `lib/` — slice helpers (e.g. `entities/address/lib/fromCustomerAddress.ts`)
 - `ui/` — components, each in its own folder with a `Component.module.scss`
-- `provider/` — context providers (e.g. `features/category/provider`)
 
-Entities: `customer`, `address`, `product`, `category`, `route`. Features: `category` (nav, product listing state), `customer/{login,registration,update}`.
+Inside a slice, import its own files by relative path, never through its own `index.ts` (that creates import cycles).
+
+Entities: `session` (token), `customer` (customer data: `CustomerFields`, `useCustomer`), `address`, `product`, `category`, `route`. Features are named by action: `auth/{login,register,logout}`, `customer-update`, `category` (nav), `product-listing`. Queries that read entity data live in the entity; mutations live in the `api/` of the feature that performs them. A piece shared by two features goes down a layer (`GENERATE_CUSTOMER_TOKEN` is in `entities/session/api`, used by login and register). Cross-entity imports go through `@x`: `entities/session/@x/customer.ts` gives `selectJwt` to `useCustomer`. Widgets: `header` (with `CustomerMenu`, which composes customer, session and the logout feature), `customer`, `category`.
 
 ### Data flow
 
-- **Apollo** is the main data layer. Entity hooks (`useProducts`, `useCategory`, `useUrlResolve`, `useCustomer`, ...) wrap `useQuery` and return the unwrapped data plus the rest of the query result (`{ items, loading, error, fetchMore, ... }`). Operation types come from GraphQL Codegen (`src/shared/api/gql/graphql.ts`); queries written with `graphql()` are `TypedDocumentNode`s, so `useQuery` needs no generics. Older hand-written Magento types still exist in some `model/types.ts` and `src/shared/types` and are being replaced. App/domain types (`Address`, `CustomerAddress` with mappers in `entities/address/lib`, form data, `AuthState`) stay hand-written.
+- **Apollo** is the main data layer. Entity hooks (`useProducts`, `useCategory`, `useUrlResolve`, `useCustomer`, ...) wrap `useQuery` and return the unwrapped data plus the rest of the query result (`{ items, loading, error, fetchMore, ... }`). Operation types come from GraphQL Codegen (`src/shared/api/gql/graphql.ts`); queries written with `graphql()` are `TypedDocumentNode`s, so `useQuery` needs no generics. There are no hand-written API types; app/domain types (`Address`, `CustomerAddress` with mappers in `entities/address/lib`, form data via `yup.InferType`, `SessionState`, `FlatAttributes`) stay hand-written. Shared API structures live in `shared/api` (`CustomAttributeFields` fragment).
 - **Cache** (`InMemoryCache` in `ApolloProvider`): `keyFields: ['uid']` for `SimpleProduct`, `ConfigurableProduct`, `CategoryTree`; `StoreConfig` by `store_code`; `Customer` is a singleton. Any query returning these types must request the key field. Types with `id` (e.g. `CustomerAddress`) are normalized by default.
 - **Store config**: no global provider/context. A feature that needs store settings queries the `storeConfig` fields it needs itself (with `store_code`), Apollo merges them into one cached `StoreConfig` (Venia approach). The category menu doesn't need `root_category_uid`: `categories` without filters returns the store's root category.
-- **Redux** (with `redux-persist` to localStorage) only holds auth state: the `customer` slice (`entities/customer/model/authSlice.ts`) stores `customer` and `jwt`. `login`/`register` thunks take the Apollo `client` as an argument and call the imperative functions in `entities/customer/api/authApi.ts`. `RootState`/`AppDispatch` are declared as globals in `src/app/store/store.ts`; typed hooks are in `@shared/lib` (`store/redux.ts`).
+- **Redux** (with `redux-persist` to localStorage) only holds the session: `entities/session` slice `{ jwt }` with `setToken`/`logout` and `selectJwt`. Customer data is never copied into Redux, it comes from the Apollo cache (`useCustomer`, skipped while there is no token). No thunks: `useLogin`/`useRegister` (`features/auth`) run `useMutation` and dispatch `setToken`; their `loading`/`error` come from the mutations. Registration chains `createCustomerV2` → `generateCustomerToken`. `useLogout` calls `revokeCustomerToken` (errors ignored, e.g. expired token), then `logout()` and `client.clearStore()`. `RootState`/`AppDispatch` are declared as globals in `src/app/store/store.ts` (so lower layers can type selectors without importing `app`); typed hooks are in `@shared/lib` (`store/redux.ts`).
 - **Auth link**: `ApolloProvider` reads the JWT from the Redux store for the `Authorization: Bearer` header. `errorLink` logs out and retries the operation as a guest on an invalid/expired token (`graphql-authentication` without `path`), and logs out on `graphql-authorization`.
-- **Errors**: Magento answers auth errors with HTTP 401/403, so Apollo gives a `ServerError` whose GraphQL errors are only in `bodyText`. Never show `error.message` directly: use `getMagentoErrorMessage(error)` from `@shared/utils` (all Magento messages joined, like Venia's `deriveErrorMessage`), or `getMagentoErrors(error)` to inspect categories. Auth thunks pass the message via `rejectWithValue` into `state.customer.error`.
+- **Errors**: Magento answers auth errors with HTTP 401/403, so Apollo gives a `ServerError` whose GraphQL errors are only in `bodyText`. Never show `error.message` directly: use `getMagentoErrorMessage(error)` from `@shared/utils` (all Magento messages joined, like Venia's `deriveErrorMessage`), or `getMagentoErrors(error)` to inspect categories. Forms show mutation errors the same way.
   Provider order (`src/app/entrypoint/main.tsx`): Redux `Provider` → `PersistGate` → `ApolloProvider` → `RouterProvider`.
 
 ### Routing
 
-`src/app/routes/router.tsx` defines static routes (`ROUTES` in `@shared/constants`) with `ProtectedRoute` (requires a customer in Redux) and `GuestRoute` wrappers. Every other URL hits the catch-all `DynamicPage`, which resolves the path through Magento's `route(url)` query and switches on `route.type`. Only `CATEGORY` → `CategoryPage` is implemented so far; product and CMS pages are TODO.
+`src/app/routes/router.tsx` defines static routes (`ROUTES` in `@shared/constants`) with `ProtectedRoute` (requires a token) and `GuestRoute` wrappers (redirects to the account as soon as a token appears, so login/register don't navigate themselves). Every other URL hits the catch-all `DynamicPage`, which resolves the path through Magento's `route(url)` query and switches on `route.__typename`. Only `CategoryTree` → `CategoryPage` is implemented so far; product and CMS pages are TODO.
 
 ### Category listing
 

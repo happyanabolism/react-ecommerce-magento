@@ -1,12 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  useCustomerEmailUpdate,
-  updateEmailSchema,
-  type UpdateEmailFormData,
-} from '@features/customer/update';
 import { Alert, Button, PasswordField, TextField } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/utils';
+import { useCustomerEmailUpdate } from '../../model/useCustomerEmailUpdate';
+import {
+  updateEmailSchema,
+  type UpdateEmailFormData,
+} from '../../model/updateEmail.schema';
 
 export const UpdateCustomerEmailForm = () => {
   const {

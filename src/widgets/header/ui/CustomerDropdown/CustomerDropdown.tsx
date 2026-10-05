@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { Button, DropdownMenu, DropdownMenuItem, PageLoader } from '@shared/ui';
 import { ROUTES } from '@shared/constants';
 import type { CustomerFieldsFragment } from '@shared/api/gql/graphql';
-import { useLogout } from '@features/auth/logout/model/useLogout';
+import { useLogout } from '@features/auth/logout';
 
 export const CustomerDropdown = ({
   customer,
