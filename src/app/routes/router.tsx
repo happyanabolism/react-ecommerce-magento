@@ -1,65 +1,76 @@
 import { createBrowserRouter } from 'react-router';
-import { AccountDashboardPage } from '@pages/customer';
-import { RegistrationPage } from '@pages/registration';
 import { AccountLayout, MainLayout } from '@app/layouts';
-import { HomePage } from '@pages/home';
-import { CartPage } from '@pages/cart';
-import { LoginPage } from '@pages/login';
-import { DynamicPage } from '@pages/dynamic';
 import { ROUTES } from '@shared/constants';
 import { ProtectedRoute } from './ProtectedRoute';
 import { GuestRoute } from './GuestRoute';
+import { PageLoader } from '@shared/ui';
 
 export const router = createBrowserRouter([
   {
     element: <MainLayout />,
+    hydrateFallbackElement: <PageLoader />,
     children: [
       {
         path: ROUTES.HOME,
-        element: <HomePage />,
+        lazy: async () => {
+          const { HomePage } = await import('@pages/home');
+          return { Component: HomePage };
+        },
         index: true,
       },
       {
-        path: ROUTES.CART,
-        element: (
-          <ProtectedRoute>
-            <CartPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: ROUTES.LOGIN,
-        element: (
-          <GuestRoute>
-            <LoginPage />
-          </GuestRoute>
-        ),
-      },
-      {
-        path: ROUTES.REGISTRATION,
-        element: (
-          <GuestRoute>
-            <RegistrationPage />
-          </GuestRoute>
-        ),
-      },
-      {
-        path: ROUTES.ACCOUNT,
-        element: (
-          <ProtectedRoute>
-            <AccountLayout />
-          </ProtectedRoute>
-        ),
+        element: <GuestRoute />,
         children: [
           {
-            path: ROUTES.ACCOUNT_DASHBOARD,
-            element: <AccountDashboardPage />,
+            path: ROUTES.LOGIN,
+            lazy: async () => {
+              const { LoginPage } = await import('@pages/login');
+              return { Component: LoginPage };
+            },
+          },
+
+          {
+            path: ROUTES.REGISTRATION,
+            lazy: async () => {
+              const { RegistrationPage } = await import('@pages/registration');
+              return { Component: RegistrationPage };
+            },
+          },
+        ],
+      },
+      {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.CART,
+            lazy: async () => {
+              const { CartPage } = await import('@pages/cart');
+              return { Component: CartPage };
+            },
+          },
+
+          {
+            path: ROUTES.ACCOUNT,
+            element: <AccountLayout />,
+            children: [
+              {
+                path: ROUTES.ACCOUNT_DASHBOARD,
+                lazy: async () => {
+                  const { AccountDashboardPage } =
+                    await import('@pages/customer');
+                  return { Component: AccountDashboardPage };
+                },
+              },
+            ],
           },
         ],
       },
       {
         path: ROUTES.DYNAMIC,
-        element: <DynamicPage />,
+        lazy: async () => {
+          const { DynamicPage } = await import('@pages/dynamic');
+          return { Component: DynamicPage };
+        },
       },
     ],
   },

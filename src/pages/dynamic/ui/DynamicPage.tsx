@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router';
+import { Navigate, useLocation } from 'react-router';
 import { CategoryPage } from '@pages/category';
 import { useUrlResolve } from '@entities/route';
 import { getRelativePath } from '@shared/lib';
@@ -19,6 +19,10 @@ export function DynamicPage() {
   }
   if (error) return <p>{getMagentoErrorMessage(error)}</p>;
   if (!route) return <Alert>Page not found</Alert>;
+
+  if (route.redirect_code !== 0 && route.relative_url) {
+    return <Navigate to={'/' + route.relative_url} replace />;
+  }
 
   // TODO: handle 'Product page' and 'Cms page'
   switch (route.__typename) {
