@@ -5,3 +5,5 @@ export const schema = yup.object().shape({
   email: emailField,
   password: yup.string().required('This field is required'),
 });
+
+export type LoginFormData = yup.InferType<typeof schema>;

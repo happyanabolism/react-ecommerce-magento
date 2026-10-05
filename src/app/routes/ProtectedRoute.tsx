@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { selectJwt } from '@entities/customer';
+import { selectJwt } from '@entities/session';
 import { ROUTES } from '@shared/constants';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router';

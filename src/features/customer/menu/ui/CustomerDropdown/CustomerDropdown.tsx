@@ -1,6 +1,6 @@
 import { useState, type MouseEvent } from 'react';
 import { Link } from 'react-router';
-import { logout } from '@entities/customer';
+import { logout } from '@entities/session';
 import { Button, DropdownMenu, DropdownMenuItem } from '@shared/ui';
 import { useAppDispatch } from '@shared/lib';
 import { ROUTES } from '@shared/constants';

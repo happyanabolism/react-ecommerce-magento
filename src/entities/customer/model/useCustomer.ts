@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client/react';
 import { CUSTOMER } from '../api/customerApi';
 import { useAppSelector } from '@shared/lib';
-import { selectJwt } from './selectors';
+import { selectJwt } from '@entities/session/@x/customer';
 
 export const useCustomer = () => {
   const jwt = useAppSelector(selectJwt);

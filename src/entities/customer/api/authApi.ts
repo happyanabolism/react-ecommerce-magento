@@ -6,7 +6,7 @@ import type {
 import { graphql } from '@shared/api/gql';
 
 const GENERATE_CUSTOMER_TOKEN = graphql(`
-  mutation generateCustomerToken($email: String!, $password: String!) {
+  mutation generateCustomerTokenLegacy($email: String!, $password: String!) {
     generateCustomerToken(email: $email, password: $password) {
       token
     }

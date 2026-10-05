@@ -12,6 +12,7 @@ import {
 // ESM build: the CommonJS one (lib/) breaks default import interop in Vite 8
 import storage from 'redux-persist/es/storage';
 import { customerReducer } from '@entities/customer';
+import { sessionReducer } from '@entities/session';
 
 const customerPersistConfig = {
   key: 'customer',
@@ -23,8 +24,19 @@ const persistCustomerReducer = persistReducer(
   customerReducer
 );
 
+const sessionPersistConfig = {
+  key: 'session',
+  storage,
+};
+
+const persistSessionReducer = persistReducer(
+  sessionPersistConfig,
+  sessionReducer
+);
+
 const rootReducer = combineReducers({
   customer: persistCustomerReducer,
+  session: persistSessionReducer,
 });
 
 export const store = configureStore({

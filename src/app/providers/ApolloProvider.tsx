@@ -4,7 +4,7 @@ import { ApolloProvider as AProvider } from '@apollo/client/react';
 import { SetContextLink } from '@apollo/client/link/context';
 import { ErrorLink } from '@apollo/client/link/error';
 import { store } from '@app/store';
-import { logout, selectJwt } from '@entities/customer';
+import { logout, selectJwt } from '@entities/session';
 import { API_ERRORS } from '@shared/constants';
 import { getMagentoErrors } from '@shared/utils';
 import introspection from '@shared/api/gql/possibleTypes';

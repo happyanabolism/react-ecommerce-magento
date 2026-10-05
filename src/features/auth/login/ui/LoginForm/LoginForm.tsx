@@ -1,37 +1,14 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router';
-import { useApolloClient } from '@apollo/client/react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useSelector } from 'react-redux';
-import {
-  clearError,
-  login,
-  selectAuthError,
-  selectAuthLoading,
-} from '@entities/customer';
-import { schema } from '@features/customer/login';
 import { Button, TextField, PasswordField, Alert } from '@shared/ui';
 import { ROUTES } from '@shared/constants';
-import { useAppDispatch } from '@shared/lib';
+import { getMagentoErrorMessage } from '@shared/utils';
+import { schema, type LoginFormData } from '../../model/login.schema';
+import { useLogin } from '../../model/useLogin';
 import styles from './LoginForm.module.scss';
 
-interface LoginFormData {
-  email: string;
-  password: string;
-}
-
 export function LoginForm() {
-  const dispatch = useAppDispatch();
-  const apolloClient = useApolloClient();
-
-  const loading = useSelector(selectAuthLoading);
-  const authError = useSelector(selectAuthError);
-
-  useEffect(() => {
-    dispatch(clearError());
-  }, [dispatch]);
-
   const {
     register,
     handleSubmit,
@@ -40,15 +17,10 @@ export function LoginForm() {
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
+  const [login, { loading, error }] = useLogin();
 
   const onSubmit = (formData: LoginFormData) => {
-    dispatch(
-      login({
-        client: apolloClient,
-        email: formData.email,
-        password: formData.password,
-      })
-    );
+    login(formData);
   };
 
   return (
@@ -70,7 +42,7 @@ export function LoginForm() {
           {...register('password')}
         />
       </fieldset>
-      {authError && <Alert type='error'>{authError}</Alert>}
+      {error && <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>}
       <div className={styles.formActions}>
         <Button
           type='submit'
