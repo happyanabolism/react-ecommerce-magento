@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client/react';
 import { setToken } from '@entities/session';
-import { GENERATE_CUSTOMER_TOKEN } from '../api/loginApi';
+import { GENERATE_CUSTOMER_TOKEN } from '@entities/session';
 import type { GenerateCustomerTokenMutationVariables } from '@shared/api/gql/graphql';
 import { useAppDispatch } from '@shared/lib';
 

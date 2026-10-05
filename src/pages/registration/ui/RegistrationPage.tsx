@@ -1,4 +1,4 @@
-import { RegistrationForm } from '@features/customer';
+import { RegistrationForm } from '@features/auth/register';
 import { Container } from '@shared/ui';
 import styles from './RegistrationPage.module.scss';
 

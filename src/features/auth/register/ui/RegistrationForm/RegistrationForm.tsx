@@ -1,19 +1,10 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router';
 import { useForm /*, Controller */ } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useSelector } from 'react-redux';
-import { useApolloClient } from '@apollo/client/react';
-import {
-  clearError,
-  register as registerCustomer,
-  selectAuthError,
-  selectAuthLoading,
-} from '@entities/customer';
 import {
   schema,
   type RegistrationFormData,
-} from '@features/customer/registration';
+} from '../../model/registration.schema';
 import { ROUTES } from '@shared/constants';
 import {
   Button,
@@ -22,20 +13,12 @@ import {
   // TelephoneField,
   Alert,
 } from '@shared/ui';
-import { useAppDispatch } from '@shared/lib';
 import styles from './RegistrationForm.module.scss';
-import { normalizeCustomAttributes } from '@shared/utils';
+import { getMagentoErrorMessage } from '@shared/utils';
+import { useRegister } from '../../model/useRegister';
 
 export const RegistrationForm = () => {
-  const dispatch = useAppDispatch();
-  const apolloClient = useApolloClient();
-
-  const loading = useSelector(selectAuthLoading);
-  const authError = useSelector(selectAuthError);
-
-  useEffect(() => {
-    dispatch(clearError());
-  }, [dispatch]);
+  const [createCustomer, { loading, error }] = useRegister();
 
   const {
     register,
@@ -48,19 +31,7 @@ export const RegistrationForm = () => {
   });
 
   const onSubmit = (formData: RegistrationFormData) => {
-    const { passwordConfirm, ...registrationData } = formData;
-    const normalizedRegistraionData = {
-      ...registrationData,
-      custom_attributes: normalizeCustomAttributes(
-        registrationData.custom_attributes
-      ),
-    };
-    dispatch(
-      registerCustomer({
-        client: apolloClient,
-        registrationData: normalizedRegistraionData,
-      })
-    );
+    createCustomer(formData);
   };
 
   return (
@@ -116,7 +87,7 @@ export const RegistrationForm = () => {
           {...register('passwordConfirm')}
         />
       </fieldset>
-      {authError && <Alert type='error'>{authError}</Alert>}
+      {error && <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>}
       <div className={styles.formActions}>
         <Button
           type='submit'
