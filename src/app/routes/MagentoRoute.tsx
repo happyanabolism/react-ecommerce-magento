@@ -1,11 +1,11 @@
 import { Navigate, useLocation } from 'react-router';
 import { CategoryPage } from '@pages/category';
-import { useUrlResolve } from '@entities/route';
+import { useUrlResolve } from './useUrlResolve';
 import { getRelativePath } from '@shared/lib';
 import { Alert, Container, Spinner } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/utils';
 
-export function DynamicPage() {
+export function MagentoRoute() {
   const location = useLocation();
   const relativeUrl = getRelativePath(location.pathname);
   const { route, loading, error } = useUrlResolve(relativeUrl);

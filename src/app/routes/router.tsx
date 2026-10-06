@@ -68,8 +68,8 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.DYNAMIC,
         lazy: async () => {
-          const { DynamicPage } = await import('@pages/dynamic');
-          return { Component: DynamicPage };
+          const { MagentoRoute } = await import('./MagentoRoute');
+          return { Component: MagentoRoute };
         },
       },
     ],
