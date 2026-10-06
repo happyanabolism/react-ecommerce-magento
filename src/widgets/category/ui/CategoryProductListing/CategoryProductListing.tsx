@@ -5,7 +5,7 @@ import {
   useProductListing,
   type ProductListingCriteria,
 } from '@features/product-listing';
-import { getMagentoErrorMessage } from '@shared/utils';
+import { getMagentoErrorMessage } from '@shared/api';
 
 interface CategoryProductListingProps {
   criteria: ProductListingCriteria;

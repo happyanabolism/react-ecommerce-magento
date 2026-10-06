@@ -16,4 +16,19 @@ export default defineConfig([
       'fsd/insignificant-slice': 'off',
     },
   },
+  {
+    // app segments (providers, store, routes, layouts) follow the FSD docs'
+    // own examples; assets are images, the name is clear enough
+    files: ['./src/app/**', './src/shared/assets/**'],
+    rules: {
+      'fsd/segments-by-purpose': 'off',
+    },
+  },
+  {
+    // SCSS partials (@use) and image files have no JS public API
+    files: ['./src/shared/styles/**', './src/shared/assets/**'],
+    rules: {
+      'fsd/public-api': 'off',
+    },
+  },
 ]);

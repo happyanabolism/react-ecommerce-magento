@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client/react';
 import { CHANGE_CUSTOMER_PASSWORD } from '../api/customerUpdateApi';
 import { addNotification } from '@entities/notification';
-import type { ChangeCustomerPasswordMutationVariables } from '@shared/api/gql/graphql';
+import type { ChangeCustomerPasswordMutationVariables } from '@shared/api';
 import { useAppDispatch } from '@shared/lib';
 
 export const useCustomerPasswordUpdate = () => {

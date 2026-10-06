@@ -1,4 +1,4 @@
-import { graphql } from '@shared/api/gql';
+import { graphql } from './gql';
 
 export const CUSTOM_ATTRIBUTE_FIELDS = graphql(`
   fragment CustomAttributeFields on AttributeValueInterface {

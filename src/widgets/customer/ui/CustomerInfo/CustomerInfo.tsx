@@ -5,7 +5,7 @@ import {
   UpdateCustomerPasswordForm,
 } from '@features/customer-update';
 import { Alert, Button, Spinner } from '@shared/ui';
-import { getMagentoErrorMessage } from '@shared/utils';
+import { getMagentoErrorMessage } from '@shared/api';
 
 export const CustomerInfo = () => {
   const { customer, loading, error } = useCustomer();

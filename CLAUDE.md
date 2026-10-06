@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-React 19 + Vite storefront (PWA-style headless frontend) for a **Magento 2 GraphQL** backend. TypeScript, Apollo Client 4, Redux Toolkit, React Router 7, SCSS modules.
+React 19 + Vite storefront (PWA-style headless frontend) for a **Magento 2 GraphQL** backend. TypeScript, Apollo Client 4, Redux Toolkit, React Router 8, SCSS modules.
 
 Learning project: working agreements, plan, decisions and backlog are in the local (git-ignored) file below. Read it and follow it; update it when a step completes or a decision is made.
 
@@ -18,6 +18,7 @@ npm run build     # type check (tsc -b) + production build
 npm run typecheck # tsc -b only
 npm run preview   # serve the build
 npm run lint      # eslint . (lint:fix to autofix)
+npm run lint:fsd  # Steiger: Feature-Sliced Design rules
 npm run format    # prettier --write . (format:check in CI)
 npm run schema:fetch  # download the Magento GraphQL schema into schema.graphql (needs MAGENTO_BACKEND_URL)
 npm run codegen       # generate operation types into src/shared/api/gql/ (codegen:watch while editing queries)
@@ -44,6 +45,8 @@ Notes:
 
 Path aliases: `@app/*`, `@pages/*`, `@widgets/*`, `@features/*`, `@entities/*`, `@shared/*`.
 
+FSD structure is checked by Steiger (`npm run lint:fsd`, config in `steiger.config.ts`). `shared` segments: `api` (`graphql()`, generated types re-exported as types, `introspection`, Magento helpers `getMagentoErrors`/`getMagentoErrorMessage`/`API_ERRORS`, custom-attribute mappers and `FlatAttributes`), `config` (`ROUTES`, pagination), `lib`, `ui`, `styles`, `assets`; import them through their `index.ts` (`@shared/api`, never `@shared/api/gql/...`).
+
 Each slice exposes a public API through its `index.ts`; import from `@entities/customer`, not from deep paths. Inside a slice, segments are:
 
 - `api/` — GraphQL documents (`graphql()` from `@shared/api/gql`)
@@ -62,12 +65,12 @@ Entities: `session` (token), `customer` (customer data: `CustomerFields`, `useCu
 - **Store config**: no global provider/context. A feature that needs store settings queries the `storeConfig` fields it needs itself (with `store_code`), Apollo merges them into one cached `StoreConfig` (Venia approach). The category menu doesn't need `root_category_uid`: `categories` without filters returns the store's root category.
 - **Redux** (with `redux-persist` to localStorage) only holds the session: `entities/session` slice `{ jwt }` with `setToken`/`logout` and `selectJwt`. Customer data is never copied into Redux, it comes from the Apollo cache (`useCustomer`, skipped while there is no token). No thunks: `useLogin`/`useRegister` (`features/auth`) run `useMutation` and dispatch `setToken`; their `loading`/`error` come from the mutations. Registration chains `createCustomerV2` → `generateCustomerToken`. `useLogout` calls `revokeCustomerToken` (errors ignored, e.g. expired token), then `logout()` and `client.clearStore()`. `RootState`/`AppDispatch` are declared as globals in `src/app/store/store.ts` (so lower layers can type selectors without importing `app`); typed hooks are in `@shared/lib` (`store/redux.ts`).
 - **Auth link**: `ApolloProvider` reads the JWT from the Redux store for the `Authorization: Bearer` header. `errorLink` logs out and retries the operation as a guest on an invalid/expired token (`graphql-authentication` without `path`), and logs out on `graphql-authorization`.
-- **Errors**: Magento answers auth errors with HTTP 401/403, so Apollo gives a `ServerError` whose GraphQL errors are only in `bodyText`. Never show `error.message` directly: use `getMagentoErrorMessage(error)` from `@shared/utils` (all Magento messages joined, like Venia's `deriveErrorMessage`), or `getMagentoErrors(error)` to inspect categories. Forms show mutation errors the same way.
+- **Errors**: Magento answers auth errors with HTTP 401/403, so Apollo gives a `ServerError` whose GraphQL errors are only in `bodyText`. Never show `error.message` directly: use `getMagentoErrorMessage(error)` from `@shared/api` (all Magento messages joined, like Venia's `deriveErrorMessage`), or `getMagentoErrors(error)` to inspect categories. Forms show mutation errors the same way.
   Provider order (`src/app/entrypoint/main.tsx`): Redux `Provider` → `PersistGate` → `ApolloProvider` → `RouterProvider`.
 
 ### Routing
 
-`src/app/routes/router.tsx` defines static routes (`ROUTES` in `@shared/constants`) with `ProtectedRoute` (requires a token) and `GuestRoute` wrappers (redirects to the account as soon as a token appears, so login/register don't navigate themselves). Every other URL hits the catch-all `DynamicPage`, which resolves the path through Magento's `route(url)` query and switches on `route.__typename`. Only `CategoryTree` → `CategoryPage` is implemented so far; product and CMS pages are TODO.
+`src/app/routes/router.tsx` defines static routes (`ROUTES` in `@shared/config`). `ProtectedRoute` (requires a token) and `GuestRoute` (redirects to the account as soon as a token appears, so login/register don't navigate themselves) are pathless layout routes rendering `<Outlet />`. Pages are lazy routes (`lazy: () => import(...)`, code splitting); the root route has `hydrateFallbackElement`. Every other URL hits the catch-all `MagentoRoute` (`app/routes`, with its `ROUTE` query and `useUrlResolve`), which resolves the path through Magento's `route(url)` query, follows `redirect_code` with `<Navigate replace />`, and switches on `route.__typename`. Only `CategoryTree` → `CategoryPage` is implemented so far; product and CMS pages are TODO.
 
 ### Category listing
 

@@ -4,7 +4,7 @@ import type {
   CategoryMenuItemFragment,
   CategoryMenuQuery,
   CategoryMenuQueryVariables,
-} from '@shared/api/gql/graphql';
+} from '@shared/api';
 
 interface UseCategorieMenuResult extends Omit<
   ReturnType<typeof useQuery<CategoryMenuQuery, CategoryMenuQueryVariables>>,

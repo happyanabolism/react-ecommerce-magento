@@ -1,4 +1,4 @@
-import type { CustomerAddressFieldsFragment } from '@shared/api/gql/graphql';
+import type { CustomerAddressFieldsFragment } from '@shared/api';
 import type { CustomerAddress } from '../model/types';
 
 export const fromCustomerAddress = (

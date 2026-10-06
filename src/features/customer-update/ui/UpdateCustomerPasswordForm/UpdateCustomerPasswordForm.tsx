@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Alert, Button, PasswordField } from '@shared/ui';
-import { getMagentoErrorMessage } from '@shared/utils';
+import { getMagentoErrorMessage } from '@shared/api';
 import { useCustomerPasswordUpdate } from '../../model/useCustomerPasswordUpdate';
 import {
   updatePasswordSchema,

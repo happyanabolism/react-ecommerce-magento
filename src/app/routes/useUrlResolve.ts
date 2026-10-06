@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client/react';
 import { ROUTE } from './routeApi';
-import type { RouteQuery, RouteQueryVariables } from '@shared/api/gql/graphql';
+import type { RouteQuery, RouteQueryVariables } from '@shared/api';
 
 interface UseUrlResolveResult extends Omit<
   ReturnType<typeof useQuery<RouteQuery, RouteQueryVariables>>,

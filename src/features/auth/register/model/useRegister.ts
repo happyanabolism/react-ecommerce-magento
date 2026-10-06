@@ -3,7 +3,7 @@ import { CREATE_CUSTOMER } from '../api/registerApi';
 import { GENERATE_CUSTOMER_TOKEN, setToken } from '@entities/session';
 import { useAppDispatch } from '@shared/lib';
 import type { RegistrationFormData } from './registration.schema';
-import { normalizeCustomAttributes } from '@shared/utils';
+import { normalizeCustomAttributes } from '@shared/api';
 import { addNotification } from '@entities/notification';
 
 export const useRegister = () => {

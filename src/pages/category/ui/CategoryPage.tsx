@@ -4,7 +4,7 @@ import {
   CategoryProductListing,
   CategoryProductFilters,
 } from '@widgets/category';
-import type { CategoryPageFieldsFragment } from '@shared/api/gql/graphql';
+import type { CategoryPageFieldsFragment } from '@shared/api';
 
 export function CategoryPage({
   category,

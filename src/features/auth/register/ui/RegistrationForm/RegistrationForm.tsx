@@ -5,7 +5,7 @@ import {
   schema,
   type RegistrationFormData,
 } from '../../model/registration.schema';
-import { ROUTES } from '@shared/constants';
+import { ROUTES } from '@shared/config';
 import {
   Button,
   TextField,
@@ -14,7 +14,7 @@ import {
   Alert,
 } from '@shared/ui';
 import styles from './RegistrationForm.module.scss';
-import { getMagentoErrorMessage } from '@shared/utils';
+import { getMagentoErrorMessage } from '@shared/api';
 import { useRegister } from '../../model/useRegister';
 
 export const RegistrationForm = () => {

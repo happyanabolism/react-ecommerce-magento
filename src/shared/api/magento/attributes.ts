@@ -1,8 +1,10 @@
 import type {
   AttributeValueInput,
   CustomAttributeFieldsFragment,
-} from '@shared/api/gql/graphql';
-import type { FlatAttributes } from '@shared/types';
+} from '../gql/graphql';
+
+// form-friendly shape of custom attributes: { code: value }
+export type FlatAttributes = Record<string, string | string[]>;
 
 export const normalizeCustomAttributes = (
   customAttributes: FlatAttributes | undefined

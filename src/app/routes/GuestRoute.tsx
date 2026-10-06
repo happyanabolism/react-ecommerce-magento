@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router';
 import { useSelector } from 'react-redux';
 import { selectJwt } from '@entities/session';
-import { ROUTES } from '@shared/constants';
+import { ROUTES } from '@shared/config';
 
 interface GuestRouteProps {
   redirectTo?: string;

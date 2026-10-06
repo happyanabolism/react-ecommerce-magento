@@ -1,4 +1,4 @@
-import { graphql } from '@shared/api/gql';
+import { graphql } from '@shared/api';
 
 export const CUSTOMER_ADDRESSES = graphql(`
   query customerAddresses {

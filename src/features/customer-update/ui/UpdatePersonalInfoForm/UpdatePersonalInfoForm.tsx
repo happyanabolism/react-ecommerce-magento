@@ -5,8 +5,8 @@ import {
   flatCustomAttributes,
   getMagentoErrorMessage,
   normalizeCustomAttributes,
-} from '@shared/utils';
-import type { CustomerFieldsFragment } from '@shared/api/gql/graphql';
+  type CustomerFieldsFragment,
+} from '@shared/api';
 import { useCustomerUpdate } from '../../model/useCustomerUpdate';
 import {
   personalInfoSchema,

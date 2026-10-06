@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router';
 import { useProducts } from '@entities/product';
-import type { ProductAttributeFilterInput } from '@shared/api/gql/graphql';
+import type { ProductAttributeFilterInput } from '@shared/api';
 
 export interface ProductListingCriteria {
   filter: ProductAttributeFilterInput;

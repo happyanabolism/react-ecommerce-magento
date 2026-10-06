@@ -1,5 +1,5 @@
 import { selectJwt } from '@entities/session';
-import { ROUTES } from '@shared/constants';
+import { ROUTES } from '@shared/config';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router';
 

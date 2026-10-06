@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router';
 import { AccountLayout, MainLayout } from '@app/layouts';
-import { ROUTES } from '@shared/constants';
+import { ROUTES } from '@shared/config';
 import { ProtectedRoute } from './ProtectedRoute';
 import { GuestRoute } from './GuestRoute';
 import { PageLoader } from '@shared/ui';

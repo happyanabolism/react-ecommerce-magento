@@ -1,6 +1,6 @@
 import styles from './ProductCard.module.scss';
 import { ProductImage } from '../ProductImage/ProductImage';
-import type { ProductCardFieldsFragment } from '@shared/api/gql/graphql';
+import type { ProductCardFieldsFragment } from '@shared/api';
 
 export function ProductCard({
   product,

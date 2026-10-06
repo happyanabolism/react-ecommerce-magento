@@ -1,4 +1,4 @@
-import { graphql } from '@shared/api/gql';
+import { graphql } from '@shared/api';
 
 export const CATEGORY_PAGE_FIELDS = graphql(`
   fragment CategoryPageFields on CategoryTree {

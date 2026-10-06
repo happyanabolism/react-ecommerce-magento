@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client/react';
 import { PRODUCTS } from '../api/productApi';
-import type { ProductsQueryVariables } from '@shared/api/gql/graphql';
+import type { ProductsQueryVariables } from '@shared/api';
 
 export const useProducts = ({
   filter,

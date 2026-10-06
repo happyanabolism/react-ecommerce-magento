@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client/react';
 import { UPDATE_PERSONAL_INFO } from '../api/customerUpdateApi';
-import type { CustomerUpdateInput } from '@shared/api/gql/graphql';
+import type { CustomerUpdateInput } from '@shared/api';
 import { useAppDispatch } from '@shared/lib';
 import { addNotification } from '@entities/notification';
 

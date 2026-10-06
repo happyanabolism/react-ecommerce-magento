@@ -5,7 +5,7 @@ import { fromCustomerAddress } from '../lib/fromCustomerAddress';
 import type {
   CustomerAddressesQuery,
   CustomerAddressesQueryVariables,
-} from '@shared/api/gql/graphql';
+} from '@shared/api';
 
 export const useCustomerAddresses = (): Omit<
   ReturnType<

@@ -1,6 +1,6 @@
 import { useCustomerAddresses } from '@entities/address';
 import { Alert, Spinner } from '@shared/ui';
-import { getMagentoErrorMessage } from '@shared/utils';
+import { getMagentoErrorMessage } from '@shared/api';
 
 export const CustomerAddressBook = () => {
   const { addresses, loading, error } = useCustomerAddresses();

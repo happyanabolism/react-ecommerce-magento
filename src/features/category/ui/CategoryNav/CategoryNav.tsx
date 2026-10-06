@@ -1,7 +1,7 @@
 import { CategoryLink } from '@entities/category';
 import { useCategoryNav } from '@features/category';
 import { Container, Spinner } from '@shared/ui';
-import { getMagentoErrorMessage } from '@shared/utils';
+import { getMagentoErrorMessage } from '@shared/api';
 import styles from './CategoryNav.module.scss';
 
 export function CategoryNav({ limit }: { limit?: number }) {

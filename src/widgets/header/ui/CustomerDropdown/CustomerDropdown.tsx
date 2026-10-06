@@ -1,8 +1,8 @@
 import { useState, type MouseEvent } from 'react';
 import { Link } from 'react-router';
 import { Button, DropdownMenu, DropdownMenuItem, PageLoader } from '@shared/ui';
-import { ROUTES } from '@shared/constants';
-import type { CustomerFieldsFragment } from '@shared/api/gql/graphql';
+import { ROUTES } from '@shared/config';
+import type { CustomerFieldsFragment } from '@shared/api';
 import { useLogout } from '@features/auth/logout';
 
 export const CustomerDropdown = ({

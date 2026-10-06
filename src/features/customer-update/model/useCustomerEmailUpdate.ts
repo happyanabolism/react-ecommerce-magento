@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client/react';
 import { UPDATE_CUSTOMER_EMAIL } from '../api/customerUpdateApi';
 import { addNotification } from '@entities/notification';
-import type { UpdateCustomerEmailMutationVariables } from '@shared/api/gql/graphql';
+import type { UpdateCustomerEmailMutationVariables } from '@shared/api';
 import { useAppDispatch } from '@shared/lib';
 
 export const useCustomerEmailUpdate = () => {

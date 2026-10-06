@@ -3,7 +3,7 @@ import { CategoryPage } from '@pages/category';
 import { useUrlResolve } from './useUrlResolve';
 import { getRelativePath } from '@shared/lib';
 import { Alert, Container, Spinner } from '@shared/ui';
-import { getMagentoErrorMessage } from '@shared/utils';
+import { getMagentoErrorMessage } from '@shared/api';
 
 export function MagentoRoute() {
   const location = useLocation();

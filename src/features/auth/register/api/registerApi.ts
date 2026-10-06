@@ -1,4 +1,4 @@
-import { graphql } from '@shared/api/gql';
+import { graphql } from '@shared/api';
 
 export const CREATE_CUSTOMER = graphql(`
   mutation createCustomerV2($input: CustomerCreateInput!) {

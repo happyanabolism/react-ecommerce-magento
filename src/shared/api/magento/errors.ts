@@ -2,6 +2,12 @@ import type { GraphQLFormattedError } from 'graphql';
 import type { ErrorLike } from '@apollo/client';
 import { CombinedGraphQLErrors, ServerError } from '@apollo/client/errors';
 
+// Magento error categories (`extensions.category`)
+export const API_ERRORS = {
+  AUTHENTICATION: 'graphql-authentication',
+  AUTHORIZATION: 'graphql-authorization',
+};
+
 /**
  * Returns GraphQL errors from a Magento response, regardless of the HTTP status.
  *

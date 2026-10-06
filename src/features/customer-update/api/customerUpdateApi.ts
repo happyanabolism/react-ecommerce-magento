@@ -1,4 +1,4 @@
-import { graphql } from '@shared/api/gql';
+import { graphql } from '@shared/api';
 
 export const UPDATE_PERSONAL_INFO = graphql(`
   mutation updateCustomerV2($input: CustomerUpdateInput!) {
