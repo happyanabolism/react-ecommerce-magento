@@ -9,6 +9,7 @@
     "typecheck": "tsc -b",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "lint:fsd": "steiger ./src",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preview": "vite preview",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@feature-sliced/steiger-plugin": "^0.8.0",
     "@graphql-codegen/cli": "^7.4.3",
     "@graphql-codegen/client-preset": "^6.2.0",
     "@graphql-codegen/fragment-matcher": "^7.1.0",
@@ -51,6 +53,7 @@
     "jiti": "^2.7.0",
     "prettier": "3.9.9",
     "sass": "^1.93.2",
+    "steiger": "^0.7.0",
     "tsx": "^4.23.15",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.71.0",

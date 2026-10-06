@@ -20,5 +20,5 @@
 
     "skipLibCheck": true
   },
-  "include": ["vite.config.ts", "eslint.config.ts", "codegen.ts", "scripts"]
+  "include": ["vite.config.ts", "eslint.config.ts", "codegen.ts", "steiger.config.ts", "scripts"]
 }
