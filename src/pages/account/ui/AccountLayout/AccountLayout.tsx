@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router';
 import { Container } from '@shared/ui';
-import { AccountNavigation } from '@widgets/customer';
+import { AccountNavigation } from '../AccountNavigation/AccountNavigation';
 import styles from './AccountLayout.module.scss';
 
 export const AccountLayout = () => {

@@ -1,4 +1,5 @@
-import { CustomerAddressBook, CustomerInfo } from '@widgets/customer';
+import { CustomerAddressBook } from '../CustomerAddressBook/CustomerAddressBook';
+import { CustomerInfo } from '../CustomerInfo/CustomerInfo';
 
 export const AccountDashboardPage = () => {
   return (

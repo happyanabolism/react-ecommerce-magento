@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router';
-import { AccountLayout, MainLayout } from '@app/layouts';
+import { MainLayout } from '@app/layouts';
 import { ROUTES } from '@shared/config';
 import { ProtectedRoute } from './ProtectedRoute';
 import { GuestRoute } from './GuestRoute';
@@ -51,13 +51,16 @@ export const router = createBrowserRouter([
 
           {
             path: ROUTES.ACCOUNT,
-            element: <AccountLayout />,
+            lazy: async () => {
+              const { AccountLayout } = await import('@pages/account');
+              return { Component: AccountLayout };
+            },
             children: [
               {
                 path: ROUTES.ACCOUNT_DASHBOARD,
                 lazy: async () => {
                   const { AccountDashboardPage } =
-                    await import('@pages/customer');
+                    await import('@pages/account');
                   return { Component: AccountDashboardPage };
                 },
               },

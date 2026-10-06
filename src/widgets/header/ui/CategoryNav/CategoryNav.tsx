@@ -1,5 +1,5 @@
 import { CategoryLink } from '@entities/category';
-import { useCategoryNav } from '@features/category';
+import { useCategoryNav } from '../../model/useCategoryNav';
 import { Container, Spinner } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/api';
 import styles from './CategoryNav.module.scss';

@@ -1,10 +1,10 @@
 import { Link } from 'react-router';
-import { CategoryNav } from '@features/category';
 
 import { Container } from '@shared/ui';
 import { ROUTES } from '@shared/config';
 import logo from '@shared/assets/icons/react.svg';
 import styles from './Header.module.scss';
+import { CategoryNav } from './CategoryNav/CategoryNav';
 import { CustomerMenu } from './CustomerMenu/CustomerMenu';
 
 export function Header() {
