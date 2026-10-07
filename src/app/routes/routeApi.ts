@@ -8,6 +8,11 @@ export const ROUTE = graphql(`
       relative_url
       type
       ...CategoryPageFields
+      ... on ProductInterface {
+        uid
+        url_key
+        sku
+      }
     }
   }
 `);

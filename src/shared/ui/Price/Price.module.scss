@@ -1,0 +1,18 @@
+@use '@shared/styles/variables' as *;
+
+$price-old_color: $color-graphite-300;
+
+.price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.current {
+  font-weight: 600;
+}
+
+.old {
+  font-size: 0.875em;
+  color: $price-old_color;
+}

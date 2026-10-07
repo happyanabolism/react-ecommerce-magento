@@ -22,6 +22,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@reduxjs/toolkit": "^2.9.2",
     "clsx": "^2.1.1",
+    "dompurify": "^3.4.16",
     "graphql": "^16.11.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

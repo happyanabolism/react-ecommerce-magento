@@ -34,29 +34,32 @@ export const PRODUCT_CART_FIELDS = graphql(`
     uid
     name
     sku
+    url_key
     small_image {
       url
     }
     price_range {
-      minimum_price {
-        regular_price {
-          currency
-          value
-        }
-        final_price {
-          currency
-          value
-        }
+      ...ProductPriceRange
+    }
+  }
+`);
+
+export const PRODUCT_PRICE_RANGE = graphql(`
+  fragment ProductPriceRange on PriceRange {
+    minimum_price {
+      regular_price {
+        ...Money
       }
-      maximum_price {
-        regular_price {
-          currency
-          value
-        }
-        final_price {
-          currency
-          value
-        }
+      final_price {
+        ...Money
+      }
+    }
+    maximum_price {
+      regular_price {
+        ...Money
+      }
+      final_price {
+        ...Money
       }
     }
   }

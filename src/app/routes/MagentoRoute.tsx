@@ -1,5 +1,6 @@
 import { Navigate, useLocation } from 'react-router';
 import { CategoryPage } from '@pages/category';
+import { ProductPage } from '@pages/product';
 import { useUrlResolve } from './useUrlResolve';
 import { getRelativePath } from '@shared/lib';
 import { Alert, Container, Spinner } from '@shared/ui';
@@ -28,6 +29,17 @@ export function MagentoRoute() {
   switch (route.__typename) {
     case 'CategoryTree':
       return <CategoryPage category={route} />;
+    case 'SimpleProduct':
+    case 'BundleProduct':
+    case 'ConfigurableProduct':
+    case 'GroupedProduct':
+    case 'DownloadableProduct':
+    case 'VirtualProduct':
+      return route.sku ? (
+        <ProductPage sku={route.sku} />
+      ) : (
+        <Alert>Page not found</Alert>
+      );
     default:
       return <Alert>Page not found</Alert>;
   }

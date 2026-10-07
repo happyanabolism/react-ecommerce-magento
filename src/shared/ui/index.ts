@@ -8,3 +8,5 @@ export { Grid } from './Grid/Grid';
 export { PageLoader } from './PageLoader/PageLoader';
 export { Spinner } from './Spinner/Spinner';
 export { Pagination } from './Pagination/Pagination';
+export { Price } from './Price/Price';
+export { RichContent } from './RichContent/RichContent';
