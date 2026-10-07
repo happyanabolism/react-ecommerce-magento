@@ -43,21 +43,11 @@ below it:
 app → pages → widgets → features → entities → shared
 ```
 
-| Layer      | Contents                                                                                  |
-| ---------- | ----------------------------------------------------------------------------------------- |
-| `app`      | Providers (Apollo, Redux), store setup, router, layouts, Magento URL resolution           |
-| `pages`    | Route screens: category, product, account, login, registration, cart                      |
-| `widgets`  | Composite blocks: header (category menu, customer menu), category product listing         |
-| `features` | User actions: `auth/login`, `auth/register`, `auth/logout`, `customer-update`, listing    |
-| `entities` | Business data: `session`, `customer`, `address`, `product`, `category`, `notification`    |
-| `shared`   | `api` (GraphQL client helpers, generated types), `ui`, `lib`, `config`, `styles`          |
-
 Key decisions:
 
 - **Server state lives in the Apollo cache, not in Redux.** Redux holds only client state: the session token and
   notifications. Mutations return updated objects, and the normalized cache updates every view that shows them.
-- **Fragments are colocated with the components that need the data** (`ProductPriceRange` next to `ProductPrice`,
-  `Money` in `shared/api`); pages compose them into their queries.
+- **Fragments are colocated with the components that need the data**; pages compose them into their queries.
 - **Generated types only.** All API types come from GraphQL Code Generator; only app-level types (form data,
   session state) are written by hand.
 - **Magento errors** are read from both GraphQL errors and HTTP 401/403 responses and shown as one message.
@@ -104,28 +94,3 @@ describe a particular Magento instance and are generated from your own backend. 
 | `npm run format`        | Format with Prettier (`format:check` to verify)                |
 | `npm run schema:fetch`  | Download the GraphQL schema from `MAGENTO_BACKEND_URL`         |
 | `npm run codegen`       | Generate TypeScript types for GraphQL documents (`codegen:watch` to watch) |
-
-## Project structure
-
-```
-src/
-├── app/          # entry point, providers, store, router, layouts
-├── pages/        # account, cart, category, home, login, product, registration
-├── widgets/      # category, header
-├── features/     # auth, customer-update, product-listing
-├── entities/     # address, category, customer, notification, product, session
-└── shared/       # api, assets, config, lib, styles, ui
-scripts/
-└── fetch-schema.ts   # downloads and sanitizes the Magento GraphQL schema
-```
-
-## Roadmap
-
-- [ ] Tailwind CSS v4 + shadcn/ui, accessibility review
-- [ ] React 19 form actions
-- [ ] Configurable product options, image gallery
-- [ ] Cart (guest cart, merge on sign-in, mini cart) and checkout
-- [ ] Filters and sorting in the URL, search
-- [ ] Tests: Vitest, Testing Library, MSW, Playwright
-- [ ] Migration to Next.js App Router (server rendering, SEO)
-- [ ] CI and a public demo on mocked data
