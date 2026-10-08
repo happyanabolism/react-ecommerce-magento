@@ -17,7 +17,7 @@ interface ProductPageProps {
 export const ProductPage = ({ sku }: ProductPageProps) => {
   const { product, loading, error } = useProductPage({ sku });
 
-  if (loading && !product) return <Spinner />;
+  if (loading && !product) return <Spinner className='mx-auto my-8 block size-8 text-muted-foreground' />;
   if (error)
     return (
       <Alert variant='destructive'>

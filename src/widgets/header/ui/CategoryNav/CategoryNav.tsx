@@ -10,7 +10,7 @@ export function CategoryNav({ limit }: { limit?: number }) {
   });
 
   if (error) return <p>{getMagentoErrorMessage(error)}</p>;
-  if (loading) return <Spinner />;
+  if (loading) return <Spinner className='size-5 text-muted-foreground' />;
 
   return (
     <nav className={styles.navigation}>

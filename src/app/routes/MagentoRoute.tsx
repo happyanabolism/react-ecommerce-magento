@@ -14,7 +14,7 @@ export function MagentoRoute() {
   if (loading) {
     return (
       <Container>
-        <Spinner />
+        <Spinner className='mx-auto my-8 block size-8 text-muted-foreground' />
       </Container>
     );
   }

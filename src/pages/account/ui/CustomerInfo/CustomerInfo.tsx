@@ -8,7 +8,7 @@ import { UpdatePersonalInfoDialog } from '../UpdatePersonalInfoDialog/UpdatePers
 export const CustomerInfo = () => {
   const { customer, loading, error } = useCustomer();
 
-  if (!customer && loading) return <Spinner />;
+  if (!customer && loading) return <Spinner className='mx-auto my-8 block size-8 text-muted-foreground' />;
   if (error)
     return (
       <Alert variant='destructive'>

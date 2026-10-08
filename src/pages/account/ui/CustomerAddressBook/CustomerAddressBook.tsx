@@ -11,7 +11,7 @@ export const CustomerAddressBook = () => {
         <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
       </Alert>
     );
-  if (loading) return <Spinner />;
+  if (loading) return <Spinner className='mx-auto my-8 block size-8 text-muted-foreground' />;
 
   return addresses.length === 0 ? (
     <div>No addresses</div>
