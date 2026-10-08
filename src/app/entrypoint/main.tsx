@@ -7,6 +7,7 @@ import { router } from '@app/routes/router';
 import { persistor, store } from '@app/store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import '../styles/index.scss';
+import '../styles/tailwind.css';
 
 const rootElement = document.getElementById('root');
 
