@@ -2,6 +2,18 @@
   // Solution-style config: code for two different environments is checked
   // by two projects. Run `tsc -b` to check both.
   "files": [],
+  // Not used by tsc (the projects below have their own). The shadcn CLI reads
+  // aliases only from this file; keep in sync with tsconfig.app.json.
+  "compilerOptions": {
+    "paths": {
+      "@app/*": ["./src/app/*"],
+      "@entities/*": ["./src/entities/*"],
+      "@features/*": ["./src/features/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@widgets/*": ["./src/widgets/*"]
+    }
+  },
   "references": [
     // browser: everything in src/
     { "path": "./tsconfig.app.json" },
