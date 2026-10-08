@@ -1,11 +1,16 @@
 import { useCustomerAddresses } from '@entities/address';
-import { Alert, Spinner } from '@shared/ui';
+import { Alert, AlertDescription, Spinner } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/api';
 
 export const CustomerAddressBook = () => {
   const { addresses, loading, error } = useCustomerAddresses();
 
-  if (error) return <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>;
+  if (error)
+    return (
+      <Alert variant='destructive'>
+        <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
+      </Alert>
+    );
   if (loading) return <Spinner />;
 
   return addresses.length === 0 ? (

@@ -1,6 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Alert, Button, Spinner, PasswordField } from '@shared/ui';
+import {
+  Alert,
+  AlertDescription,
+  Button,
+  Spinner,
+  PasswordField,
+} from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/api';
 import { useCustomerPasswordUpdate } from '../../model/useCustomerPasswordUpdate';
 import {
@@ -46,7 +52,11 @@ export const UpdateCustomerPasswordForm = () => {
           {...register('newPasswordConfirm')}
         />
       </fieldset>
-      {error && <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>}
+      {error && (
+        <Alert variant='destructive'>
+          <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
+        </Alert>
+      )}
       <Button type='submit' disabled={loading || isSubmitting}>
         {(loading || isSubmitting) && <Spinner />}
         {loading || isSubmitting ? 'Updating...' : 'Update'}

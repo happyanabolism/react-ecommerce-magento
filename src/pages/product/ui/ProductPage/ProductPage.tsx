@@ -1,7 +1,13 @@
 import { useProductPage } from '../../model/useProductPage';
 import { ProductImage, ProductPrice } from '@entities/product';
 import { getMagentoErrorMessage } from '@shared/api';
-import { Alert, Container, RichContent, Spinner } from '@shared/ui';
+import {
+  Alert,
+  AlertDescription,
+  Container,
+  RichContent,
+  Spinner,
+} from '@shared/ui';
 import styles from './ProductPage.module.scss';
 
 interface ProductPageProps {
@@ -12,8 +18,18 @@ export const ProductPage = ({ sku }: ProductPageProps) => {
   const { product, loading, error } = useProductPage({ sku });
 
   if (loading && !product) return <Spinner />;
-  if (error) return <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>;
-  if (!product) return <Alert type='error'>Product not found</Alert>;
+  if (error)
+    return (
+      <Alert variant='destructive'>
+        <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
+      </Alert>
+    );
+  if (!product)
+    return (
+      <Alert variant='destructive'>
+        <AlertDescription>Product not found</AlertDescription>
+      </Alert>
+    );
 
   return (
     <>

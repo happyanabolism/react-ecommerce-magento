@@ -3,7 +3,7 @@ import { CategoryPage } from '@pages/category';
 import { ProductPage } from '@pages/product';
 import { useUrlResolve } from './useUrlResolve';
 import { getRelativePath } from '@shared/lib';
-import { Alert, Container, Spinner } from '@shared/ui';
+import { Alert, AlertDescription, Container, Spinner } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/api';
 
 export function MagentoRoute() {
@@ -19,7 +19,12 @@ export function MagentoRoute() {
     );
   }
   if (error) return <p>{getMagentoErrorMessage(error)}</p>;
-  if (!route) return <Alert>Page not found</Alert>;
+  if (!route)
+    return (
+      <Alert>
+        <AlertDescription>Page not found</AlertDescription>
+      </Alert>
+    );
 
   if (route.redirect_code !== 0 && route.relative_url) {
     return <Navigate to={'/' + route.relative_url} replace />;
@@ -38,9 +43,15 @@ export function MagentoRoute() {
       return route.sku ? (
         <ProductPage sku={route.sku} />
       ) : (
-        <Alert>Page not found</Alert>
+        <Alert>
+          <AlertDescription>Page not found</AlertDescription>
+        </Alert>
       );
     default:
-      return <Alert>Page not found</Alert>;
+      return (
+        <Alert>
+          <AlertDescription>Page not found</AlertDescription>
+        </Alert>
+      );
   }
 }

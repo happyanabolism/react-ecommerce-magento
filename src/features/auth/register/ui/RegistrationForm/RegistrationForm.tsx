@@ -13,6 +13,7 @@ import {
   PasswordField,
   // TelephoneField,
   Alert,
+  AlertDescription,
 } from '@shared/ui';
 import styles from './RegistrationForm.module.scss';
 import { getMagentoErrorMessage } from '@shared/api';
@@ -88,12 +89,13 @@ export const RegistrationForm = () => {
           {...register('passwordConfirm')}
         />
       </fieldset>
-      {error && <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>}
+      {error && (
+        <Alert variant='destructive'>
+          <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
+        </Alert>
+      )}
       <div className={styles.formActions}>
-        <Button
-          type='submit'
-          disabled={isSubmitting || loading}
-        >
+        <Button type='submit' disabled={isSubmitting || loading}>
           {(isSubmitting || loading) && <Spinner />}
           {isSubmitting || loading ? 'Signing up...' : 'Sign Up'}
         </Button>

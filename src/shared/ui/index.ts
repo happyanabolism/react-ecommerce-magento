@@ -1,4 +1,4 @@
-export { Alert } from './Alert/Alert';
+export { Alert, AlertTitle, AlertDescription } from './shadcn/alert';
 export { Button } from './shadcn/button';
 export {
   DropdownMenu,

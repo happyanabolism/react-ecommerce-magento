@@ -1,5 +1,5 @@
 import { ProductCard } from '@entities/product';
-import { Alert, Grid, Pagination } from '@shared/ui';
+import { Alert, AlertDescription, Grid, Pagination } from '@shared/ui';
 import styles from './CategoryProductListing.module.scss';
 import {
   useProductListing,
@@ -16,7 +16,12 @@ export const CategoryProductListing = ({
 }: CategoryProductListingProps) => {
   const { products, pageInfo, setPage, error } = useProductListing(criteria);
 
-  if (error) return <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>;
+  if (error)
+    return (
+      <Alert variant='destructive'>
+        <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
+      </Alert>
+    );
   return (
     <div className={styles.productListing}>
       <Grid>

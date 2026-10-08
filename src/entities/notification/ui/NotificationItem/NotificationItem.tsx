@@ -10,9 +10,9 @@ interface NotificationItemProps {
   notification: Notification;
 }
 
-const alertType = {
+const alertVariant = {
   success: 'success',
-  error: 'error',
+  error: 'destructive',
   info: 'default',
 } as const;
 
@@ -21,7 +21,7 @@ export const NotificationItem = ({ notification }: NotificationItemProps) => {
 
   return (
     <Alert
-      type={alertType[notification.type]}
+      variant={alertVariant[notification.type]}
       role={notification.type === 'error' ? 'alert' : 'status'}
       className={styles.notification}
     >

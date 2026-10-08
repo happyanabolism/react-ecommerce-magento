@@ -4,15 +4,25 @@ import {
   UpdateCustomerEmailForm,
   UpdateCustomerPasswordForm,
 } from '@features/customer-update';
-import { Alert, Button, Spinner } from '@shared/ui';
+import { Alert, AlertDescription, Button, Spinner } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/api';
 
 export const CustomerInfo = () => {
   const { customer, loading, error } = useCustomer();
 
   if (!customer && loading) return <Spinner />;
-  if (error) return <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>;
-  if (!customer) return <Alert type='error'>Something went wrong!</Alert>;
+  if (error)
+    return (
+      <Alert variant='destructive'>
+        <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
+      </Alert>
+    );
+  if (!customer)
+    return (
+      <Alert variant='destructive'>
+        <AlertDescription>Something went wrong!</AlertDescription>
+      </Alert>
+    );
 
   return (
     /* TODO(customer-attributes): show custom attributes from attributesForm metadata */

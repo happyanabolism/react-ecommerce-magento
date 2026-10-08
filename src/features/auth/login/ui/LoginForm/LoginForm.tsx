@@ -1,7 +1,14 @@
 import { Link } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Spinner, TextField, PasswordField, Alert } from '@shared/ui';
+import {
+  Button,
+  Spinner,
+  TextField,
+  PasswordField,
+  Alert,
+  AlertDescription,
+} from '@shared/ui';
 import { ROUTES } from '@shared/config';
 import { getMagentoErrorMessage } from '@shared/api';
 import { schema, type LoginFormData } from '../../model/login.schema';
@@ -42,12 +49,13 @@ export function LoginForm() {
           {...register('password')}
         />
       </fieldset>
-      {error && <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>}
+      {error && (
+        <Alert variant='destructive'>
+          <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
+        </Alert>
+      )}
       <div className={styles.formActions}>
-        <Button
-          type='submit'
-          disabled={isSubmitting || loading}
-        >
+        <Button type='submit' disabled={isSubmitting || loading}>
           {(isSubmitting || loading) && <Spinner />}
           {isSubmitting || loading ? 'Logging In...' : 'Log In'}
         </Button>
