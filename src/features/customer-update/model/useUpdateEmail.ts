@@ -4,7 +4,7 @@ import { addNotification } from '@entities/notification';
 import type { UpdateCustomerEmailMutationVariables } from '@shared/api';
 import { useAppDispatch } from '@shared/lib';
 
-export const useCustomerEmailUpdate = () => {
+export const useUpdateEmail = () => {
   const [updateEmail, result] = useMutation(UPDATE_CUSTOMER_EMAIL);
   const dispatch = useAppDispatch();
 
@@ -16,8 +16,10 @@ export const useCustomerEmailUpdate = () => {
       dispatch(
         addNotification({ type: 'success', message: 'Customer email updated' })
       );
+      return true;
     } catch {
       // error will arrive in result.error
+      return false;
     }
   };
 

@@ -4,7 +4,7 @@ import type { CustomerUpdateInput } from '@shared/api';
 import { useAppDispatch } from '@shared/lib';
 import { addNotification } from '@entities/notification';
 
-export const useCustomerUpdate = () => {
+export const useUpdatePersonalInfo = () => {
   const [updatePersonalInfo, result] = useMutation(UPDATE_PERSONAL_INFO);
   const dispatch = useAppDispatch();
 
@@ -14,8 +14,10 @@ export const useCustomerUpdate = () => {
       dispatch(
         addNotification({ type: 'success', message: 'Personal data updated' })
       );
+      return true;
     } catch {
       // error will arrive in result.error
+      return false;
     }
   };
 

@@ -6,6 +6,16 @@ export {
   DropdownMenuContent,
   DropdownMenuItem,
 } from './shadcn/dropdown-menu';
+export {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from './shadcn/dialog';
 export { Container } from './Container/Container';
 export { TextField, PasswordField, TelephoneField } from './Fields';
 export { Grid } from './Grid/Grid';

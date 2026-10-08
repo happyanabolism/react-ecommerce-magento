@@ -8,15 +8,15 @@ export const AccountDashboardPage = () => {
 
       <h1>Account Dashboard</h1>
 
-      <section>
+      <section className='mb-8'>
         <h2>Customer information</h2>
         <CustomerInfo />
       </section>
-      <section>
+      <section className='mb-8'>
         <h2>Address book</h2>
         <CustomerAddressBook />
       </section>
-      <section>
+      <section className='mb-8'>
         <h2>Recent orders</h2>
         {/* TODO: Recent orders table widget */}
       </section>

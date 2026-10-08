@@ -1,11 +1,9 @@
 import { useCustomer } from '@entities/customer';
-import {
-  UpdatePersonalInfoForm,
-  UpdateCustomerEmailForm,
-  UpdateCustomerPasswordForm,
-} from '@features/customer-update';
-import { Alert, AlertDescription, Button, Spinner } from '@shared/ui';
+import { Alert, AlertDescription, Spinner } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/api';
+import { UpdateEmailDialog } from '../UpdateEmailDialog/UpdateEmailDialog';
+import { UpdatePasswordDialog } from '../UpdatePasswordDialog/UpdatePasswordDialog';
+import { UpdatePersonalInfoDialog } from '../UpdatePersonalInfoDialog/UpdatePersonalInfoDialog';
 
 export const CustomerInfo = () => {
   const { customer, loading, error } = useCustomer();
@@ -29,10 +27,9 @@ export const CustomerInfo = () => {
     <div>
       <p>{`${customer.firstname} ${customer.lastname}`}</p>
       <p>{customer.email}</p>
-      <Button variant='link'>Edit</Button>
-      <UpdatePersonalInfoForm customer={customer} />
-      <UpdateCustomerEmailForm />
-      <UpdateCustomerPasswordForm />
+      <UpdatePersonalInfoDialog customer={customer} />
+      <UpdateEmailDialog />
+      <UpdatePasswordDialog />
     </div>
   );
 };

@@ -5,7 +5,7 @@ import {
 } from '@shared/lib/validation';
 import * as yup from 'yup';
 
-export const personalInfoSchema = yup.object().shape({
+export const updatePersonalInfoSchema = yup.object().shape({
   firstname: firstnameField,
   lastname: lastnameField,
   custom_attributes: yup.object({
@@ -15,4 +15,4 @@ export const personalInfoSchema = yup.object().shape({
   }),
 });
 
-export type PersonalInfoFormData = yup.InferType<typeof personalInfoSchema>;
+export type UpdatePersonalInfoFormData = yup.InferType<typeof updatePersonalInfoSchema>;

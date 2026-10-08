@@ -4,7 +4,7 @@ import { addNotification } from '@entities/notification';
 import type { ChangeCustomerPasswordMutationVariables } from '@shared/api';
 import { useAppDispatch } from '@shared/lib';
 
-export const useCustomerPasswordUpdate = () => {
+export const useUpdatePassword = () => {
   const [changePassword, result] = useMutation(CHANGE_CUSTOMER_PASSWORD);
   const dispatch = useAppDispatch();
 
@@ -19,8 +19,10 @@ export const useCustomerPasswordUpdate = () => {
           message: 'Customer password updated',
         })
       );
+      return true;
     } catch {
       // error will arrive in result.error
+      return false;
     }
   };
   return [changeCustomerPassword, result] as const;
