@@ -1,4 +1,4 @@
-import { Alert, AlertDescription, TextField } from '@shared/ui';
+import { Alert, AlertDescription, FieldGroup, TextField } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/api';
 import type { useUpdatePersonalInfoForm } from '../../model/useUpdatePersonalInfoForm';
 
@@ -20,16 +20,20 @@ export const UpdatePersonalInfoFields = ({
 
   return (
     <>
-      <TextField
-        label='First Name'
-        error={errors?.firstname?.message}
-        {...register('firstname')}
-      />
-      <TextField
-        label='Last Name'
-        error={errors?.lastname?.message}
-        {...register('lastname')}
-      />
+      <FieldGroup>
+        <TextField
+          label='First Name'
+          error={errors?.firstname?.message}
+          required
+          {...register('firstname')}
+        />
+        <TextField
+          label='Last Name'
+          error={errors?.lastname?.message}
+          required
+          {...register('lastname')}
+        />
+      </FieldGroup>
       {/* TODO(customer-attributes): render custom attributes from attributesForm
           metadata (phone: TelephoneField through a Controller with form.control) */}
       {error && (

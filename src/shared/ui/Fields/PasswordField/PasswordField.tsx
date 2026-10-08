@@ -1,7 +1,12 @@
-import { useState, type InputHTMLAttributes } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { BaseField } from '../BaseField/BaseField';
-import styles from './PasswordField.module.scss';
+import { useState, useId, type InputHTMLAttributes } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
+import { Field, FieldError, FieldLabel } from '../../shadcn/field';
+import {
+  InputGroup,
+  InputGroupInput,
+  InputGroupAddon,
+  InputGroupButton,
+} from '../../shadcn/input-group';
 
 interface PasswordFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -17,26 +22,44 @@ export const PasswordField = ({
 }: PasswordFieldProps) => {
   const [visible, setVisible] = useState(false);
 
+  const generatedId = useId();
+  const inputId = inputProps.id ?? generatedId;
+  const errorId = `${inputId}-error`;
+
   return (
-    <BaseField label={label} error={error} className={className}>
-      {(id) => (
-        <div className={styles.passwordField}>
-          <input
-            {...inputProps}
-            id={id}
-            aria-invalid={!!error}
-            type={visible ? 'text' : 'password'}
-            onCopy={(e) => e.preventDefault()}
-            onCut={(e) => e.preventDefault()}
-          />
-          <span
-            className={styles.passwordFieldIcon}
+    <Field data-invalid={!!error} className={className}>
+      {label && (
+        <FieldLabel htmlFor={inputId}>
+          {label}
+          {inputProps.required && (
+            <span className='text-destructive' aria-hidden='true'>
+              *
+            </span>
+          )}
+        </FieldLabel>
+      )}
+      <InputGroup>
+        <InputGroupInput
+          {...inputProps}
+          id={inputId}
+          aria-invalid={!!error}
+          aria-describedby={error ? errorId : undefined}
+          type={visible ? 'text' : 'password'}
+          onCopy={(e) => e.preventDefault()}
+          onCut={(e) => e.preventDefault()}
+        />
+        <InputGroupAddon align='inline-end'>
+          <InputGroupButton
+            type='button'
+            size='icon-xs'
+            aria-label={visible ? 'Hide password' : 'Show password'}
             onClick={() => setVisible((prev) => !prev)}
           >
-            {visible ? <FaEyeSlash /> : <FaEye />}
-          </span>
-        </div>
-      )}
-    </BaseField>
+            {visible ? <EyeOff /> : <Eye />}
+          </InputGroupButton>
+        </InputGroupAddon>
+      </InputGroup>
+      {error && <FieldError id={errorId}>{error}</FieldError>}
+    </Field>
   );
 };

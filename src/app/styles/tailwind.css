@@ -157,4 +157,11 @@
   html {
     @apply font-sans;
   }
+
+  input:-webkit-autofill,
+  input:autofill {
+    -webkit-text-fill-color: var(--foreground);
+    caret-color: var(--foreground);
+    transition: background-color 5000s ease-in-out 0s;
+  }
 }

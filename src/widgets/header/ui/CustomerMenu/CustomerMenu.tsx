@@ -3,6 +3,7 @@ import { useCustomer } from '@entities/customer';
 import { selectJwt } from '@entities/session';
 import { ROUTES } from '@shared/config';
 import { useAppSelector } from '@shared/lib';
+import { Spinner } from '@shared/ui';
 import { CustomerDropdown } from '../CustomerDropdown/CustomerDropdown';
 
 export const CustomerMenu = () => {
@@ -10,7 +11,7 @@ export const CustomerMenu = () => {
   const { customer } = useCustomer();
 
   if (!jwt) return <Link to={ROUTES.LOGIN}>Login</Link>;
-  if (!customer) return <span>Hello</span>;
+  if (!customer) return <Spinner />;
 
   return <CustomerDropdown customer={customer} />;
 };

@@ -1,4 +1,4 @@
-import { Alert, AlertDescription, PasswordField } from '@shared/ui';
+import { Alert, AlertDescription, FieldGroup, PasswordField } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/api';
 import type { useUpdatePasswordForm } from '../../model/useUpdatePasswordForm';
 
@@ -20,21 +20,23 @@ export const UpdatePasswordFields = ({
 
   return (
     <>
-      <PasswordField
-        label='Current Password'
-        error={errors?.currentPassword?.message}
-        {...register('currentPassword')}
-      />
-      <PasswordField
-        label='New Password'
-        error={errors?.newPassword?.message}
-        {...register('newPassword')}
-      />
-      <PasswordField
-        label='Confirm New Password'
-        error={errors?.newPasswordConfirm?.message}
-        {...register('newPasswordConfirm')}
-      />
+      <FieldGroup>
+        <PasswordField
+          label='Current Password'
+          error={errors?.currentPassword?.message}
+          {...register('currentPassword')}
+        />
+        <PasswordField
+          label='New Password'
+          error={errors?.newPassword?.message}
+          {...register('newPassword')}
+        />
+        <PasswordField
+          label='Confirm New Password'
+          error={errors?.newPasswordConfirm?.message}
+          {...register('newPasswordConfirm')}
+        />
+      </FieldGroup>
       {error && (
         <Alert variant='destructive'>
           <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>

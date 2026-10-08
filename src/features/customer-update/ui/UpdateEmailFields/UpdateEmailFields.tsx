@@ -1,4 +1,10 @@
-import { Alert, AlertDescription, PasswordField, TextField } from '@shared/ui';
+import {
+  Alert,
+  AlertDescription,
+  PasswordField,
+  TextField,
+  FieldGroup,
+} from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/api';
 import type { useUpdateEmailForm } from '../../model/useUpdateEmailForm';
 
@@ -17,12 +23,13 @@ export const UpdateEmailFields = ({ form, error }: UpdateEmailFieldsProps) => {
 
   return (
     <>
-      <fieldset>
+      <FieldGroup>
         <TextField
           label='New Email'
           placeholder='example@gmail.com'
           type='email'
           error={errors?.email?.message}
+          required
           {...register('email')}
         />
         <PasswordField
@@ -35,7 +42,7 @@ export const UpdateEmailFields = ({ form, error }: UpdateEmailFieldsProps) => {
           error={errors?.passwordConfirm?.message}
           {...register('passwordConfirm')}
         />
-      </fieldset>
+      </FieldGroup>
       {error && (
         <Alert variant='destructive'>
           <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
