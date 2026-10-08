@@ -19,7 +19,8 @@ export const useUpdatePasswordForm = ({
     mode: 'onChange',
     resolver: yupResolver(updatePasswordSchema),
   });
-  const [changeCustomerPassword, { loading, error }] = useUpdatePassword();
+  const [changeCustomerPassword, { loading, error, reset: resetMutation }] =
+    useUpdatePassword();
   const pending = loading || form.formState.isSubmitting;
 
   const onSubmit = form.handleSubmit(
@@ -30,8 +31,14 @@ export const useUpdatePasswordForm = ({
     }
   );
 
+  const reset = () => {
+    form.reset();
+    resetMutation();
+  };
+
   return {
     form,
+    reset,
     error,
     pending,
     formProps: { id: formId, onSubmit, noValidate: true },

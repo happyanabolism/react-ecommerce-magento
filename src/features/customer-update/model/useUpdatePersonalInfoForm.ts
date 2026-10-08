@@ -17,6 +17,15 @@ interface UseUpdatePersonalInfoFormOptions {
   onSuccess?: () => void;
 }
 
+const toFormValues = (customer: CustomerFieldsFragment) =>
+  updatePersonalInfoSchema.cast(
+    {
+      ...customer,
+      custom_attributes: flatCustomAttributes(customer.custom_attributes),
+    },
+    { stripUnknown: true }
+  );
+
 export const useUpdatePersonalInfoForm = ({
   customer,
   onSuccess,
@@ -25,15 +34,10 @@ export const useUpdatePersonalInfoForm = ({
   const form = useForm({
     mode: 'onChange',
     resolver: yupResolver(updatePersonalInfoSchema),
-    defaultValues: updatePersonalInfoSchema.cast(
-      {
-        ...customer,
-        custom_attributes: flatCustomAttributes(customer.custom_attributes),
-      },
-      { stripUnknown: true }
-    ),
+    defaultValues: toFormValues(customer),
   });
-  const [updateCustomer, { loading, error }] = useUpdatePersonalInfo();
+  const [updateCustomer, { loading, error, reset: resetMutation }] =
+    useUpdatePersonalInfo();
   const pending = loading || form.formState.isSubmitting;
 
   const onSubmit = form.handleSubmit(
@@ -48,8 +52,14 @@ export const useUpdatePersonalInfoForm = ({
     }
   );
 
+  const reset = () => {
+    form.reset(toFormValues(customer));
+    resetMutation();
+  };
+
   return {
     form,
+    reset,
     error,
     pending,
     formProps: { id: formId, onSubmit, noValidate: true },

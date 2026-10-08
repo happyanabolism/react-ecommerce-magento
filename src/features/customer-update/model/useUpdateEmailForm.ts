@@ -19,7 +19,8 @@ export const useUpdateEmailForm = ({
     mode: 'onChange',
     resolver: yupResolver(updateEmailSchema),
   });
-  const [updateCustomerEmail, { loading, error }] = useUpdateEmail();
+  const [updateCustomerEmail, { loading, error, reset: resetMutation }] =
+    useUpdateEmail();
   const pending = loading || form.formState.isSubmitting;
 
   const onSubmit = form.handleSubmit(async (formData: UpdateEmailFormData) => {
@@ -28,8 +29,14 @@ export const useUpdateEmailForm = ({
     if (ok) onSuccess?.();
   });
 
+  const reset = () => {
+    form.reset();
+    resetMutation();
+  };
+
   return {
     form,
+    reset,
     error,
     pending,
     formProps: { id: formId, onSubmit, noValidate: true },

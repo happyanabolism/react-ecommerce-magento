@@ -20,40 +20,24 @@ interface UpdatePersonalInfoDialogProps {
   customer: CustomerFieldsFragment;
 }
 
-const UpdatePersonalInfoDialogBody = ({
-  customer,
-  onSuccess,
-}: UpdatePersonalInfoDialogProps & { onSuccess: () => void }) => {
-  const { form, formProps, submitProps, error, pending } =
-    useUpdatePersonalInfoForm({ customer, onSuccess });
-
-  return (
-    <>
-      <form {...formProps}>
-        <UpdatePersonalInfoFields form={form} error={error} />
-      </form>
-      <DialogFooter>
-        <DialogClose asChild>
-          <Button variant='outline' disabled={pending}>
-            Cancel
-          </Button>
-        </DialogClose>
-        <Button {...submitProps}>
-          {pending && <Spinner />}
-          Save changes
-        </Button>
-      </DialogFooter>
-    </>
-  );
-};
-
 export const UpdatePersonalInfoDialog = ({
   customer,
 }: UpdatePersonalInfoDialogProps) => {
   const [open, setOpen] = useState(false);
+  const { form, formProps, submitProps, error, pending, reset } =
+    useUpdatePersonalInfoForm({
+      customer,
+      onSuccess: () => setOpen(false),
+    });
+
+  const handleOpenChange = (nextOpen: boolean) => {
+    if (pending) return;
+    if (nextOpen) reset();
+    setOpen(nextOpen);
+  };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button>Edit name</Button>
       </DialogTrigger>
@@ -61,10 +45,20 @@ export const UpdatePersonalInfoDialog = ({
         <DialogHeader>
           <DialogTitle>Edit name</DialogTitle>
         </DialogHeader>
-        <UpdatePersonalInfoDialogBody
-          customer={customer}
-          onSuccess={() => setOpen(false)}
-        />
+        <form {...formProps}>
+          <UpdatePersonalInfoFields form={form} error={error} />
+        </form>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant='outline' disabled={pending}>
+              Cancel
+            </Button>
+          </DialogClose>
+          <Button {...submitProps}>
+            {pending && <Spinner />}
+            Save changes
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

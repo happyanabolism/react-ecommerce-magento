@@ -15,35 +15,21 @@ import {
   Spinner,
 } from '@shared/ui';
 
-const UpdatePasswordDialogBody = ({ onSuccess }: { onSuccess: () => void }) => {
-  const { form, formProps, submitProps, error, pending } =
-    useUpdatePasswordForm({ onSuccess });
-
-  return (
-    <>
-      <form {...formProps}>
-        <UpdatePasswordFields form={form} error={error} />
-      </form>
-      <DialogFooter>
-        <DialogClose asChild>
-          <Button variant='outline' disabled={pending}>
-            Cancel
-          </Button>
-        </DialogClose>
-        <Button {...submitProps}>
-          {pending && <Spinner />}
-          Save changes
-        </Button>
-      </DialogFooter>
-    </>
-  );
-};
-
 export const UpdatePasswordDialog = () => {
   const [open, setOpen] = useState(false);
+  const { form, formProps, submitProps, error, pending, reset } =
+    useUpdatePasswordForm({
+      onSuccess: () => setOpen(false),
+    });
+
+  const handleOpenChange = (nextOpen: boolean) => {
+    if (pending) return;
+    if (nextOpen) reset();
+    setOpen(nextOpen);
+  };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button>Change password</Button>
       </DialogTrigger>
@@ -51,7 +37,20 @@ export const UpdatePasswordDialog = () => {
         <DialogHeader>
           <DialogTitle>Change password</DialogTitle>
         </DialogHeader>
-        <UpdatePasswordDialogBody onSuccess={() => setOpen(false)} />
+        <form {...formProps}>
+          <UpdatePasswordFields form={form} error={error} />
+        </form>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant='outline' disabled={pending}>
+              Cancel
+            </Button>
+          </DialogClose>
+          <Button {...submitProps}>
+            {pending && <Spinner />}
+            Save changes
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
