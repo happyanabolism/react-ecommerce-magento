@@ -8,6 +8,7 @@ import {
 import { ROUTES } from '@shared/config';
 import {
   Button,
+  Spinner,
   TextField,
   PasswordField,
   // TelephoneField,
@@ -91,9 +92,9 @@ export const RegistrationForm = () => {
       <div className={styles.formActions}>
         <Button
           type='submit'
-          variant='primary'
-          loading={isSubmitting || loading}
+          disabled={isSubmitting || loading}
         >
+          {(isSubmitting || loading) && <Spinner />}
           {isSubmitting || loading ? 'Signing up...' : 'Sign Up'}
         </Button>
       </div>

@@ -1,6 +1,6 @@
 import { useForm /*, Controller */ } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Alert, Button, /* TelephoneField, */ TextField } from '@shared/ui';
+import { Alert, Button, Spinner, /* TelephoneField, */ TextField } from '@shared/ui';
 import {
   flatCustomAttributes,
   getMagentoErrorMessage,
@@ -76,7 +76,8 @@ export const UpdatePersonalInfoForm = ({
         */}
       </fieldset>
       {error && <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>}
-      <Button type='submit' variant='primary' loading={loading || isSubmitting}>
+      <Button type='submit' disabled={loading || isSubmitting}>
+        {(loading || isSubmitting) && <Spinner />}
         {loading || isSubmitting ? 'Updating...' : 'Update'}
       </Button>
     </form>

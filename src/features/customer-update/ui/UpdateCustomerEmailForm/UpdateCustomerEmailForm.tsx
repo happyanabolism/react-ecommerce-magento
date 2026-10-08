@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Alert, Button, PasswordField, TextField } from '@shared/ui';
+import { Alert, Button, Spinner, PasswordField, TextField } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/api';
 import { useCustomerEmailUpdate } from '../../model/useCustomerEmailUpdate';
 import {
@@ -48,7 +48,8 @@ export const UpdateCustomerEmailForm = () => {
         />
       </fieldset>
       {error && <Alert type='error'>{getMagentoErrorMessage(error)}</Alert>}
-      <Button type='submit' variant='primary' loading={loading || isSubmitting}>
+      <Button type='submit' disabled={loading || isSubmitting}>
+        {(loading || isSubmitting) && <Spinner />}
         {loading || isSubmitting ? 'Updating...' : 'Update'}
       </Button>
     </form>

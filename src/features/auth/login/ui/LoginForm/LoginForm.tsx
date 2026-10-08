@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, TextField, PasswordField, Alert } from '@shared/ui';
+import { Button, Spinner, TextField, PasswordField, Alert } from '@shared/ui';
 import { ROUTES } from '@shared/config';
 import { getMagentoErrorMessage } from '@shared/api';
 import { schema, type LoginFormData } from '../../model/login.schema';
@@ -46,9 +46,9 @@ export function LoginForm() {
       <div className={styles.formActions}>
         <Button
           type='submit'
-          variant='primary'
-          loading={isSubmitting || loading}
+          disabled={isSubmitting || loading}
         >
+          {(isSubmitting || loading) && <Spinner />}
           {isSubmitting || loading ? 'Logging In...' : 'Log In'}
         </Button>
         <Link to={'#'}>Forgot password?</Link>
