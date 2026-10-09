@@ -7,20 +7,24 @@ export interface ProductListingCriteria {
 }
 
 export const useProductListing = ({ filter }: ProductListingCriteria) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-  const currentPage = parseInt(searchParams.get('page') ?? '1');
-  const setPage = (page: number) => {
-    setSearchParams((params) => {
-      params.set('page', String(page));
-      return params;
-    });
-  };
+  const currentPage = parseInt(searchParams.get('page') || '1');
 
   const listing = useProducts({
     filter,
     currentPage,
   });
 
-  return { ...listing, setPage };
+  const getPageHref = (page: number) => {
+    const params = new URLSearchParams(searchParams);
+    if (page === 1) {
+      params.delete('page');
+    } else {
+      params.set('page', String(page));
+    }
+    return '?' + params.toString();
+  };
+
+  return { ...listing, currentPage, getPageHref };
 };
