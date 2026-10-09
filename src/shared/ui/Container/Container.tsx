@@ -1,6 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import clsx from 'clsx';
-import styles from './Container.module.scss';
+import { cn } from 'cn';
 
 interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
@@ -9,7 +8,10 @@ interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
 
 export const Container = ({ className, children, ...rest }: ContainerProps) => {
   return (
-    <div className={clsx(styles.container, className)} {...rest}>
+    <div
+      className={cn('mx-auto w-full max-w-layout px-4 xl:px-7.5', className)}
+      {...rest}
+    >
       {children}
     </div>
   );

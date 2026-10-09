@@ -1,6 +1,5 @@
 import { RegistrationForm } from '@features/auth/register';
 import { Container } from '@shared/ui';
-import styles from './RegistrationPage.module.scss';
 
 export const RegistrationPage = () => {
   return (
@@ -8,8 +7,7 @@ export const RegistrationPage = () => {
       <title>Sign Up</title>
 
       <Container>
-        <div className={styles.registrationFormWrapper}>
-          <h1>Sign Up</h1>
+        <div className='mx-auto max-w-md py-10'>
           <RegistrationForm />
         </div>
       </Container>

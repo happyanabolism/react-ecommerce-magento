@@ -1,5 +1,4 @@
-import { CategorySidebarLayout } from '@pages/category';
-import { Container } from '@shared/ui';
+import { Container, SidebarLayout } from '@shared/ui';
 import {
   CategoryProductListing,
   CategoryProductFilters,
@@ -18,13 +17,13 @@ export function CategoryPage({
       <title>{category.name}</title>
 
       {/* Category Header Component in category/entity */}
-      <Container>
+      <Container className='py-6'>
         <h1>{category.name}</h1>
         <div>description</div>
       </Container>
 
-      <Container>
-        <CategorySidebarLayout
+      <Container className='pb-10'>
+        <SidebarLayout
           sidebar={<CategoryProductFilters criteria={criteria} />}
           content={<CategoryProductListing criteria={criteria} />}
         />

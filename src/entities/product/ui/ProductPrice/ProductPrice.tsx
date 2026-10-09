@@ -1,7 +1,6 @@
-import clsx from 'clsx';
+import { cn } from 'cn';
 import type { ProductPriceRangeFragment } from '@shared/api';
 import { Price } from '@shared/ui';
-import styles from './ProductPrice.module.scss';
 
 interface ProductPriceProps {
   priceRange: ProductPriceRangeFragment;
@@ -19,8 +18,8 @@ export const ProductPrice = ({ priceRange, className }: ProductPriceProps) => {
     price.value != null && maxValue != null && maxValue > price.value;
 
   return (
-    <div className={clsx(styles.productPrice, className)}>
-      {isRange && <span className={styles.label}>From</span>}
+    <div className={cn('flex items-baseline gap-1', className)}>
+      {isRange && <span className='text-[0.875em] text-muted-foreground'>From</span>}
       <Price price={price} oldPrice={regularPrice} />
     </div>
   );

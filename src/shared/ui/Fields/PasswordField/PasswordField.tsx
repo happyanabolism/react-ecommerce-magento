@@ -1,4 +1,9 @@
-import { useState, useId, type InputHTMLAttributes } from 'react';
+import {
+  useState,
+  useId,
+  type InputHTMLAttributes,
+  type ReactNode,
+} from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { Field, FieldError, FieldLabel } from '../../shadcn/field';
 import {
@@ -11,11 +16,13 @@ import {
 interface PasswordFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   label?: string;
+  labelAction?: ReactNode;
   error?: string;
 }
 
 export const PasswordField = ({
   label,
+  labelAction,
   error,
   className,
   ...inputProps
@@ -29,14 +36,17 @@ export const PasswordField = ({
   return (
     <Field data-invalid={!!error} className={className}>
       {label && (
-        <FieldLabel htmlFor={inputId}>
-          {label}
-          {inputProps.required && (
-            <span className='text-destructive' aria-hidden='true'>
-              *
-            </span>
-          )}
-        </FieldLabel>
+        <div className='flex items-center'>
+          <FieldLabel htmlFor={inputId}>
+            {label}
+            {inputProps.required && (
+              <span className='text-destructive' aria-hidden='true'>
+                *
+              </span>
+            )}
+          </FieldLabel>
+          {labelAction && <div className='ml-auto'>{labelAction}</div>}
+        </div>
       )}
       <InputGroup>
         <InputGroupInput

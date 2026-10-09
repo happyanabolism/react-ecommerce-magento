@@ -1,7 +1,6 @@
-import clsx from 'clsx';
+import { cn } from 'cn';
 import type { MoneyFragment } from '@shared/api';
 import { formatPrice } from '@shared/lib';
-import styles from './Price.module.scss';
 
 interface PriceProps {
   price: MoneyFragment;
@@ -19,10 +18,10 @@ export const Price = ({ price, oldPrice, className }: PriceProps) => {
   const hasOldPrice = oldValue != null && oldValue > value;
 
   return (
-    <span className={clsx(styles.price, className)}>
-      <span className={styles.current}>{formatPrice(value, currency)}</span>
+    <span className={cn('inline-flex items-baseline gap-2', className)}>
+      <span className='font-semibold'>{formatPrice(value, currency)}</span>
       {hasOldPrice && (
-        <s className={styles.old}>{formatPrice(oldValue, currency)}</s>
+        <s className='text-[0.875em] text-muted-foreground'>{formatPrice(oldValue, currency)}</s>
       )}
     </span>
   );

@@ -8,6 +8,8 @@
 @theme {
   --breakpoint-xs: 30rem;
 
+  --container-layout: 95rem;
+
   --color-graphite-100: #efefef;
   --color-graphite-150: #dedede;
   --color-graphite-200: #c7c7c7;
@@ -86,7 +88,7 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted-foreground: #808080;
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
@@ -157,11 +159,20 @@
   html {
     @apply font-sans;
   }
+  h1 {
+    @apply text-3xl font-semibold;
+  }
 
   input:-webkit-autofill,
   input:autofill {
     -webkit-text-fill-color: var(--foreground);
     caret-color: var(--foreground);
     transition: background-color 5000s ease-in-out 0s;
+  }
+
+  /* the browser tints only the input; tint the whole group (password field with the eye button) the same way */
+  [data-slot='input-group']:has(input:autofill) {
+    overflow: hidden;
+    background-color: light-dark(rgb(232 240 254), rgb(70 90 126 / 0.4));
   }
 }

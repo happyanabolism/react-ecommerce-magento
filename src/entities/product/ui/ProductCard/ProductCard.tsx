@@ -1,5 +1,4 @@
 import { Link } from 'react-router';
-import styles from './ProductCard.module.scss';
 import { ProductImage } from '../ProductImage/ProductImage';
 import type { ProductCardFieldsFragment } from '@shared/api';
 import { ProductPrice } from '../ProductPrice/ProductPrice';
@@ -11,14 +10,17 @@ export function ProductCard({
 }) {
   // TODO: price, stock status, actions (add to cart feature)
   return (
-    <div className={styles.productCard}>
+    <div className='flex flex-col gap-3 rounded-lg border border-graphite-200 p-4'>
       <ProductImage
-        className={styles.productPhoto}
+        className='w-full'
         url={product.small_image?.url}
         alt={product.name}
       />
-      <div>
-        <Link to={'/' + product.url_key} className={styles.productLinkName}>
+      <div className='flex flex-col gap-1'>
+        <Link
+          to={'/' + product.url_key}
+          className='font-semibold hover:underline'
+        >
           {product.name}
         </Link>
         <ProductPrice priceRange={product.price_range} />

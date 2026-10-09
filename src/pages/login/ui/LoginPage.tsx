@@ -1,6 +1,5 @@
 import { LoginForm } from '@features/auth/login';
 import { Container } from '@shared/ui';
-import styles from './LoginPage.module.scss';
 
 export function LoginPage() {
   return (
@@ -8,8 +7,7 @@ export function LoginPage() {
       <title>Log In</title>
 
       <Container>
-        <div className={styles.loginFormWrapper}>
-          <h1>Log In</h1>
+        <div className='mx-auto max-w-sm py-10'>
           <LoginForm />
         </div>
       </Container>

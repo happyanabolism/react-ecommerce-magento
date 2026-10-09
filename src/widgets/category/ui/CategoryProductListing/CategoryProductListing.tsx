@@ -1,6 +1,5 @@
 import { ProductCard } from '@entities/product';
-import { Alert, AlertDescription, Grid, Pagination } from '@shared/ui';
-import styles from './CategoryProductListing.module.scss';
+import { Alert, AlertDescription, Pagination } from '@shared/ui';
 import {
   useProductListing,
   type ProductListingCriteria,
@@ -23,12 +22,12 @@ export const CategoryProductListing = ({
       </Alert>
     );
   return (
-    <div className={styles.productListing}>
-      <Grid>
+    <div className='flex flex-col gap-8'>
+      <div className='grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4'>
         {products.map((product) => (
           <ProductCard product={product} key={product.uid} />
         ))}
-      </Grid>
+      </div>
       <Pagination
         currentPage={pageInfo?.current_page}
         totalPages={pageInfo?.total_pages}

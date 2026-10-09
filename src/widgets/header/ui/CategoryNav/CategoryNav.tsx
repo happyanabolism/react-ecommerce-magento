@@ -2,7 +2,6 @@ import { CategoryLink } from '@entities/category';
 import { useCategoryNav } from '../../model/useCategoryNav';
 import { Container, Spinner } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/api';
-import styles from './CategoryNav.module.scss';
 
 export function CategoryNav({ limit }: { limit?: number }) {
   const { categories, loading, error } = useCategoryNav({
@@ -13,11 +12,11 @@ export function CategoryNav({ limit }: { limit?: number }) {
   if (loading) return <Spinner className='size-5 text-muted-foreground' />;
 
   return (
-    <nav className={styles.navigation}>
+    <nav className='hidden bg-purple-200 py-2.5 text-sm font-medium text-graphite-800 md:block'>
       <Container>
-        <ul>
+        <ul className='flex flex-wrap gap-x-5 gap-y-2'>
           {categories.map((category) => (
-            <li key={category.uid} className={styles.categoryLink}>
+            <li key={category.uid}>
               <CategoryLink category={category} />
             </li>
           ))}

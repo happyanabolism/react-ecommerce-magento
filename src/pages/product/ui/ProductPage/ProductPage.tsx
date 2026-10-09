@@ -8,7 +8,6 @@ import {
   RichContent,
   Spinner,
 } from '@shared/ui';
-import styles from './ProductPage.module.scss';
 
 interface ProductPageProps {
   sku: string;
@@ -35,17 +34,19 @@ export const ProductPage = ({ sku }: ProductPageProps) => {
     <>
       <title>{product.name}</title>
       <Container>
-        <div className={styles.productPage}>
+        <div className='grid gap-8 py-6 md:grid-cols-2 md:items-start'>
           <ProductImage
-            className={styles.image}
+            className='w-full rounded-xl bg-graphite-100'
             url={product.image?.url}
             alt={product.name}
           />
-          <div className={styles.info}>
-            <h1 className={styles.name}>{product.name}</h1>
-            <span className={styles.sku}>SKU: {product.sku}</span>
+          <div className='flex flex-col gap-4'>
+            <h1>{product.name}</h1>
+            <span className='text-sm text-muted-foreground'>
+              SKU: {product.sku}
+            </span>
             <ProductPrice
-              className={styles.price}
+              className='text-2xl'
               priceRange={product.price_range}
             />
             <RichContent html={product.description?.html} />
