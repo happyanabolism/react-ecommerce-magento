@@ -6,7 +6,7 @@ import { ErrorLink } from '@apollo/client/link/error';
 import { store } from '@app/store';
 import { logout, selectJwt } from '@entities/session';
 import { API_ERRORS, getMagentoErrors, introspection } from '@shared/api';
-import { addNotification } from '@entities/notification';
+import { toast } from 'sonner';
 
 const API_URI = '/graphql';
 const httpLink = new HttpLink({ uri: API_URI });
@@ -41,12 +41,7 @@ const errorLink = new ErrorLink(({ error, operation, forward }) => {
   // retry as a guest; the token check guarantees a single retry
   if (isAuthenticationError && token) {
     store.dispatch(logout());
-    store.dispatch(
-      addNotification({
-        type: 'error',
-        message: 'Your session has expired, please log in again	',
-      })
-    );
+    toast.error('Your session has expired, please log in again');
     // the operation still has the expired Authorization header set by authLink
     // on the first attempt, remove it so the retry goes without a token
     operation.setContext(({ headers }) => {

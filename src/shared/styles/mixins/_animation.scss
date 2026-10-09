@@ -1,9 +1,0 @@
-@mixin spin($duration: 0.8s, $timing: linear, $iteration: infinite) {
-  animation: spin $duration $timing $iteration;
-
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-}

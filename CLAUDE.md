@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-React 19 + Vite storefront (PWA-style headless frontend) for a **Magento 2 GraphQL** backend. TypeScript, Apollo Client 4, Redux Toolkit, React Router 8, SCSS modules.
+React 19 + Vite storefront (PWA-style headless frontend) for a **Magento 2 GraphQL** backend. TypeScript, Apollo Client 4, Redux Toolkit, React Router 8, Tailwind CSS v4 + shadcn/ui (Radix), Sonner toasts.
 
 Learning project: working agreements, plan, decisions and backlog are in the local (git-ignored) file below. Read it and follow it; update it when a step completes or a decision is made.
 
@@ -37,7 +37,7 @@ Notes:
 - TypeScript uses project references: `tsconfig.app.json` (browser, `src/`, `vite/client` types) and `tsconfig.node.json` (Node, config files). Vite does not type-check; only `tsc -b` does.
 - ESLint (flat config): `typescript-eslint`, `react-hooks` v7 (incl. React Compiler rules like `set-state-in-effect`), `react-refresh`; formatting rules are disabled via `eslint-config-prettier`. Prettier runs separately (`.prettierrc`: single quotes, JSX single quotes, semicolons, trailing commas `es5`, width 80).
 - The dev server proxies `/graphql` to the Magento instance set in `MAGENTO_BACKEND_URL` (`.env.local`, see `.env.example`; `vite dev` refuses to start without it). The Apollo client uses the relative URI `/graphql` (`src/app/providers/ApolloProvider.tsx`), so a reachable Magento backend is required to see any data.
-- Path aliases live in two places that must stay in sync: `paths` in `tsconfig.app.json` (for TS/IDE) and `resolve.alias` in `vite.config.ts` (for the bundler, including Sass `@use '@shared/...'`, which `vite-tsconfig-paths` can't resolve).
+- Path aliases live in two places that must stay in sync: `paths` in `tsconfig.app.json` (for TS/IDE) and `resolve.alias` in `vite.config.ts` (for the bundler).
 
 ## Architecture: Feature-Sliced Design
 
@@ -47,14 +47,14 @@ Notes:
 
 Path aliases: `@app/*`, `@pages/*`, `@widgets/*`, `@features/*`, `@entities/*`, `@shared/*`.
 
-FSD structure is checked by Steiger (`npm run lint:fsd`, config in `steiger.config.ts`). `shared` segments: `api` (`graphql()`, generated types re-exported as types, `introspection`, Magento helpers `getMagentoErrors`/`getMagentoErrorMessage`/`API_ERRORS`, custom-attribute mappers and `FlatAttributes`), `config` (`ROUTES`, pagination), `lib`, `ui`, `styles`, `assets`; import them through their `index.ts` (`@shared/api`, never `@shared/api/gql/...`).
+FSD structure is checked by Steiger (`npm run lint:fsd`, config in `steiger.config.ts`). `shared` segments: `api` (`graphql()`, generated types re-exported as types, `introspection`, Magento helpers `getMagentoErrors`/`getMagentoErrorMessage`/`API_ERRORS`, custom-attribute mappers and `FlatAttributes`), `config` (`ROUTES`, pagination), `lib`, `ui`, `assets`; import them through their `index.ts` (`@shared/api`, never `@shared/api/gql/...`).
 
 Each slice exposes a public API through its `index.ts`; import from `@entities/customer`, not from deep paths. Inside a slice, segments are:
 
 - `api/` — GraphQL documents (`graphql()` from `@shared/api/gql`)
 - `model/` — types, hooks wrapping `useQuery`/`useMutation`, Redux slices, yup schemas (`*.schema.ts`)
 - `lib/` — slice helpers (e.g. `entities/address/lib/fromCustomerAddress.ts`)
-- `ui/` — components, each in its own folder with a `Component.module.scss`
+- `ui/` — components, each in its own folder (`ui/Name/Name.tsx`)
 
 Inside a slice, import its own files by relative path, never through its own `index.ts` (that creates import cycles).
 
@@ -82,6 +82,9 @@ No context or provider. `CategoryPage` builds a listing criteria object (`{ filt
 
 ## Styling conventions
 
-- SCSS modules per component. Pull in shared tokens with `@use '@shared/styles/variables/_colors' as *;` etc. (variables in `src/shared/styles/variables`, mixins in `src/shared/styles/mixins`). Global styles live in `src/app/styles`.
-- Component-level SCSS variables are declared at the top of the module (e.g. `$button-primary_background`), then used in the rules.
-- Property order inside a selector (see `styles_order_rule.png`): **Layout** (display, flex/grid, padding, margin, width, box-sizing) → **Typography** (font-\*, line-height, text-align, color) → **Visual** (background, border, border-radius, box-shadow) → **Interaction** (cursor, transition) → **Misc** (z-index).
+- Tailwind CSS v4 utility classes in JSX; no CSS/SCSS modules. The only stylesheet is `src/app/styles/tailwind.css`: `@theme` (project tokens: `graphite-*`/`purple-*` colors, `--breakpoint-xs`, `--container-layout`), the shadcn theme variables (`:root`/`.dark`, mapped in `@theme inline`; `--success`/`--warning` added, `--muted-foreground` is the project grey), and `@layer base` (element defaults like `h1`, autofill fixes). Global CSS must stay inside `@layer base`: unlayered CSS beats Tailwind utilities.
+- shadcn/ui (Radix, Nova preset, `components.json`): generated components live in `src/shared/ui/shadcn/` (shadcn file names) and are edited deliberately (e.g. `Card` has a shadow, `PaginationLink` renders React Router `Link`). Own components are `src/shared/ui/Name/Name.tsx` (`Container`, `SidebarLayout`, `Price`, `Fields`, `Pagination`, `PageLoader`, `RichContent`). Everything is imported through `@shared/ui`.
+- Merge classes with `cn` (package `cn`, the shadcn helper: clsx + tailwind-merge) so a `className` prop can override defaults.
+- Repeated markup becomes a component; `@utility` only for small non-component style sets; element defaults go to `@layer base`. Colors come from theme tokens, not arbitrary values.
+- Forms: `Field`/`FieldGroup` + `TextField`/`PasswordField`/`TelephoneField`. Inline forms sit in a `Card` (submit in `CardFooter`), forms in a `Dialog` put buttons in `DialogFooter`; in both the button is outside `<form>` and linked with `form={id}` (`useId`).
+- Toasts: `toast.success()`/`toast.error()` from `sonner` (works outside React, e.g. in `errorLink`); `<Toaster />` is in `MainLayout`.

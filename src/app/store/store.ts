@@ -1,4 +1,4 @@
-import { addListener, combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import {
   persistReducer,
   persistStore,
@@ -12,10 +12,6 @@ import {
 // ESM build: the CommonJS one (lib/) breaks default import interop in Vite 8
 import storage from 'redux-persist/es/storage';
 import { sessionReducer } from '@entities/session';
-import {
-  notificationListener,
-  notificationReducer,
-} from '@entities/notification';
 
 const sessionPersistConfig = {
   key: 'session',
@@ -29,7 +25,6 @@ const persistSessionReducer = persistReducer(
 
 const rootReducer = combineReducers({
   session: persistSessionReducer,
-  notification: notificationReducer,
 });
 
 export const store = configureStore({
@@ -39,7 +34,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).prepend(notificationListener.middleware),
+    }),
 });
 
 export const persistor = persistStore(store);

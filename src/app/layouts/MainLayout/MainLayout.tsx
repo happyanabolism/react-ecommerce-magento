@@ -1,13 +1,13 @@
 import { Outlet, ScrollRestoration } from 'react-router';
 import { Header } from '@widgets/header';
-import { NotificationList } from '@entities/notification';
+import { Toaster } from '@shared/ui';
 
 export const MainLayout = () => {
   return (
     <>
       <ScrollRestoration />
+      <Toaster position='top-right' />
       <Header />
-      <NotificationList />
       <main>
         <Outlet />
       </main>

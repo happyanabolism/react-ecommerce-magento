@@ -1,8 +1,8 @@
 import { useApolloClient, useMutation } from '@apollo/client/react';
+import { toast } from 'sonner';
 import { REVOKE_CUSTOMER_TOKEN } from '../api/logoutApi';
 import { logout as clearSession } from '@entities/session';
 import { useAppDispatch } from '@shared/lib';
-import { addNotification } from '@entities/notification';
 
 export const useLogout = () => {
   const [revokeCustomerToken, { loading }] = useMutation(REVOKE_CUSTOMER_TOKEN);
@@ -17,12 +17,7 @@ export const useLogout = () => {
     }
 
     dispatch(clearSession());
-    dispatch(
-      addNotification({
-        type: 'info',
-        message: 'You have been logged out',
-      })
-    );
+    toast.info('You have been logged out');
     await client.clearStore();
   };
 

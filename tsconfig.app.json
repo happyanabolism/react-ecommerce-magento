@@ -5,7 +5,7 @@
     // Environment: browser
     "target": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    // Vite client types: *.module.scss, *.scss, *.svg imports, import.meta.env
+    // Vite client types: *.css, *.svg imports, import.meta.env
     "types": ["vite/client"],
 
     // Modules: resolved by Vite

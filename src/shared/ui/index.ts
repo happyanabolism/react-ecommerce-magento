@@ -38,6 +38,7 @@ export { Container } from './Container/Container';
 export { TextField, PasswordField, TelephoneField } from './Fields';
 export { PageLoader } from './PageLoader/PageLoader';
 export { SidebarLayout } from './SidebarLayout/SidebarLayout';
+export { Toaster } from './shadcn/sonner';
 export { Spinner } from './shadcn/spinner';
 export { Pagination } from './Pagination/Pagination';
 export { Price } from './Price/Price';
