@@ -35,7 +35,7 @@ export const PRODUCT_CART_FIELDS = graphql(`
     name
     sku
     url_key
-    small_image {
+    image {
       url
     }
     price_range {

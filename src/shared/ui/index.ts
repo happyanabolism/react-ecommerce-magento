@@ -1,4 +1,5 @@
 export { Alert, AlertTitle, AlertDescription } from './shadcn/alert';
+export { Badge } from './shadcn/badge';
 export { Button } from './shadcn/button';
 export {
   Card,
