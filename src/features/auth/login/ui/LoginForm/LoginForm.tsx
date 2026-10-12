@@ -19,7 +19,6 @@ import {
   TextField,
 } from '@shared/ui';
 import { ROUTES } from '@shared/config';
-import { getMagentoErrorMessage } from '@shared/api';
 import { schema, type LoginFormData } from '../../model/login.schema';
 import { useLogin } from '../../model/useLogin';
 
@@ -81,7 +80,7 @@ export function LoginForm() {
             {error && (
               <Alert variant='destructive'>
                 <AlertDescription>
-                  {getMagentoErrorMessage(error)}
+                  {error.message}
                 </AlertDescription>
               </Alert>
             )}

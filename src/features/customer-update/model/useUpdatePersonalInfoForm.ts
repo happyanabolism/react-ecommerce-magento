@@ -36,21 +36,25 @@ export const useUpdatePersonalInfoForm = ({
     resolver: yupResolver(updatePersonalInfoSchema),
     defaultValues: toFormValues(customer),
   });
-  const [updateCustomer, { loading, error, reset: resetMutation }] =
-    useUpdatePersonalInfo();
-  const pending = loading || form.formState.isSubmitting;
+  const {
+    mutate: updateCustomer,
+    isPending,
+    error,
+    reset: resetMutation,
+  } = useUpdatePersonalInfo();
+  const pending = isPending || form.formState.isSubmitting;
 
-  const onSubmit = form.handleSubmit(
-    async (formData: UpdatePersonalInfoFormData) => {
-      const ok = await updateCustomer({
+  const onSubmit = form.handleSubmit((formData: UpdatePersonalInfoFormData) => {
+    updateCustomer(
+      {
         ...formData,
         custom_attributes: normalizeCustomAttributes(
           formData.custom_attributes
         ),
-      });
-      if (ok) onSuccess?.();
-    }
-  );
+      },
+      { onSuccess }
+    );
+  });
 
   const reset = () => {
     form.reset(toFormValues(customer));

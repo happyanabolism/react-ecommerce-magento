@@ -1,23 +1,20 @@
-import { useMutation } from '@apollo/client/react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { UPDATE_CUSTOMER_EMAIL } from '../api/customerUpdateApi';
-import type { UpdateCustomerEmailMutationVariables } from '@shared/api';
+import {
+  request,
+  type UpdateCustomerEmailMutationVariables,
+} from '@shared/api';
 
 export const useUpdateEmail = () => {
-  const [updateEmail, result] = useMutation(UPDATE_CUSTOMER_EMAIL);
+  const queryClient = useQueryClient();
 
-  const updateCustomerEmail = async (
-    variables: UpdateCustomerEmailMutationVariables
-  ) => {
-    try {
-      await updateEmail({ variables });
+  return useMutation({
+    mutationFn: (variables: UpdateCustomerEmailMutationVariables) =>
+      request(UPDATE_CUSTOMER_EMAIL, variables),
+    onSuccess: () => {
       toast.success('Customer email updated');
-      return true;
-    } catch {
-      // error will arrive in result.error
-      return false;
-    }
-  };
-
-  return [updateCustomerEmail, result] as const;
+      return queryClient.invalidateQueries({ queryKey: ['customer'] });
+    },
+  });
 };

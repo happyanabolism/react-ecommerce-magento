@@ -4,21 +4,20 @@ import { ProductPage } from '@pages/product';
 import { useUrlResolve } from './useUrlResolve';
 import { getRelativePath } from '@shared/lib';
 import { Alert, AlertDescription, Container, Spinner } from '@shared/ui';
-import { getMagentoErrorMessage } from '@shared/api';
 
 export function MagentoRoute() {
   const location = useLocation();
   const relativeUrl = getRelativePath(location.pathname);
-  const { route, loading, error } = useUrlResolve(relativeUrl);
+  const { route, isPending, error } = useUrlResolve(relativeUrl);
 
-  if (loading) {
+  if (isPending) {
     return (
       <Container>
         <Spinner className='mx-auto my-8 block size-8 text-muted-foreground' />
       </Container>
     );
   }
-  if (error) return <p>{getMagentoErrorMessage(error)}</p>;
+  if (error) return <p>{error.message}</p>;
   if (!route)
     return (
       <Alert>

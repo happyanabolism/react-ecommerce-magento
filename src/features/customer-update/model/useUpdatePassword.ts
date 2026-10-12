@@ -1,22 +1,17 @@
-import { useMutation } from '@apollo/client/react';
+import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { CHANGE_CUSTOMER_PASSWORD } from '../api/customerUpdateApi';
-import type { ChangeCustomerPasswordMutationVariables } from '@shared/api';
+import {
+  request,
+  type ChangeCustomerPasswordMutationVariables,
+} from '@shared/api';
 
 export const useUpdatePassword = () => {
-  const [changePassword, result] = useMutation(CHANGE_CUSTOMER_PASSWORD);
-
-  const changeCustomerPassword = async (
-    variables: ChangeCustomerPasswordMutationVariables
-  ) => {
-    try {
-      await changePassword({ variables });
+  return useMutation({
+    mutationFn: (variables: ChangeCustomerPasswordMutationVariables) =>
+      request(CHANGE_CUSTOMER_PASSWORD, variables),
+    onSuccess: () => {
       toast.success('Customer password updated');
-      return true;
-    } catch {
-      // error will arrive in result.error
-      return false;
-    }
-  };
-  return [changeCustomerPassword, result] as const;
+    },
+  });
 };

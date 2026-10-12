@@ -12,7 +12,7 @@ const config: CodegenConfig = {
     'src/shared/api/gql/': {
       preset: 'client',
       presetConfig: {
-        // Apollo Client has its own data masking
+        // fragment fields are read directly from the result, no useFragment()
         fragmentMasking: false,
       },
       config: {
@@ -21,14 +21,6 @@ const config: CodegenConfig = {
         // requested fields are always present in a result (possibly null),
         // input fields stay optional
         avoidOptionals: { field: true, inputValue: false },
-      },
-    },
-    // possibleTypes for InMemoryCache: which types implement which interface,
-    // needed for fragments on interfaces (e.g. `... on ProductInterface`)
-    'src/shared/api/gql/possibleTypes.ts': {
-      plugins: ['fragment-matcher'],
-      config: {
-        useExplicitTyping: true,
       },
     },
   },

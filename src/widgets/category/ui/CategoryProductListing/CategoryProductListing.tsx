@@ -5,7 +5,6 @@ import {
   useProductListing,
   type ProductListingCriteria,
 } from '@features/product-listing';
-import { getMagentoErrorMessage } from '@shared/api';
 
 interface CategoryProductListingProps {
   criteria: ProductListingCriteria;
@@ -25,7 +24,7 @@ export const CategoryProductListing = ({
   if (error)
     return (
       <Alert variant='destructive'>
-        <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
+        <AlertDescription>{error.message}</AlertDescription>
       </Alert>
     );
 

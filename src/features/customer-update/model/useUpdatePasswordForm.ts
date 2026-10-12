@@ -19,17 +19,18 @@ export const useUpdatePasswordForm = ({
     mode: 'onChange',
     resolver: yupResolver(updatePasswordSchema),
   });
-  const [changeCustomerPassword, { loading, error, reset: resetMutation }] =
-    useUpdatePassword();
-  const pending = loading || form.formState.isSubmitting;
+  const {
+    mutate: changeCustomerPassword,
+    isPending,
+    error,
+    reset: resetMutation,
+  } = useUpdatePassword();
+  const pending = isPending || form.formState.isSubmitting;
 
-  const onSubmit = form.handleSubmit(
-    async (formData: UpdatePasswordFormData) => {
-      const { newPasswordConfirm, ...variables } = formData;
-      const ok = await changeCustomerPassword(variables);
-      if (ok) onSuccess?.();
-    }
-  );
+  const onSubmit = form.handleSubmit((formData: UpdatePasswordFormData) => {
+    const { newPasswordConfirm, ...variables } = formData;
+    changeCustomerPassword(variables, { onSuccess });
+  });
 
   const reset = () => {
     form.reset();

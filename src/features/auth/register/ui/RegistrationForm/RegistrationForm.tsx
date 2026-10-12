@@ -24,7 +24,6 @@ import {
   TextField,
   // TelephoneField,
 } from '@shared/ui';
-import { getMagentoErrorMessage } from '@shared/api';
 import { useRegister } from '../../model/useRegister';
 
 export const RegistrationForm = () => {
@@ -112,7 +111,7 @@ export const RegistrationForm = () => {
             {error && (
               <Alert variant='destructive'>
                 <AlertDescription>
-                  {getMagentoErrorMessage(error)}
+                  {error.message}
                 </AlertDescription>
               </Alert>
             )}

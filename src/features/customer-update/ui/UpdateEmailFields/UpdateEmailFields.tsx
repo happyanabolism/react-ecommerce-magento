@@ -5,7 +5,6 @@ import {
   TextField,
   FieldGroup,
 } from '@shared/ui';
-import { getMagentoErrorMessage } from '@shared/api';
 import type { useUpdateEmailForm } from '../../model/useUpdateEmailForm';
 
 type UpdateEmailForm = ReturnType<typeof useUpdateEmailForm>;
@@ -45,7 +44,7 @@ export const UpdateEmailFields = ({ form, error }: UpdateEmailFieldsProps) => {
       </FieldGroup>
       {error && (
         <Alert variant='destructive'>
-          <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
+          <AlertDescription>{error.message}</AlertDescription>
         </Alert>
       )}
     </>

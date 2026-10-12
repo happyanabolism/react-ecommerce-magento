@@ -1,6 +1,5 @@
 import { useCustomerAddresses } from '@entities/address';
 import { Alert, AlertDescription, Spinner } from '@shared/ui';
-import { getMagentoErrorMessage } from '@shared/api';
 
 export const CustomerAddressBook = () => {
   const { addresses, isPending, error } = useCustomerAddresses();
@@ -8,7 +7,7 @@ export const CustomerAddressBook = () => {
   if (error)
     return (
       <Alert variant='destructive'>
-        <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
+        <AlertDescription>{error.message}</AlertDescription>
       </Alert>
     );
   if (isPending)

@@ -1,6 +1,5 @@
 import { useCustomer } from '@entities/customer';
 import { Alert, AlertDescription, Spinner } from '@shared/ui';
-import { getMagentoErrorMessage } from '@shared/api';
 import { UpdateEmailDialog } from '../UpdateEmailDialog/UpdateEmailDialog';
 import { UpdatePasswordDialog } from '../UpdatePasswordDialog/UpdatePasswordDialog';
 import { UpdatePersonalInfoDialog } from '../UpdatePersonalInfoDialog/UpdatePersonalInfoDialog';
@@ -15,7 +14,7 @@ export const CustomerInfo = () => {
   if (error)
     return (
       <Alert variant='destructive'>
-        <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
+        <AlertDescription>{error.message}</AlertDescription>
       </Alert>
     );
   if (!customer)

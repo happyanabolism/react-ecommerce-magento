@@ -1,14 +1,13 @@
 import { CategoryLink } from '@entities/category';
 import { useCategoryNav } from '../../model/useCategoryNav';
 import { Container, Spinner } from '@shared/ui';
-import { getMagentoErrorMessage } from '@shared/api';
 
 export function CategoryNav({ limit }: { limit?: number }) {
   const { categories, isPending, error } = useCategoryNav({
     limit,
   });
 
-  if (error) return <p>{getMagentoErrorMessage(error)}</p>;
+  if (error) return <p>{error.message}</p>;
   if (isPending) return <Spinner className='size-5 text-muted-foreground' />;
 
   return (

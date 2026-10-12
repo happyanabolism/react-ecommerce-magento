@@ -1,5 +1,4 @@
 import { Alert, AlertDescription, FieldGroup, TextField } from '@shared/ui';
-import { getMagentoErrorMessage } from '@shared/api';
 import type { useUpdatePersonalInfoForm } from '../../model/useUpdatePersonalInfoForm';
 
 type UpdatePersonalInfoForm = ReturnType<typeof useUpdatePersonalInfoForm>;
@@ -38,7 +37,7 @@ export const UpdatePersonalInfoFields = ({
           metadata (phone: TelephoneField through a Controller with form.control) */}
       {error && (
         <Alert variant='destructive'>
-          <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
+          <AlertDescription>{error.message}</AlertDescription>
         </Alert>
       )}
     </>

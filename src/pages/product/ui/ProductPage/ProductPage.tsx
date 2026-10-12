@@ -1,6 +1,5 @@
 import { useProductPage } from '../../model/useProductPage';
 import { ProductImage, ProductPrice } from '@entities/product';
-import { getMagentoErrorMessage } from '@shared/api';
 import {
   Alert,
   AlertDescription,
@@ -14,13 +13,16 @@ interface ProductPageProps {
 }
 
 export const ProductPage = ({ sku }: ProductPageProps) => {
-  const { product, loading, error } = useProductPage({ sku });
+  const { product, isPending, error } = useProductPage({ sku });
 
-  if (loading && !product) return <Spinner className='mx-auto my-8 block size-8 text-muted-foreground' />;
+  if (isPending)
+    return (
+      <Spinner className='mx-auto my-8 block size-8 text-muted-foreground' />
+    );
   if (error)
     return (
       <Alert variant='destructive'>
-        <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
+        <AlertDescription>{error.message}</AlertDescription>
       </Alert>
     );
   if (!product)

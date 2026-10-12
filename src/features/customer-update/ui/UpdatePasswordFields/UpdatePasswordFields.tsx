@@ -1,5 +1,4 @@
 import { Alert, AlertDescription, FieldGroup, PasswordField } from '@shared/ui';
-import { getMagentoErrorMessage } from '@shared/api';
 import type { useUpdatePasswordForm } from '../../model/useUpdatePasswordForm';
 
 type UpdatePasswordForm = ReturnType<typeof useUpdatePasswordForm>;
@@ -39,7 +38,7 @@ export const UpdatePasswordFields = ({
       </FieldGroup>
       {error && (
         <Alert variant='destructive'>
-          <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
+          <AlertDescription>{error.message}</AlertDescription>
         </Alert>
       )}
     </>

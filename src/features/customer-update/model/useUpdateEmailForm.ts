@@ -19,14 +19,17 @@ export const useUpdateEmailForm = ({
     mode: 'onChange',
     resolver: yupResolver(updateEmailSchema),
   });
-  const [updateCustomerEmail, { loading, error, reset: resetMutation }] =
-    useUpdateEmail();
-  const pending = loading || form.formState.isSubmitting;
+  const {
+    mutate: updateCustomerEmail,
+    isPending,
+    error,
+    reset: resetMutation,
+  } = useUpdateEmail();
+  const pending = isPending || form.formState.isSubmitting;
 
-  const onSubmit = form.handleSubmit(async (formData: UpdateEmailFormData) => {
+  const onSubmit = form.handleSubmit((formData: UpdateEmailFormData) => {
     const { passwordConfirm, ...variables } = formData;
-    const ok = await updateCustomerEmail(variables);
-    if (ok) onSuccess?.();
+    updateCustomerEmail(variables, { onSuccess });
   });
 
   const reset = () => {
