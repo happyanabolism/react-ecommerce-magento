@@ -16,7 +16,7 @@ export const CustomerDropdown = ({
 }: {
   customer: CustomerFieldsFragment;
 }) => {
-  const [logout, { loading }] = useLogout();
+  const { mutate: logout, isPending } = useLogout();
 
   return (
     <>
@@ -28,10 +28,10 @@ export const CustomerDropdown = ({
           <DropdownMenuItem asChild>
             <Link to={ROUTES.ACCOUNT_DASHBOARD}>My Account</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem onSelect={logout}>Log out</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => logout}>Log out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      {loading && <PageLoader />}
+      {isPending && <PageLoader />}
     </>
   );
 };

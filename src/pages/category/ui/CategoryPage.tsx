@@ -24,7 +24,7 @@ export function CategoryPage({
 
       <Container className='pb-10'>
         <SidebarLayout
-          sidebar={<CategoryProductFilters criteria={criteria} />}
+          sidebar={<div />}
           content={<CategoryProductListing criteria={criteria} />}
         />
       </Container>

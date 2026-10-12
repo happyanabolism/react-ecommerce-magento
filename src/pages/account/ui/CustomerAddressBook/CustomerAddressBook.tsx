@@ -3,7 +3,7 @@ import { Alert, AlertDescription, Spinner } from '@shared/ui';
 import { getMagentoErrorMessage } from '@shared/api';
 
 export const CustomerAddressBook = () => {
-  const { addresses, loading, error } = useCustomerAddresses();
+  const { addresses, isPending, error } = useCustomerAddresses();
 
   if (error)
     return (
@@ -11,7 +11,10 @@ export const CustomerAddressBook = () => {
         <AlertDescription>{getMagentoErrorMessage(error)}</AlertDescription>
       </Alert>
     );
-  if (loading) return <Spinner className='mx-auto my-8 block size-8 text-muted-foreground' />;
+  if (isPending)
+    return (
+      <Spinner className='mx-auto my-8 block size-8 text-muted-foreground' />
+    );
 
   return addresses.length === 0 ? (
     <div>No addresses</div>

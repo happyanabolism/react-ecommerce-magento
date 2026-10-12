@@ -29,7 +29,7 @@ import { useRegister } from '../../model/useRegister';
 
 export const RegistrationForm = () => {
   const formId = useId();
-  const [createCustomer, { loading, error }] = useRegister();
+  const { mutate: createCustomer, isPending, error } = useRegister();
 
   const {
     register,
@@ -40,7 +40,7 @@ export const RegistrationForm = () => {
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
-  const pending = isSubmitting || loading;
+  const pending = isSubmitting || isPending;
 
   const onSubmit = (formData: RegistrationFormData) => {
     createCustomer(formData);

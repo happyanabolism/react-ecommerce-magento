@@ -7,17 +7,6 @@ export const PRODUCTS = graphql(`
     $currentPage: Int
   ) {
     products(filter: $filter, pageSize: $pageSize, currentPage: $currentPage) {
-      aggregations {
-        attribute_code
-        count
-        label
-        options {
-          count
-          label
-          value
-        }
-        position
-      }
       items {
         ...productCardFields
       }

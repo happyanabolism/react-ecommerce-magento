@@ -1,19 +1,13 @@
-import { useQuery } from '@apollo/client/react';
-import type { CustomerAddress } from './types';
+import { useQuery } from '@tanstack/react-query';
 import { CUSTOMER_ADDRESSES } from '../api/addressApi';
 import { fromCustomerAddress } from '../lib/fromCustomerAddress';
-import type {
-  CustomerAddressesQuery,
-  CustomerAddressesQueryVariables,
-} from '@shared/api';
+import { request } from '@shared/api';
 
-export const useCustomerAddresses = (): Omit<
-  ReturnType<
-    typeof useQuery<CustomerAddressesQuery, CustomerAddressesQueryVariables>
-  >,
-  'data'
-> & { addresses: CustomerAddress[] } => {
-  const { data, ...rest } = useQuery(CUSTOMER_ADDRESSES);
+export const useCustomerAddresses = () => {
+  const { data, ...rest } = useQuery({
+    queryKey: ['customer', 'addresses'],
+    queryFn: () => request(CUSTOMER_ADDRESSES),
+  });
 
   return {
     addresses:

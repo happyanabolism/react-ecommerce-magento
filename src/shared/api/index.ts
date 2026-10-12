@@ -11,3 +11,5 @@ export {
   normalizeCustomAttributes,
   type FlatAttributes,
 } from './magento/attributes';
+export { request, configureRequest } from './request';
+export { GraphQLRequestError } from './GraphQLRequestError';

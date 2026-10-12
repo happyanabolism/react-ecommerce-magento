@@ -1,6 +1,7 @@
 import type { GraphQLFormattedError } from 'graphql';
 import type { ErrorLike } from '@apollo/client';
 import { CombinedGraphQLErrors, ServerError } from '@apollo/client/errors';
+import { GraphQLRequestError } from '../GraphQLRequestError';
 
 // Magento error categories (`extensions.category`)
 export const API_ERRORS = {
@@ -18,6 +19,7 @@ export const API_ERRORS = {
 export const getMagentoErrors = (
   error: ErrorLike
 ): readonly GraphQLFormattedError[] => {
+  if (error instanceof GraphQLRequestError) return error.errors;
   if (CombinedGraphQLErrors.is(error)) return error.errors;
 
   if (ServerError.is(error)) {

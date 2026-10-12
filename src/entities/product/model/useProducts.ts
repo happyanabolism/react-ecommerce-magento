@@ -1,33 +1,28 @@
-import { useQuery } from '@apollo/client/react';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { PRODUCTS } from '../api/productApi';
-import type { ProductsQueryVariables } from '@shared/api';
+import { request, type ProductsQueryVariables } from '@shared/api';
 
 export const useProducts = ({
   filter,
   pageSize,
   currentPage,
 }: ProductsQueryVariables) => {
-  const { data, previousData, ...rest } = useQuery(PRODUCTS, {
-    variables: {
-      filter,
-      pageSize,
-      currentPage,
-    },
+  const { data, ...rest } = useQuery({
+    queryKey: ['products', { filter, pageSize, currentPage }],
+    queryFn: () =>
+      request(PRODUCTS, {
+        filter,
+        pageSize,
+        currentPage,
+      }),
+    placeholderData: keepPreviousData,
   });
 
   return {
-    aggregations: (
-      data?.products?.aggregations ||
-      previousData?.products?.aggregations ||
-      []
-    ).filter((aggregation) => aggregation !== null),
-    products: (
-      data?.products?.items ||
-      previousData?.products?.items ||
-      []
-    ).filter((product) => product !== null),
-    pageInfo:
-      data?.products?.page_info ?? previousData?.products?.page_info ?? null,
+    products: (data?.products?.items || []).filter(
+      (product) => product !== null
+    ),
+    pageInfo: data?.products?.page_info ?? null,
     ...rest,
   };
 };

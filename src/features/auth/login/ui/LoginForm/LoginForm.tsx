@@ -33,8 +33,8 @@ export function LoginForm() {
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
-  const [login, { loading, error }] = useLogin();
-  const pending = isSubmitting || loading;
+  const { mutate: login, isPending, error } = useLogin();
+  const pending = isSubmitting || isPending;
 
   const onSubmit = (formData: LoginFormData) => {
     login(formData);

@@ -1,53 +1,36 @@
-import { useMutation } from '@apollo/client/react';
+import { useMutation } from '@tanstack/react-query';
 import { CREATE_CUSTOMER } from '../api/registerApi';
 import { GENERATE_CUSTOMER_TOKEN, setToken } from '@entities/session';
 import { useAppDispatch } from '@shared/lib';
 import type { RegistrationFormData } from './registration.schema';
-import { normalizeCustomAttributes } from '@shared/api';
+import { normalizeCustomAttributes, request } from '@shared/api';
 import { toast } from 'sonner';
 
 export const useRegister = () => {
-  const [createCustomer, createCustomerResult] = useMutation(CREATE_CUSTOMER);
-  const [generateCustomerToken, loginResult] = useMutation(
-    GENERATE_CUSTOMER_TOKEN
-  );
   const dispatch = useAppDispatch();
 
-  const register = async (formData: RegistrationFormData) => {
-    const { passwordConfirm, ...input } = formData;
-    try {
-      await createCustomer({
-        variables: {
-          input: {
-            ...input,
-            custom_attributes: normalizeCustomAttributes(
-              input.custom_attributes
-            ),
-          },
+  return useMutation({
+    mutationFn: async (formData: RegistrationFormData) => {
+      const { passwordConfirm, ...input } = formData;
+      await request(CREATE_CUSTOMER, {
+        input: {
+          ...input,
+          custom_attributes: normalizeCustomAttributes(input.custom_attributes),
         },
       });
-      const { data } = await generateCustomerToken({
-        variables: {
-          email: input.email,
-          password: input.password,
-        },
-      });
-      const token = data?.generateCustomerToken?.token;
 
+      const response = await request(GENERATE_CUSTOMER_TOKEN, {
+        email: input.email,
+        password: input.password,
+      });
+
+      return response.generateCustomerToken?.token;
+    },
+    onSuccess: (token) => {
       if (token) {
         dispatch(setToken(token));
         toast.success('Account successfully created');
       }
-    } catch {
-      // errors are returned in error
-    }
-  };
-
-  return [
-    register,
-    {
-      loading: createCustomerResult.loading || loginResult.loading,
-      error: createCustomerResult.error || loginResult.error,
     },
-  ] as const;
+  });
 };
