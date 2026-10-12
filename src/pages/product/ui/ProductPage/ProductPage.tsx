@@ -1,5 +1,6 @@
-import { useProductPage } from '../../model/useProductPage';
 import { ProductImage, ProductPrice } from '@entities/product';
+import { ProductOptions } from '@features/product-options';
+import { useProductPage } from '../../model/useProductPage';
 import {
   Alert,
   AlertDescription,
@@ -52,6 +53,10 @@ export const ProductPage = ({ sku }: ProductPageProps) => {
               priceRange={product.price_range}
             />
             <RichContent html={product.description?.html} />
+            {product.__typename === 'ConfigurableProduct' &&
+              product.configurable_options != null && (
+                <ProductOptions options={product.configurable_options} />
+              )}
           </div>
         </div>
       </Container>

@@ -54,27 +54,48 @@ export const PRODUCT_PRICE_RANGE = graphql(`
   }
 `);
 
-// export const GET_PRODUCT_ATTRIBUTES_LIST = gql`
-//   query attributesList(
-//     $entityType: AttributeEntityTypeEnum = CATALOG_PRODUCT
-//     $filters: AttributeFilterInput
-//   ) {
-//     attributesList(entityType: $entityType, filters: $filters) {
-//       items {
-//         code
-//         label
-//         default_value
-//         entity_type
-//         frontend_class
-//         frontend_input
-//         is_required
-//         is_unique
-//         options {
-//           label
-//           value
-//           is_default
-//         }
-//       }
-//     }
-//   }
-// `;
+const CONFIGURABLE_PRODUCT_FRAGMENT = graphql(`
+  fragment ConfigurableProduct on ConfigurableProduct {
+    configurable_options {
+      ...ConfigurableProductOptions
+    }
+    variants {
+      attributes {
+        code
+        uid
+      }
+      product {
+        uid
+        sku
+      }
+    }
+  }
+`);
+
+const CONFIGURABLE_PRODUCT_OPTIONS_FRAGMENT = graphql(`
+  fragment ConfigurableProductOptions on ConfigurableProductOptions {
+    uid
+    attribute_uid
+    attribute_code
+    label
+    position
+    use_default
+    values {
+      ...SwatchValue
+    }
+  }
+`);
+
+const CONFIGURABLE_PRODUCT_OPTIONS_VALUES_FRAGMENT = graphql(`
+  fragment SwatchValue on ConfigurableProductOptionsValues {
+    uid
+    label
+    swatch_data {
+      __typename
+      value
+      ... on ImageSwatchData {
+        thumbnail
+      }
+    }
+  }
+`);

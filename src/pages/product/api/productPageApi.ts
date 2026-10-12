@@ -4,6 +4,7 @@ export const PRODUCT_PAGE = graphql(`
   query productPage($sku: String!) {
     products(filter: { sku: { eq: $sku } }) {
       items {
+        __typename
         uid
         name
         sku
@@ -16,6 +17,9 @@ export const PRODUCT_PAGE = graphql(`
         }
         price_range {
           ...ProductPriceRange
+        }
+        ... on ConfigurableProduct {
+          ...ConfigurableProduct
         }
       }
     }

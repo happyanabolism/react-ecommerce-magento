@@ -6,6 +6,7 @@ import { QueryProvider } from '@app/providers';
 import { router } from '@app/routes/router';
 import { persistor, store } from '@app/store/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import { TooltipProvider } from '@shared/ui';
 import '../styles/tailwind.css';
 
 const rootElement = document.getElementById('root');
@@ -18,9 +19,11 @@ createRoot(rootElement).render(
   <StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <QueryProvider>
-          <RouterProvider router={router} />
-        </QueryProvider>
+        <TooltipProvider>
+          <QueryProvider>
+            <RouterProvider router={router} />
+          </QueryProvider>
+        </TooltipProvider>
       </PersistGate>
     </Provider>
   </StrictMode>
