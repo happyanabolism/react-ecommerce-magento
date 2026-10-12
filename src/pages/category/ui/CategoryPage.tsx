@@ -1,8 +1,5 @@
 import { Container, SidebarLayout } from '@shared/ui';
-import {
-  CategoryProductListing,
-  CategoryProductFilters,
-} from '@widgets/category';
+import { CategoryProductListing } from '@widgets/category';
 import type { CategoryPageFieldsFragment } from '@shared/api';
 
 export function CategoryPage({
