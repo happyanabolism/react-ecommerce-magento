@@ -60,14 +60,36 @@ const CONFIGURABLE_PRODUCT_FRAGMENT = graphql(`
       ...ConfigurableProductOptions
     }
     variants {
-      attributes {
-        code
-        uid
-      }
-      product {
-        uid
-        sku
-      }
+      ...ProductVariant
+    }
+  }
+`);
+
+const PRODUCT_VARIANT_FRAGMENT = graphql(`
+  fragment ProductVariant on ConfigurableVariant {
+    attributes {
+      ...ConfigurableAttributeOption
+    }
+    product {
+      ...ProductDetails
+    }
+  }
+`);
+
+const PRODUCT_DETAILS_FRAGMENT = graphql(`
+  fragment ProductDetails on ProductInterface {
+    uid
+    sku
+    name
+    description {
+      html
+    }
+    image {
+      url
+      label
+    }
+    price_range {
+      ...ProductPriceRange
     }
   }
 `);
@@ -83,6 +105,13 @@ const CONFIGURABLE_PRODUCT_OPTIONS_FRAGMENT = graphql(`
     values {
       ...SwatchValue
     }
+  }
+`);
+
+const CONFIGURABLE_ATTRIBUTE_OPTION_FRAGMENT = graphql(`
+  fragment ConfigurableAttributeOption on ConfigurableAttributeOption {
+    code
+    uid
   }
 `);
 

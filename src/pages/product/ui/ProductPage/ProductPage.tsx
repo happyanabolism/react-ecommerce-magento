@@ -4,6 +4,7 @@ import {
   ProductOptions,
   type OptionSelection,
   type OptionSelectHandler,
+  findVariant,
 } from '@features/product-options';
 import { useProductPage } from '../../model/useProductPage';
 import {
@@ -13,18 +14,13 @@ import {
   RichContent,
   Spinner,
 } from '@shared/ui';
-
 interface ProductPageProps {
   sku: string;
 }
 
 export const ProductPage = ({ sku }: ProductPageProps) => {
-  const [optionSelection, setOptionSelection] = useState<OptionSelection>(
-    {}
-  );
+  const [optionSelection, setOptionSelection] = useState<OptionSelection>({});
   const { product, isPending, error } = useProductPage({ sku });
-
-  console.log(optionSelection);
 
   const handleOptionSelect: OptionSelectHandler = (code, uid) => {
     if (!uid) return;
@@ -48,6 +44,13 @@ export const ProductPage = ({ sku }: ProductPageProps) => {
       </Alert>
     );
 
+  const variant =
+    product.__typename === 'ConfigurableProduct'
+      ? findVariant(product.variants ?? [], optionSelection)
+      : undefined;
+
+  const shown = variant?.product ?? product;
+
   return (
     <>
       <title>{product.name}</title>
@@ -55,19 +58,18 @@ export const ProductPage = ({ sku }: ProductPageProps) => {
         <div className='grid gap-8 py-6 md:grid-cols-2 md:items-start'>
           <ProductImage
             className='w-full rounded-xl bg-graphite-100'
-            url={product.image?.url}
-            alt={product.name}
+            url={shown.image?.url}
+            alt={shown.name}
           />
           <div className='flex flex-col gap-4'>
             <h1>{product.name}</h1>
             <span className='text-sm text-muted-foreground'>
-              SKU: {product.sku}
+              SKU: {shown.sku}
             </span>
-            <ProductPrice
-              className='text-2xl'
-              priceRange={product.price_range}
+            <ProductPrice className='text-2xl' priceRange={shown.price_range} />
+            <RichContent
+              html={shown.description?.html ?? product.description?.html}
             />
-            <RichContent html={product.description?.html} />
             {product.__typename === 'ConfigurableProduct' &&
               product.configurable_options != null && (
                 <ProductOptions
