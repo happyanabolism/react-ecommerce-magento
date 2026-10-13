@@ -4,7 +4,11 @@ import {
   ProductOptions,
   type OptionSelection,
   type OptionSelectHandler,
+  type OptionDisabledCheck,
   findVariant,
+  isValueDisabled,
+  selectionBefore,
+  selectOptionValue,
 } from '@features/product-options';
 import { useProductPage } from '../../model/useProductPage';
 import {
@@ -21,11 +25,6 @@ interface ProductPageProps {
 export const ProductPage = ({ sku }: ProductPageProps) => {
   const [optionSelection, setOptionSelection] = useState<OptionSelection>({});
   const { product, isPending, error } = useProductPage({ sku });
-
-  const handleOptionSelect: OptionSelectHandler = (code, uid) => {
-    if (!uid) return;
-    setOptionSelection((selection) => ({ ...selection, [code]: uid }));
-  };
 
   if (isPending)
     return (
@@ -44,12 +43,27 @@ export const ProductPage = ({ sku }: ProductPageProps) => {
       </Alert>
     );
 
-  const variant =
-    product.__typename === 'ConfigurableProduct'
-      ? findVariant(product.variants ?? [], optionSelection)
-      : undefined;
+  const isConfigurable = product.__typename === 'ConfigurableProduct';
+  const options = isConfigurable ? (product.configurable_options ?? []) : [];
+  const variants = isConfigurable ? (product.variants ?? []) : [];
 
+  const variant = findVariant(variants, optionSelection);
   const shown = variant?.product ?? product;
+
+  const handleOptionSelect: OptionSelectHandler = (code, uid) => {
+    if (!uid) return;
+    setOptionSelection((selection) =>
+      selectOptionValue(options, variants, selection, code, uid)
+    );
+  };
+
+  const isOptionValueDisabled: OptionDisabledCheck = (code, uid) =>
+    isValueDisabled(
+      variants,
+      selectionBefore(options, optionSelection, code),
+      code,
+      uid
+    );
 
   return (
     <>
@@ -70,14 +84,14 @@ export const ProductPage = ({ sku }: ProductPageProps) => {
             <RichContent
               html={shown.description?.html ?? product.description?.html}
             />
-            {product.__typename === 'ConfigurableProduct' &&
-              product.configurable_options != null && (
-                <ProductOptions
-                  options={product.configurable_options}
-                  selected={optionSelection}
-                  onSelect={handleOptionSelect}
-                />
-              )}
+            {options.length > 0 && (
+              <ProductOptions
+                options={options}
+                selected={optionSelection}
+                onSelect={handleOptionSelect}
+                isDisabled={isOptionValueDisabled}
+              />
+            )}
           </div>
         </div>
       </Container>
