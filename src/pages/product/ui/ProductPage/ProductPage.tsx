@@ -44,7 +44,12 @@ export const ProductPage = ({ sku }: ProductPageProps) => {
     );
 
   const isConfigurable = product.__typename === 'ConfigurableProduct';
-  const options = isConfigurable ? (product.configurable_options ?? []) : [];
+  // Magento GraphQL doesn't sort configurable options; position sets their order and precedence
+  const options = isConfigurable
+    ? [...(product.configurable_options ?? [])].sort(
+        (a, b) => (a?.position ?? 0) - (b?.position ?? 0)
+      )
+    : [];
   const variants = isConfigurable ? (product.variants ?? []) : [];
 
   const variant = findVariant(variants, optionSelection);
