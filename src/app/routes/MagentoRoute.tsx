@@ -40,7 +40,7 @@ export function MagentoRoute() {
     case 'DownloadableProduct':
     case 'VirtualProduct':
       return route.sku ? (
-        <ProductPage sku={route.sku} />
+        <ProductPage key={route.sku} sku={route.sku} />
       ) : (
         <Alert>
           <AlertDescription>Page not found</AlertDescription>

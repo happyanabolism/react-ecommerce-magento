@@ -1,5 +1,10 @@
+import { useState } from 'react';
 import { ProductImage, ProductPrice } from '@entities/product';
-import { ProductOptions } from '@features/product-options';
+import {
+  ProductOptions,
+  type OptionSelection,
+  type OptionSelectHandler,
+} from '@features/product-options';
 import { useProductPage } from '../../model/useProductPage';
 import {
   Alert,
@@ -14,7 +19,17 @@ interface ProductPageProps {
 }
 
 export const ProductPage = ({ sku }: ProductPageProps) => {
+  const [optionSelection, setOptionSelection] = useState<OptionSelection>(
+    {}
+  );
   const { product, isPending, error } = useProductPage({ sku });
+
+  console.log(optionSelection);
+
+  const handleOptionSelect: OptionSelectHandler = (code, uid) => {
+    if (!uid) return;
+    setOptionSelection((selection) => ({ ...selection, [code]: uid }));
+  };
 
   if (isPending)
     return (
@@ -55,7 +70,11 @@ export const ProductPage = ({ sku }: ProductPageProps) => {
             <RichContent html={product.description?.html} />
             {product.__typename === 'ConfigurableProduct' &&
               product.configurable_options != null && (
-                <ProductOptions options={product.configurable_options} />
+                <ProductOptions
+                  options={product.configurable_options}
+                  selected={optionSelection}
+                  onSelect={handleOptionSelect}
+                />
               )}
           </div>
         </div>
