@@ -2,15 +2,15 @@ import type { ConfigurableProductOptionsFragment } from '@shared/api';
 import type { OptionSelection } from './types';
 
 export const getOptionCodes = (
-  options: Array<ConfigurableProductOptionsFragment | null>
+  options: ConfigurableProductOptionsFragment[]
 ) =>
   options
-    .map((option) => option?.attribute_code)
+    .map((option) => option.attribute_code)
     .filter((code) => code != null);
 
 // selection of the options that come before `code` (Magento order: color, then size)
 export const selectionBefore = (
-  options: Array<ConfigurableProductOptionsFragment | null>,
+  options: ConfigurableProductOptionsFragment[],
   selection: OptionSelection,
   code: string
 ): OptionSelection => {

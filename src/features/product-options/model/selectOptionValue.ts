@@ -8,7 +8,7 @@ import { getOptionCodes, selectionBefore } from './selectionBefore';
 
 // pick a value and drop the values of the following options that don't exist with it
 export const selectOptionValue = (
-  options: Array<ConfigurableProductOptionsFragment | null>,
+  options: ConfigurableProductOptionsFragment[],
   variants: Array<ProductVariantFragment | null>,
   selection: OptionSelection,
   code: string,

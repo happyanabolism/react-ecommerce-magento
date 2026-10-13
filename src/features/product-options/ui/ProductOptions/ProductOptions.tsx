@@ -7,7 +7,7 @@ import type {
 } from '../../model/types';
 
 interface ProductOptionsProps {
-  options: Array<ConfigurableProductOptionsFragment | null>;
+  options: ConfigurableProductOptionsFragment[];
   selected: OptionSelection;
   onSelect: OptionSelectHandler;
   isDisabled: OptionDisabledCheck;
@@ -21,17 +21,15 @@ export const ProductOptions = ({
 }: ProductOptionsProps) => {
   return (
     <>
-      {options
-        .filter((option) => option !== null)
-        .map((option) => (
-          <ProductOption
-            key={option.uid}
-            option={option}
-            selected={selected}
-            onSelect={onSelect}
-            isDisabled={isDisabled}
-          />
-        ))}
+      {options.map((option) => (
+        <ProductOption
+          key={option.uid}
+          option={option}
+          selected={selected}
+          onSelect={onSelect}
+          isDisabled={isDisabled}
+        />
+      ))}
     </>
   );
 };
