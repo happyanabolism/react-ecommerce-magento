@@ -84,9 +84,11 @@ const PRODUCT_DETAILS_FRAGMENT = graphql(`
     description {
       html
     }
+    thumbnail {
+      ...productImage
+    }
     image {
-      url
-      label
+      ...productImage
     }
     price_range {
       ...ProductPriceRange
@@ -112,6 +114,13 @@ const CONFIGURABLE_ATTRIBUTE_OPTION_FRAGMENT = graphql(`
   fragment ConfigurableAttributeOption on ConfigurableAttributeOption {
     code
     uid
+  }
+`);
+
+const PRODUCT_IMAGE_FRAGMENT = graphql(`
+  fragment productImage on ProductImage {
+    url
+    label
   }
 `);
 

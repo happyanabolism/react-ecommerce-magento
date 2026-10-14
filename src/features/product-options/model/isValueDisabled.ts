@@ -1,14 +1,6 @@
 import type { ProductVariantFragment } from '@shared/api';
 import type { OptionSelection } from './types';
-
-const hasAttribute = (
-  variant: ProductVariantFragment,
-  code: string,
-  uid: string
-) =>
-  (variant.attributes ?? []).some(
-    (attribute) => attribute?.code === code && attribute.uid === uid
-  );
+import { variantHasAttribute } from './variantHasAttribute';
 
 export const isValueDisabled = (
   variants: Array<ProductVariantFragment | null>,
@@ -22,7 +14,7 @@ export const isValueDisabled = (
     (variant) =>
       variant !== null &&
       Object.entries(combination).every(([selectedCode, selectedUid]) =>
-        hasAttribute(variant, selectedCode, selectedUid)
+        variantHasAttribute(variant, selectedCode, selectedUid)
       )
   );
 

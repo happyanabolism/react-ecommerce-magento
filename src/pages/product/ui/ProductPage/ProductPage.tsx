@@ -5,10 +5,12 @@ import {
   type OptionSelection,
   type OptionSelectHandler,
   type OptionDisabledCheck,
+  type OptionValueImageGetter,
   findVariant,
   isValueDisabled,
   getPrecedingSelection,
   selectOptionValue,
+  findVariantByOptionValue,
 } from '@features/product-options';
 import { useProductPage } from '../../model/useProductPage';
 import {
@@ -70,6 +72,9 @@ export const ProductPage = ({ sku }: ProductPageProps) => {
       uid
     );
 
+  const getOptionValueImage: OptionValueImageGetter = (code, uid) =>
+    findVariantByOptionValue(variants, code, uid)?.product?.thumbnail ?? null;
+
   return (
     <>
       <title>{product.name}</title>
@@ -95,6 +100,7 @@ export const ProductPage = ({ sku }: ProductPageProps) => {
                 selected={optionSelection}
                 onSelect={handleOptionSelect}
                 isDisabled={isOptionValueDisabled}
+                getValueImage={getOptionValueImage}
               />
             )}
           </div>

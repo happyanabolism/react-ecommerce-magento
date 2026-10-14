@@ -11,6 +11,7 @@ import type {
   OptionDisabledCheck,
   OptionSelection,
   OptionSelectHandler,
+  OptionValueImageGetter,
 } from '../../model/types';
 
 interface ProductOptionProps {
@@ -18,6 +19,7 @@ interface ProductOptionProps {
   selected: OptionSelection;
   onSelect: OptionSelectHandler;
   isDisabled: OptionDisabledCheck;
+  getValueImage: OptionValueImageGetter;
 }
 
 export const ProductOption = ({
@@ -25,6 +27,7 @@ export const ProductOption = ({
   selected,
   onSelect,
   isDisabled,
+  getValueImage,
 }: ProductOptionProps) => {
   const code = option.attribute_code;
   if (!code) return null;
@@ -34,7 +37,7 @@ export const ProductOption = ({
       <span>{option.label}</span>
       <ToggleGroup
         type='single'
-        className='flex flex-wrap gap-4'
+        className='grid grid-cols-8 gap-4 w-full'
         value={selected[code] ?? ''}
         onValueChange={(uid) => onSelect(code, uid)}
       >
@@ -42,6 +45,7 @@ export const ProductOption = ({
           .filter((value) => value !== null)
           .map((value) => {
             if (!value.uid) return null;
+
             return (
               <Tooltip key={value.uid}>
                 <TooltipTrigger asChild>
@@ -49,8 +53,13 @@ export const ProductOption = ({
                     value={value.uid}
                     disabled={isDisabled(code, value.uid)}
                     aria-label={value.label ?? ''}
+                    variant='outline'
+                    className='h-auto min-h-8 w-full overflow-hidden p-0 hover:border-foreground aria-checked:border-foreground aria-checked:ring-1 aria-checked:ring-foreground'
                   >
-                    <Swatch value={value} />
+                    <Swatch
+                      value={value}
+                      swatchThumbnail={getValueImage(code, value.uid)}
+                    />
                   </ToggleGroupItem>
                 </TooltipTrigger>
                 <TooltipContent>{value.label}</TooltipContent>

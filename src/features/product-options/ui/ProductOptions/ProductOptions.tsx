@@ -4,6 +4,7 @@ import type {
   OptionDisabledCheck,
   OptionSelection,
   OptionSelectHandler,
+  OptionValueImageGetter,
 } from '../../model/types';
 
 interface ProductOptionsProps {
@@ -11,6 +12,7 @@ interface ProductOptionsProps {
   selected: OptionSelection;
   onSelect: OptionSelectHandler;
   isDisabled: OptionDisabledCheck;
+  getValueImage: OptionValueImageGetter;
 }
 
 export const ProductOptions = ({
@@ -18,6 +20,7 @@ export const ProductOptions = ({
   selected,
   onSelect,
   isDisabled,
+  getValueImage,
 }: ProductOptionsProps) => {
   return (
     <>
@@ -28,6 +31,7 @@ export const ProductOptions = ({
           selected={selected}
           onSelect={onSelect}
           isDisabled={isDisabled}
+          getValueImage={getValueImage}
         />
       ))}
     </>
