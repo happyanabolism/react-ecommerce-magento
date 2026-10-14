@@ -6,5 +6,5 @@ export type {
 } from './model/types';
 export { findVariant } from './model/findVariant';
 export { isValueDisabled } from './model/isValueDisabled';
-export { selectionBefore } from './model/selectionBefore';
+export { getPrecedingSelection } from './model/getPrecedingSelection';
 export { selectOptionValue } from './model/selectOptionValue';

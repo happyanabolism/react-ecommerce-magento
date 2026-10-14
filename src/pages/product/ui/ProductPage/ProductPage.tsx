@@ -7,7 +7,7 @@ import {
   type OptionDisabledCheck,
   findVariant,
   isValueDisabled,
-  selectionBefore,
+  getPrecedingSelection,
   selectOptionValue,
 } from '@features/product-options';
 import { useProductPage } from '../../model/useProductPage';
@@ -65,7 +65,7 @@ export const ProductPage = ({ sku }: ProductPageProps) => {
   const isOptionValueDisabled: OptionDisabledCheck = (code, uid) =>
     isValueDisabled(
       variants,
-      selectionBefore(options, optionSelection, code),
+      getPrecedingSelection(options, optionSelection, code),
       code,
       uid
     );

@@ -4,9 +4,9 @@ import type {
 } from '@shared/api';
 import type { OptionSelection } from './types';
 import { isValueDisabled } from './isValueDisabled';
-import { getOptionCodes, selectionBefore } from './selectionBefore';
+import { getAttributeCodes, getPrecedingSelection } from './getPrecedingSelection';
 
-// pick a value and drop the values of the following options that don't exist with it
+// pick a value and drop the values of the following attributes that don't exist with it
 export const selectOptionValue = (
   options: ConfigurableProductOptionsFragment[],
   variants: Array<ProductVariantFragment | null>,
@@ -14,23 +14,24 @@ export const selectOptionValue = (
   code: string,
   uid: string
 ): OptionSelection => {
-  const next: OptionSelection = { ...selection, [code]: uid };
-  const codes = getOptionCodes(options);
+  const nextSelection: OptionSelection = { ...selection, [code]: uid };
+  const attributeCodes = getAttributeCodes(options);
+  const followingCodes = attributeCodes.slice(attributeCodes.indexOf(code) + 1);
 
-  for (const nextCode of codes.slice(codes.indexOf(code) + 1)) {
-    const nextUid = next[nextCode];
+  for (const followingCode of followingCodes) {
+    const followingUid = nextSelection[followingCode];
     if (
-      nextUid &&
+      followingUid &&
       isValueDisabled(
         variants,
-        selectionBefore(options, next, nextCode),
-        nextCode,
-        nextUid
+        getPrecedingSelection(options, nextSelection, followingCode),
+        followingCode,
+        followingUid
       )
     ) {
-      delete next[nextCode];
+      delete nextSelection[followingCode];
     }
   }
 
-  return next;
+  return nextSelection;
 };
