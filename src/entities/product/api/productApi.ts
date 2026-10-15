@@ -90,6 +90,9 @@ const PRODUCT_DETAILS_FRAGMENT = graphql(`
     image {
       ...productImage
     }
+    media_gallery {
+      ...ProductMediaGallery
+    }
     price_range {
       ...ProductPriceRange
     }
@@ -135,5 +138,14 @@ const CONFIGURABLE_PRODUCT_OPTIONS_VALUES_FRAGMENT = graphql(`
         thumbnail
       }
     }
+  }
+`);
+
+const PRODUCT_MEDIA_GALLERY_FRAGMENT = graphql(`
+  fragment ProductMediaGallery on MediaGalleryInterface {
+    disabled
+    label
+    position
+    url
   }
 `);

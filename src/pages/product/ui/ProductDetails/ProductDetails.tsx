@@ -1,15 +1,16 @@
-import { ProductImage, ProductPrice } from '@entities/product';
+import { ProductGallery, ProductImage, ProductPrice } from '@entities/product';
 import { ProductOptions, useProductSelection } from '@features/product-options';
-import type { ProductWithOptionsFragment } from '@shared/api';
+import type { ProductPageProductFragment } from '@shared/api';
 import { RichContent } from '@shared/ui';
 
 interface ProductDetailsProps {
-  product: ProductWithOptionsFragment;
+  product: ProductPageProductFragment;
 }
 
 export const ProductDetails = ({ product }: ProductDetailsProps) => {
   const {
     variant,
+    previewVariant,
     options,
     optionSelection,
     handleOptionSelect,
@@ -17,13 +18,13 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
     getOptionValueImage,
   } = useProductSelection(product);
   const shownProduct = variant?.product ?? product;
+  const previewProduct = previewVariant?.product ?? product;
 
   return (
     <div className='grid gap-8 py-6 md:grid-cols-2 md:items-start'>
-      <ProductImage
-        className='w-full rounded-xl bg-graphite-100'
-        url={shownProduct.image?.url}
-        alt={shownProduct.name}
+      <ProductGallery
+        key={previewProduct.uid}
+        mediaGallery={previewProduct.media_gallery ?? []}
       />
       <div className='flex flex-col gap-4'>
         <h1>{product.name}</h1>

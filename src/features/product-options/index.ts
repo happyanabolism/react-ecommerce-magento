@@ -9,5 +9,5 @@ export { findVariant } from './model/findVariant';
 export { isValueDisabled } from './model/isValueDisabled';
 export { getPrecedingSelection } from './model/getPrecedingSelection';
 export { selectOptionValue } from './model/selectOptionValue';
-export { findVariantByOptionValue } from './model/findVariantByOptionValue';
+export { findFirstMatchingVariant } from './model/findFirstMatchingVariant';
 export { useProductSelection } from './model/useProductSelection';

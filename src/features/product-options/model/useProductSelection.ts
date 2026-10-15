@@ -9,7 +9,7 @@ import { findVariant } from './findVariant';
 import { selectOptionValue } from './selectOptionValue';
 import { isValueDisabled } from './isValueDisabled';
 import { getPrecedingSelection } from './getPrecedingSelection';
-import { findVariantByOptionValue } from './findVariantByOptionValue';
+import { findFirstMatchingVariant } from './findFirstMatchingVariant';
 import type { ProductWithOptionsFragment } from '@shared/api';
 
 export const useProductSelection = (product: ProductWithOptionsFragment) => {
@@ -25,6 +25,7 @@ export const useProductSelection = (product: ProductWithOptionsFragment) => {
   const variants = isConfigurable ? (product.variants ?? []) : [];
 
   const variant = findVariant(variants, optionSelection);
+  const previewVariant = findFirstMatchingVariant(variants, optionSelection);
 
   const handleOptionSelect: OptionSelectHandler = (code, uid) => {
     if (!uid) return;
@@ -41,14 +42,14 @@ export const useProductSelection = (product: ProductWithOptionsFragment) => {
       uid
     );
 
-  const getOptionValueImage: OptionValueImageGetter = (code, uid) => {
-    const variant = findVariantByOptionValue(variants, code, uid);
-    return variant?.product?.thumbnail ?? null;
-  };
+  const getOptionValueImage: OptionValueImageGetter = (code, uid) =>
+    findFirstMatchingVariant(variants, { [code]: uid })?.product?.thumbnail ??
+    null;
 
   return {
     options,
     variant,
+    previewVariant,
     optionSelection,
     handleOptionSelect,
     isOptionValueDisabled,

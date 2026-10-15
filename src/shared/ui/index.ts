@@ -11,6 +11,14 @@ export {
   CardFooter,
 } from './shadcn/card';
 export {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  type CarouselApi,
+} from './shadcn/carousel';
+export {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
