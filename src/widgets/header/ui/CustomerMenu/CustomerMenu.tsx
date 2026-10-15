@@ -8,7 +8,7 @@ import { CustomerDropdown } from '../CustomerDropdown/CustomerDropdown';
 
 export const CustomerMenu = () => {
   const jwt = useAppSelector(selectJwt);
-  const { customer } = useCustomer();
+  const { data: customer } = useCustomer();
 
   if (!jwt) return <Link to={ROUTES.LOGIN}>Login</Link>;
   if (!customer) return <Spinner />;

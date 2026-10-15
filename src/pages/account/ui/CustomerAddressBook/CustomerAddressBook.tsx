@@ -2,7 +2,7 @@ import { useCustomerAddresses } from '@entities/address';
 import { Alert, AlertDescription, Spinner } from '@shared/ui';
 
 export const CustomerAddressBook = () => {
-  const { addresses, isPending, error } = useCustomerAddresses();
+  const { data: addresses, isPending, error } = useCustomerAddresses();
 
   if (error)
     return (

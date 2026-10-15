@@ -5,7 +5,7 @@ import { UpdatePasswordDialog } from '../UpdatePasswordDialog/UpdatePasswordDial
 import { UpdatePersonalInfoDialog } from '../UpdatePersonalInfoDialog/UpdatePersonalInfoDialog';
 
 export const CustomerInfo = () => {
-  const { customer, isPending, error } = useCustomer();
+  const { data: customer, isPending, error } = useCustomer();
 
   if (!customer && isPending)
     return (

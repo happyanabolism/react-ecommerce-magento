@@ -7,7 +7,7 @@ interface ProductMainProps {
 }
 
 export const ProductMain = ({ sku }: ProductMainProps) => {
-  const { product, isPending, error } = useProductPage({ sku });
+  const { data: product, isPending, error } = useProductPage({ sku });
 
   if (isPending)
     return (

@@ -13,10 +13,16 @@ interface CategoryProductListingProps {
 export const CategoryProductListing = ({
   criteria,
 }: CategoryProductListingProps) => {
-  const { products, pageInfo, currentPage, getPageHref, isPending, error } =
-    useProductListing(criteria);
+  const {
+    data,
+    currentPage,
+    getPageHref,
+    isPending,
+    isPlaceholderData,
+    error,
+  } = useProductListing(criteria);
 
-  if (isPending && !pageInfo)
+  if (isPending)
     return (
       <Spinner className='mx-auto my-8 block size-8 text-muted-foreground' />
     );
@@ -28,13 +34,15 @@ export const CategoryProductListing = ({
       </Alert>
     );
 
+  const { products, pageInfo } = data;
+
   return (
     <div className='flex flex-col gap-8'>
       <div
-        aria-busy={isPending}
+        aria-busy={isPlaceholderData}
         className={cn(
           'grid grid-cols-2 gap-4 transition-opacity md:grid-cols-3 lg:grid-cols-4',
-          isPending && 'pointer-events-none opacity-50'
+          isPlaceholderData && 'pointer-events-none opacity-50'
         )}
       >
         {products.map((product) => (

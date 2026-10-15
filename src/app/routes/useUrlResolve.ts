@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { ROUTE } from './routeApi';
-import { request } from '@shared/api';
+import { request, type RouteQuery } from '@shared/api';
+
+const selectRoute = (data: RouteQuery) => data.route;
 
 export const useUrlResolve = (url: string) => {
-  const { data, ...rest } = useQuery({
+  return useQuery({
     queryKey: ['route', url],
     queryFn: () => request(ROUTE, { url }),
+    select: selectRoute,
   });
-
-  return { route: data?.route, ...rest };
 };

@@ -2,19 +2,18 @@ import { useQuery } from '@tanstack/react-query';
 import { CUSTOMER } from '../api/customerApi';
 import { useAppSelector } from '@shared/lib';
 import { selectJwt } from '@entities/session/@x/customer';
-import { request } from '@shared/api';
+import { request, type CustomerQuery } from '@shared/api';
+
+const selectCustomer = (data: CustomerQuery) => data.customer;
 
 export const useCustomer = () => {
   const jwt = useAppSelector(selectJwt);
-  const { data, ...rest } = useQuery({
+
+  return useQuery({
     queryKey: ['customer'],
     queryFn: () => request(CUSTOMER),
+    select: selectCustomer,
     enabled: !!jwt,
     staleTime: 0,
   });
-
-  return {
-    customer: data?.customer,
-    ...rest,
-  };
 };

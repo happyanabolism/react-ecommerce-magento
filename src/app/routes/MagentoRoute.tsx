@@ -8,7 +8,7 @@ import { Alert, AlertDescription, Container, Spinner } from '@shared/ui';
 export function MagentoRoute() {
   const location = useLocation();
   const relativeUrl = getRelativePath(location.pathname);
-  const { route, isPending, error } = useUrlResolve(relativeUrl);
+  const { data: route, isPending, error } = useUrlResolve(relativeUrl);
 
   if (isPending) {
     return (
