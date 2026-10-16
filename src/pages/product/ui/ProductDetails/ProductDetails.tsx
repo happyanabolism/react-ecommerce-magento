@@ -1,7 +1,13 @@
-import { ProductGallery, ProductImage, ProductPrice } from '@entities/product';
-import { ProductOptions, useProductSelection } from '@features/product-options';
+import {
+  ProductDescription,
+  ProductGallery,
+  ProductOptions,
+  ProductPrice,
+  ProductSku,
+  ProductTitle,
+  useProductSelection,
+} from '@entities/product';
 import type { ProductPageProductFragment } from '@shared/api';
-import { RichContent } from '@shared/ui';
 
 interface ProductDetailsProps {
   product: ProductPageProductFragment;
@@ -27,17 +33,16 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
         mediaGallery={previewProduct.media_gallery ?? []}
       />
       <div className='flex flex-col gap-4'>
-        <h1>{product.name}</h1>
-        <span className='text-sm text-muted-foreground'>
-          SKU: {shownProduct.sku}
-        </span>
+        <ProductTitle name={product.name} />
         <ProductPrice
           className='text-2xl'
           priceRange={shownProduct.price_range}
         />
-        <RichContent
+        <ProductSku sku={shownProduct.sku} />
+        <ProductDescription
           html={shownProduct.description?.html ?? product.description?.html}
         />
+        {/* TODO: ProductForm — ProductOptions + AddToCart */}
         {options.length > 0 && (
           <ProductOptions
             options={options}
