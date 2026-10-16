@@ -1,5 +1,9 @@
+import { cn } from 'cn';
 import type { ConfigurableProductOptionsFragment } from '@shared/api';
 import {
+  FieldError,
+  FieldLegend,
+  FieldSet,
   Tooltip,
   ToggleGroup,
   ToggleGroupItem,
@@ -17,6 +21,7 @@ import type {
 interface ProductOptionProps {
   option: ConfigurableProductOptionsFragment;
   selected: OptionSelection;
+  missing: boolean;
   onSelect: OptionSelectHandler;
   isDisabled: OptionDisabledCheck;
   getValueImage: OptionValueImageGetter;
@@ -25,6 +30,7 @@ interface ProductOptionProps {
 export const ProductOption = ({
   option,
   selected,
+  missing,
   onSelect,
   isDisabled,
   getValueImage,
@@ -33,8 +39,10 @@ export const ProductOption = ({
   if (!code) return null;
 
   return (
-    <div className='flex flex-col gap-4'>
-      <span>{option.label}</span>
+    <FieldSet>
+      <FieldLegend className={cn(missing && 'text-destructive')}>
+        {option.label}
+      </FieldLegend>
       <ToggleGroup
         type='single'
         className='grid grid-cols-8 gap-4 w-full'
@@ -67,6 +75,7 @@ export const ProductOption = ({
             );
           })}
       </ToggleGroup>
-    </div>
+      {missing && <FieldError>This is a required field.</FieldError>}
+    </FieldSet>
   );
 };

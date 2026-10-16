@@ -34,7 +34,14 @@ export {
   DialogFooter,
   DialogClose,
 } from './shadcn/dialog';
-export { Field, FieldGroup, FieldLabel, FieldError } from './shadcn/field';
+export {
+  Field,
+  FieldGroup,
+  FieldLabel,
+  FieldError,
+  FieldSet,
+  FieldLegend,
+} from './shadcn/field';
 export { Input } from './shadcn/input';
 export {
   InputGroup,
@@ -43,7 +50,12 @@ export {
   InputGroupButton,
 } from './shadcn/input-group';
 export { Container } from './Container/Container';
-export { TextField, PasswordField, TelephoneField } from './Fields';
+export {
+  TextField,
+  PasswordField,
+  TelephoneField,
+  QuantityField,
+} from './Fields';
 export { PageLoader } from './PageLoader/PageLoader';
 export { SidebarLayout } from './SidebarLayout/SidebarLayout';
 export { Toaster } from './shadcn/sonner';

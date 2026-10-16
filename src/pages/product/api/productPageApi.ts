@@ -5,6 +5,7 @@ const PRODUCT_PAGE_PRODUCT_FRAGMENT = graphql(`
   fragment ProductPageProduct on ProductInterface {
     ...ProductDetails
     ...ProductWithOptions
+    ...AddToCartProduct
   }
 `);
 

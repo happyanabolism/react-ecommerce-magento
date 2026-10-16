@@ -1,12 +1,12 @@
 import {
   ProductDescription,
   ProductGallery,
-  ProductOptions,
   ProductPrice,
   ProductSku,
   ProductTitle,
   useProductSelection,
 } from '@entities/product';
+import { AddToCartForm } from '@features/add-to-cart';
 import type { ProductPageProductFragment } from '@shared/api';
 
 interface ProductDetailsProps {
@@ -14,15 +14,8 @@ interface ProductDetailsProps {
 }
 
 export const ProductDetails = ({ product }: ProductDetailsProps) => {
-  const {
-    variant,
-    previewVariant,
-    options,
-    optionSelection,
-    handleOptionSelect,
-    isOptionValueDisabled,
-    getOptionValueImage,
-  } = useProductSelection(product);
+  const selection = useProductSelection(product);
+  const { variant, previewVariant } = selection;
   const shownProduct = variant?.product ?? product;
   const previewProduct = previewVariant?.product ?? product;
 
@@ -42,16 +35,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
         <ProductDescription
           html={shownProduct.description?.html ?? product.description?.html}
         />
-        {/* TODO: ProductForm — ProductOptions + AddToCart */}
-        {options.length > 0 && (
-          <ProductOptions
-            options={options}
-            selected={optionSelection}
-            onSelect={handleOptionSelect}
-            isDisabled={isOptionValueDisabled}
-            getValueImage={getOptionValueImage}
-          />
-        )}
+        <AddToCartForm product={product} selection={selection} />
       </div>
     </div>
   );

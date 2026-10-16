@@ -8,6 +8,7 @@ export { ProductSku } from './ui/ProductSku/ProductSku';
 export { ProductDescription } from './ui/ProductDescription/ProductDescription';
 export { ProductOptions } from './ui/ProductOptions/ProductOptions';
 export { useProductSelection } from './model/useProductSelection';
+export { getMissingOptionCodes } from './model/getMissingOptionCodes';
 export type {
   OptionSelection,
   OptionSelectHandler,
