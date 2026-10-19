@@ -5,7 +5,9 @@ import {
   useProductSelection,
 } from '@entities/product';
 import type { AddToCartProductFragment } from '@shared/api';
+import { QuantityField } from '@shared/ui';
 import { AddToCartButton } from '../AddToCartButton/AddToCartButton';
+import { getQuantityError } from '../../model/getQuantityError';
 
 interface AddToCartFormProps {
   product: AddToCartProductFragment;
@@ -14,6 +16,9 @@ interface AddToCartFormProps {
 
 export const AddToCartForm = ({ product, selection }: AddToCartFormProps) => {
   const [submitted, setSubmitted] = useState(false);
+  const minQuantity = product.min_sale_qty ?? 1;
+  const maxQuantity = product.max_sale_qty;
+  const [quantity, setQuantity] = useState(minQuantity);
   const {
     options,
     optionSelection,
@@ -23,20 +28,21 @@ export const AddToCartForm = ({ product, selection }: AddToCartFormProps) => {
   } = selection;
 
   const missingCodes = getMissingOptionCodes(options, optionSelection);
+  const quantityError = getQuantityError(quantity, minQuantity, maxQuantity);
 
   const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(options, optionSelection);
     setSubmitted(true);
-    if (missingCodes.length > 0) return;
+    if (missingCodes.length > 0 || quantityError) return;
     console.log({
+      quantity: quantity,
       sku: product.sku,
-      selectedOptions: optionSelection,
+      selectedOptions: Object.values(optionSelection),
     });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} noValidate>
       {options.length > 0 && (
         <ProductOptions
           options={options}
@@ -47,6 +53,14 @@ export const AddToCartForm = ({ product, selection }: AddToCartFormProps) => {
           missingCodes={submitted ? missingCodes : []}
         />
       )}
+      <QuantityField
+        label='Qty'
+        value={Number.isNaN(quantity) ? '' : quantity}
+        min={minQuantity}
+        max={maxQuantity ?? undefined}
+        onChange={(event) => setQuantity(event.target.valueAsNumber)}
+        error={submitted ? quantityError : undefined}
+      />
       <AddToCartButton />
     </form>
   );

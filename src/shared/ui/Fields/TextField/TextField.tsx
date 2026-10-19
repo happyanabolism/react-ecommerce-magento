@@ -2,7 +2,7 @@ import { useId, type InputHTMLAttributes } from 'react';
 import { Field, FieldError, FieldLabel } from '../../shadcn/field';
 import { Input } from '../../shadcn/input';
 
-interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   label?: string;
   error?: string;
