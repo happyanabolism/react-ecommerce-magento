@@ -68,8 +68,8 @@ export const RecentlyViewedProducts = ({
             ) : null;
           })}
         </CarouselContent>
-        <CarouselPrevious className='left-2 hidden md:inline-flex' />
-        <CarouselNext className='right-2 hidden md:inline-flex' />
+        <CarouselPrevious className='left-2 hidden md:inline-flex md:disabled:hidden' />
+        <CarouselNext className='right-2 hidden md:inline-flex md:disabled:hidden' />
       </Carousel>
     </section>
   );
