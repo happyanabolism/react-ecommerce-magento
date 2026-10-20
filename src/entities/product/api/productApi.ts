@@ -18,6 +18,16 @@ export const PRODUCTS = graphql(`
   }
 `);
 
+export const PRODUCT_LISTING = graphql(`
+  query productListing($filter: ProductAttributeFilterInput) {
+    products(filter: $filter) {
+      items {
+        ...productCardFields
+      }
+    }
+  }
+`);
+
 export const PRODUCT_CART_FIELDS = graphql(`
   fragment productCardFields on ProductInterface {
     uid

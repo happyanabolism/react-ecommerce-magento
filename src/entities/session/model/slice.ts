@@ -8,7 +8,7 @@ const initialState: SessionState = {
   jwt: null,
 };
 
-const sessionSlice = createSlice({
+const slice = createSlice({
   name: 'session',
   initialState,
   reducers: {
@@ -21,5 +21,5 @@ const sessionSlice = createSlice({
   },
 });
 
-export const { setToken, logout } = sessionSlice.actions;
-export const sessionReducer = sessionSlice.reducer;
+export const { setToken, logout } = slice.actions;
+export const sessionReducer = slice.reducer;
