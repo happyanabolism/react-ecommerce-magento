@@ -63,7 +63,7 @@ export const RecentlyViewedProducts = ({
                 key={product.uid}
                 className='basis-1/2 sm:basis-1/3 lg:basis-(--slide-basis)'
               >
-                <ProductCard product={product} />
+                <ProductCard className='h-full' product={product} />
               </CarouselItem>
             ) : null;
           })}

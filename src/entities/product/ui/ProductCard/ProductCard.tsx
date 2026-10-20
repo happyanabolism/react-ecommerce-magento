@@ -13,12 +13,14 @@ import {
 
 export function ProductCard({
   product,
+  className,
 }: {
   product: ProductCardFieldsFragment;
+  className?: string;
 }) {
   // TODO: stock status, actions (add to cart feature)
   return (
-    <Card>
+    <Card className={className}>
       <ProductImage
         className='w-full'
         url={product.image?.url}
