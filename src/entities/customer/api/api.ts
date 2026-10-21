@@ -1,7 +1,7 @@
 import { graphql } from '@shared/api';
 
-export const CUSTOMER_FIELDS = graphql(`
-  fragment CustomerFields on Customer {
+const CUSTOMER_FIELDS = graphql(`
+  fragment Customer on Customer {
     email
     firstname
     lastname
@@ -15,7 +15,7 @@ export const CUSTOMER_FIELDS = graphql(`
 export const CUSTOMER = graphql(`
   query customer {
     customer {
-      ...CustomerFields
+      ...Customer
     }
   }
 `);

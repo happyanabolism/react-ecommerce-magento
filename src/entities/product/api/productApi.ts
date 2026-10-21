@@ -8,7 +8,7 @@ export const PRODUCTS = graphql(`
   ) {
     products(filter: $filter, pageSize: $pageSize, currentPage: $currentPage) {
       items {
-        ...productCardFields
+        ...ProductCardFields
       }
       page_info {
         total_pages
@@ -22,14 +22,14 @@ export const PRODUCT_LISTING = graphql(`
   query productListing($filter: ProductAttributeFilterInput) {
     products(filter: $filter) {
       items {
-        ...productCardFields
+        ...ProductCardFields
       }
     }
   }
 `);
 
 export const PRODUCT_CART_FIELDS = graphql(`
-  fragment productCardFields on ProductInterface {
+  fragment ProductCardFields on ProductInterface {
     uid
     name
     sku

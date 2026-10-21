@@ -5,5 +5,6 @@ export const ROUTES = {
   REGISTRATION: '/registration',
   ACCOUNT: '/account',
   ACCOUNT_DASHBOARD: '/account/dashboard',
+  WISHLIST: '/wishlist',
   DYNAMIC: '*',
 };

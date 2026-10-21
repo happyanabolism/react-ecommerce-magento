@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {
   flatCustomAttributes,
   normalizeCustomAttributes,
-  type CustomerFieldsFragment,
+  type CustomerFragment,
 } from '@shared/api';
 import { useUpdatePersonalInfo } from './useUpdatePersonalInfo';
 import {
@@ -13,11 +13,11 @@ import {
 } from './updatePersonalInfo.schema';
 
 interface UseUpdatePersonalInfoFormOptions {
-  customer: CustomerFieldsFragment;
+  customer: CustomerFragment;
   onSuccess?: () => void;
 }
 
-const toFormValues = (customer: CustomerFieldsFragment) =>
+const toFormValues = (customer: CustomerFragment) =>
   updatePersonalInfoSchema.cast(
     {
       ...customer,

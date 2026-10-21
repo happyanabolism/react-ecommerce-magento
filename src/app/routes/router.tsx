@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, Navigate } from 'react-router';
 import { MainLayout } from '@app/layouts';
 import { ROUTES } from '@shared/config';
 import { ProtectedRoute } from './ProtectedRoute';
@@ -48,9 +48,12 @@ export const router = createBrowserRouter([
               return { Component: CartPage };
             },
           },
-
           {
             path: ROUTES.ACCOUNT,
+            element: <Navigate to={ROUTES.ACCOUNT_DASHBOARD} replace />,
+          },
+          {
+            // pathless: the account sidebar layout, URLs stay as they are (/wishlist like in Magento)
             lazy: async () => {
               const { AccountLayout } = await import('@pages/account');
               return { Component: AccountLayout };
@@ -62,6 +65,13 @@ export const router = createBrowserRouter([
                   const { AccountDashboardPage } =
                     await import('@pages/account');
                   return { Component: AccountDashboardPage };
+                },
+              },
+              {
+                path: ROUTES.WISHLIST,
+                lazy: async () => {
+                  const { WishlistPage } = await import('@pages/wishlist');
+                  return { Component: WishlistPage };
                 },
               },
             ],

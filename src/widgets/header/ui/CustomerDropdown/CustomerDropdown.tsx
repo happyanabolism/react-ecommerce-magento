@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import {
+  Badge,
   Button,
   DropdownMenu,
   DropdownMenuContent,
@@ -8,14 +9,18 @@ import {
   PageLoader,
 } from '@shared/ui';
 import { ROUTES } from '@shared/config';
-import type { CustomerFieldsFragment } from '@shared/api';
+import type { CustomerFragment } from '@shared/api';
 import { useLogout } from '@features/auth/logout';
+
+interface CustomerDropdownProps {
+  customer: CustomerFragment;
+  wishlistItemsCount: number | null;
+}
 
 export const CustomerDropdown = ({
   customer,
-}: {
-  customer: CustomerFieldsFragment;
-}) => {
+  wishlistItemsCount,
+}: CustomerDropdownProps) => {
   const { mutate: logout, isPending } = useLogout();
 
   return (
@@ -28,7 +33,18 @@ export const CustomerDropdown = ({
           <DropdownMenuItem asChild>
             <Link to={ROUTES.ACCOUNT_DASHBOARD}>My Account</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem onSelect={() => logout}>Log out</DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link to={ROUTES.WISHLIST}>
+              Wishlist
+              {wishlistItemsCount ? (
+                <Badge variant='secondary' className='ml-auto'>
+                  {wishlistItemsCount}
+                  <span className='sr-only'> items</span>
+                </Badge>
+              ) : null}
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => logout()}>Log out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       {isPending && <PageLoader />}

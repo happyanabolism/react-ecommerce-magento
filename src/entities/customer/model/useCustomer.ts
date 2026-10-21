@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { CUSTOMER } from '../api/customerApi';
+import { CUSTOMER } from '../api/api';
 import { useAppSelector } from '@shared/lib';
 import { selectJwt } from '@entities/session/@x/customer';
 import { request, type CustomerQuery } from '@shared/api';

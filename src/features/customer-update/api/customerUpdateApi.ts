@@ -4,7 +4,7 @@ export const UPDATE_PERSONAL_INFO = graphql(`
   mutation updateCustomerV2($input: CustomerUpdateInput!) {
     updateCustomerV2(input: $input) {
       customer {
-        ...CustomerFields
+        ...Customer
       }
     }
   }
@@ -14,7 +14,7 @@ export const UPDATE_CUSTOMER_EMAIL = graphql(`
   mutation updateCustomerEmail($email: String!, $password: String!) {
     updateCustomerEmail(email: $email, password: $password) {
       customer {
-        ...CustomerFields
+        ...Customer
       }
     }
   }
@@ -29,7 +29,7 @@ export const CHANGE_CUSTOMER_PASSWORD = graphql(`
       currentPassword: $currentPassword
       newPassword: $newPassword
     ) {
-      ...CustomerFields
+      ...Customer
     }
   }
 `);

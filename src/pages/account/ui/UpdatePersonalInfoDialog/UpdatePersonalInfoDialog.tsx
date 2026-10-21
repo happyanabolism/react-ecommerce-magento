@@ -3,7 +3,7 @@ import {
   useUpdatePersonalInfoForm,
   UpdatePersonalInfoFields,
 } from '@features/customer-update';
-import type { CustomerFieldsFragment } from '@shared/api';
+import type { CustomerFragment } from '@shared/api';
 import {
   Button,
   Dialog,
@@ -17,7 +17,7 @@ import {
 } from '@shared/ui';
 
 interface UpdatePersonalInfoDialogProps {
-  customer: CustomerFieldsFragment;
+  customer: CustomerFragment;
 }
 
 export const UpdatePersonalInfoDialog = ({
