@@ -1,7 +1,7 @@
 import { startTransition, useOptimistic } from 'react';
 import { ProductCard } from '@entities/product';
 import {
-  RemoveFromWishlist,
+  RemoveFromWishlistButton,
   useRemoveFromWishlist,
 } from '@features/wishlist-update';
 import { Alert, AlertDescription, Spinner } from '@shared/ui';
@@ -48,17 +48,40 @@ export const WishlistPage = () => {
       <title>Wishlist</title>
       <div className='grid grid-cols-2 gap-4 transition-opacity md:grid-cols-3 lg:grid-cols-4'>
         {optimisticItems.map((item) => {
-          return item.product ? (
+          if (!item.product) return null;
+          const selectedOptions =
+            item.__typename === 'ConfigurableWishlistItem'
+              ? (item.configurable_options ?? []).filter(
+                  (option) => option != null
+                )
+              : [];
+
+          return (
             <ProductCard
               key={item.id}
               product={item.product}
               quickActions={
-                <RemoveFromWishlist
+                <RemoveFromWishlistButton
                   onClick={() => handleRemoveWishlist([item.id])}
                 />
               }
+              details={
+                selectedOptions.length > 0 ? (
+                  <dl className='text-sm text-muted-foreground'>
+                    {selectedOptions.map((option) => (
+                      <div
+                        key={option.configurable_product_option_uid}
+                        className='flex gap-1'
+                      >
+                        <dt>{option.option_label}:</dt>
+                        <dd>{option.value_label}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                ) : null
+              }
             />
-          ) : null;
+          );
         })}
       </div>
     </>

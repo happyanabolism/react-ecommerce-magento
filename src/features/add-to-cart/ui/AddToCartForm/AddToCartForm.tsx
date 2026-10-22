@@ -1,4 +1,4 @@
-import { useState, type SubmitEvent } from 'react';
+import { useState, type ReactNode, type SubmitEvent } from 'react';
 import {
   getMissingOptionCodes,
   ProductOptions,
@@ -12,9 +12,15 @@ import { getQuantityError } from '../../model/getQuantityError';
 interface AddToCartFormProps {
   product: AddToCartProductFragment;
   selection: ReturnType<typeof useProductSelection>;
+  /** next to the add to cart button: wish list, compare */
+  actions?: ReactNode;
 }
 
-export const AddToCartForm = ({ product, selection }: AddToCartFormProps) => {
+export const AddToCartForm = ({
+  product,
+  selection,
+  actions,
+}: AddToCartFormProps) => {
   const [submitted, setSubmitted] = useState(false);
   const minQuantity = product.min_sale_qty ?? 1;
   const maxQuantity = product.max_sale_qty;
@@ -61,7 +67,10 @@ export const AddToCartForm = ({ product, selection }: AddToCartFormProps) => {
         onChange={(event) => setQuantity(event.target.valueAsNumber)}
         error={submitted ? quantityError : undefined}
       />
-      <AddToCartButton />
+      <div className='flex flex-wrap gap-2'>
+        <AddToCartButton />
+        {actions}
+      </div>
     </form>
   );
 };

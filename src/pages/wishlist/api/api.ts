@@ -17,10 +17,18 @@ export const WISHLIST_PAGE = graphql(`
 
 const WISHLIST_ITEM = graphql(`
   fragment WishlistItem on WishlistItemInterface {
+    __typename
     id
     quantity
     product {
       ...ProductCardFields
+    }
+    ... on ConfigurableWishlistItem {
+      configurable_options {
+        configurable_product_option_uid
+        option_label
+        value_label
+      }
     }
   }
 `);

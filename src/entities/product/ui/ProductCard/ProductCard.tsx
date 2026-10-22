@@ -18,12 +18,15 @@ interface ProductCardProps {
   className?: string;
   /** small actions over the top corner of the image: wish list, compare, quick view */
   quickActions?: ReactNode;
+  /** extra lines under the title: chosen options, stock, notes */
+  details?: ReactNode;
 }
 
 export function ProductCard({
   product,
   className,
   quickActions,
+  details,
 }: ProductCardProps) {
   // TODO: stock status, actions (add to cart feature)
   return (
@@ -48,6 +51,7 @@ export function ProductCard({
             {product.name}
           </Link>
         </CardTitle>
+        {details}
       </CardHeader>
       <CardContent className='mt-auto'>
         <ProductPrice priceRange={product.price_range} />

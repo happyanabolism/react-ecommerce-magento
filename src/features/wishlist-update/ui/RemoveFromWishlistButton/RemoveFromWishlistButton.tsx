@@ -3,12 +3,12 @@ import { Trash2Icon } from 'lucide-react';
 import { cn } from 'cn';
 import { Button } from '@shared/ui';
 
-type RemoveFromWishlistProps = ComponentProps<typeof Button>;
+type RemoveFromWishlistButtonProps = ComponentProps<typeof Button>;
 
-export const RemoveFromWishlist = ({
+export const RemoveFromWishlistButton = ({
   className,
   ...props
-}: RemoveFromWishlistProps) => {
+}: RemoveFromWishlistButtonProps) => {
   return (
     <Button
       type='button'

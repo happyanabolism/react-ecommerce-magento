@@ -5,6 +5,7 @@ import {
   useProductListing,
   type ProductListingCriteria,
 } from '@features/product-listing';
+import { AddToWishlistButton } from '@features/wishlist-update';
 
 interface CategoryProductListingProps {
   criteria: ProductListingCriteria;
@@ -46,7 +47,13 @@ export const CategoryProductListing = ({
         )}
       >
         {products.map((product) => (
-          <ProductCard product={product} key={product.uid} />
+          <ProductCard
+            product={product}
+            key={product.uid}
+            quickActions={
+              product.sku ? <AddToWishlistButton sku={product.sku} /> : null
+            }
+          />
         ))}
       </div>
       <Pagination

@@ -14,6 +14,7 @@ import {
 } from '@shared/ui';
 import { useRecentlyViewedProducts } from '../../model/useRecentlyViewedProducts';
 import { selectRecentlyViewedSkus } from '../../model/selectors';
+import { AddToWishlistButton } from '@features/wishlist-update';
 
 interface RecentlyViewedProductsProps {
   className?: string;
@@ -27,9 +28,7 @@ export const RecentlyViewedProducts = ({
   exclude = [],
 }: RecentlyViewedProductsProps) => {
   const viewedSkus = useSelector(selectRecentlyViewedSkus);
-  const shownSkus = viewedSkus.filter(
-    (sku) => !exclude.includes(sku)
-  );
+  const shownSkus = viewedSkus.filter((sku) => !exclude.includes(sku));
   const { data: products, isPending, error } = useRecentlyViewedProducts();
 
   if (shownSkus.length === 0) return null;
@@ -63,7 +62,15 @@ export const RecentlyViewedProducts = ({
                 key={product.uid}
                 className='basis-1/2 sm:basis-1/3 lg:basis-(--slide-basis)'
               >
-                <ProductCard className='h-full' product={product} />
+                <ProductCard
+                  className='h-full'
+                  product={product}
+                  quickActions={
+                    product.sku ? (
+                      <AddToWishlistButton sku={product.sku} />
+                    ) : null
+                  }
+                />
               </CarouselItem>
             ) : null;
           })}

@@ -19,3 +19,23 @@ export const REMOVE_PRODUCTS_FROM_WISHLIST = graphql(`
     }
   }
 `);
+
+export const ADD_PRODUCTS_TO_WISHLIST = graphql(`
+  mutation addProductsToWishlist(
+    $wishlistId: ID!
+    $wishlistItems: [WishlistItemInput!]!
+  ) {
+    addProductsToWishlist(
+      wishlistId: $wishlistId
+      wishlistItems: $wishlistItems
+    ) {
+      user_errors {
+        code
+        message
+      }
+      wishlist {
+        ...Wishlist
+      }
+    }
+  }
+`);

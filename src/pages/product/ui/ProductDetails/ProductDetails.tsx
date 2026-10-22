@@ -7,6 +7,7 @@ import {
   useProductSelection,
 } from '@entities/product';
 import { AddToCartForm } from '@features/add-to-cart';
+import { AddToWishlistButton } from '@features/wishlist-update';
 import type { ProductPageProductFragment } from '@shared/api';
 
 interface ProductDetailsProps {
@@ -35,7 +36,23 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
         <ProductDescription
           html={shownProduct.description?.html ?? product.description?.html}
         />
-        <AddToCartForm product={product} selection={selection} />
+        <AddToCartForm
+          product={product}
+          selection={selection}
+          actions={
+            product.sku ? (
+              <AddToWishlistButton
+                sku={product.sku}
+                variantSku={variant?.product?.sku ?? undefined}
+                options={
+                  variant ? Object.values(selection.optionSelection) : undefined
+                }
+              >
+                Add to wishlist
+              </AddToWishlistButton>
+            ) : null
+          }
+        />
       </div>
     </div>
   );

@@ -16,9 +16,15 @@ const WISHLIST_FIELDS = graphql(`
     items_count
     items_v2 {
       items {
+        __typename
         id
         product {
           sku
+        }
+        ... on ConfigurableWishlistItem {
+          configured_variant {
+            sku
+          }
         }
       }
     }
