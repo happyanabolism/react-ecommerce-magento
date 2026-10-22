@@ -10,6 +10,7 @@ configureRequest({
   getToken: () => selectJwt(store.getState()),
   onSessionExpired: () => {
     store.dispatch(logout());
+    queryClient.clear();
     toast.error('Your session has expired, please log in again');
   },
 });

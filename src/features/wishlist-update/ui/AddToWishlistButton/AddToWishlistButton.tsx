@@ -1,7 +1,11 @@
 import { useOptimistic, useTransition, type ComponentProps } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 import { HeartIcon } from 'lucide-react';
 import { cn } from 'cn';
+import { selectJwt } from '@entities/session';
 import { useWishlistId } from '@entities/wishlist';
+import { ROUTES } from '@shared/config';
+import { useAppSelector } from '@shared/lib';
 import { Button } from '@shared/ui';
 import { useWishlistItem } from '../../model/useWishlistItem';
 import { useAddToWishlist } from '../../model/useAddToWishlist';
@@ -29,6 +33,9 @@ export const AddToWishlistButton = ({
   const hasLabel = children != null;
 
   const [isUpdating, startTransition] = useTransition();
+  const jwt = useAppSelector(selectJwt);
+  const navigate = useNavigate();
+  const location = useLocation();
   const { data: wishlistId = null } = useWishlistId();
   const { data: wishlistItem = null } = useWishlistItem(sku, variantSku);
   const isInWishlist = wishlistItem !== null;
@@ -38,6 +45,13 @@ export const AddToWishlistButton = ({
     useOptimistic(isInWishlist);
 
   const handleUpdateWishlistItem = () => {
+    // a guest has no wish list: send to login, no request at all; after login GuestRoute brings back here
+    if (!jwt) {
+      navigate(ROUTES.LOGIN, {
+        state: { from: location.pathname + location.search },
+      });
+      return;
+    }
     if (!wishlistId) return;
     startTransition(async () => {
       setOptimisticIsInWishlist(!isInWishlist);
