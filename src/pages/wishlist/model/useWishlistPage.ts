@@ -4,9 +4,10 @@ import { WISHLIST_PAGE } from '../api/api';
 
 const selectWishlistPage = (data: WishlistPageQuery) => {
   const wishlist = data.customer?.wishlists?.[0];
+  if (!wishlist?.id) return null;
   return {
-    id: wishlist?.id ?? null,
-    items: (wishlist?.items_v2?.items ?? []).filter((item) => item != null),
+    id: wishlist.id,
+    items: (wishlist.items_v2?.items ?? []).filter((item) => item != null),
   };
 };
 
