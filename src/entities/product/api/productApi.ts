@@ -28,7 +28,7 @@ export const PRODUCT_LISTING = graphql(`
   }
 `);
 
-export const PRODUCT_CART_FIELDS = graphql(`
+export const PRODUCT_CARD_FIELDS = graphql(`
   fragment ProductCardFields on ProductInterface {
     uid
     name
@@ -91,6 +91,8 @@ const PRODUCT_DETAILS_FRAGMENT = graphql(`
     uid
     sku
     name
+    rating_summary
+    review_count
     description {
       html
     }

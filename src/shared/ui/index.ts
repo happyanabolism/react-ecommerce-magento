@@ -69,4 +69,5 @@ export {
 export { Spinner } from './shadcn/spinner';
 export { Pagination } from './Pagination/Pagination';
 export { Price } from './Price/Price';
+export { Rating } from './Rating/Rating';
 export { RichContent } from './RichContent/RichContent';
