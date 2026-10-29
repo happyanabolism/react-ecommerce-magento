@@ -1,16 +1,17 @@
-import { useState } from 'react';
+import { useState, type ReactElement } from 'react';
 import { ReviewItem } from '@entities/review';
 import { Alert, AlertDescription, Button, Rating, Spinner } from '@shared/ui';
 import { useProductReviews } from '../../model/useProductReviews';
 
 interface ProductReviewsProps {
   sku: string;
+  form?: ReactElement;
 }
 
-const PAGE_SIZE = 1;
+const PAGE_SIZE = 2;
 
-export const ProductReviews = ({ sku }: ProductReviewsProps) => {
-  const [isExpanded, setIsExpanded] = useState(true);
+export const ProductReviews = ({ sku, form }: ProductReviewsProps) => {
+  const [visiblePageCount, setVisiblePageCount] = useState(1);
   const {
     data,
     isPending,
@@ -35,15 +36,17 @@ export const ProductReviews = ({ sku }: ProductReviewsProps) => {
       </Alert>
     );
 
+  const { reviews, reviewCount, ratingSummary, loadedPageCount } = data;
+  const shownReviews = reviews.slice(0, visiblePageCount * PAGE_SIZE);
+
   const handleShowMore = () => {
-    if (!isExpanded) setIsExpanded(true); // loaded pages are already in the cache
-    else fetchNextPage();
+    setVisiblePageCount((current) => current + 1);
+    if (visiblePageCount === loadedPageCount) {
+      fetchNextPage();
+    }
   };
 
-  const handleShowLess = () => setIsExpanded(false);
-
-  const { reviews, reviewCount, ratingSummary } = data;
-  const shownReviews = isExpanded ? reviews : reviews.slice(0, PAGE_SIZE);
+  const handleShowLess = () => setVisiblePageCount((current) => current - 1);
 
   return (
     <section className='flex flex-col gap-4'>
@@ -58,6 +61,7 @@ export const ProductReviews = ({ sku }: ProductReviewsProps) => {
         </h2>
         {ratingSummary > 0 && <Rating value={ratingSummary} />}
       </div>
+      {form && form}
       {reviewCount === 0 ? (
         <p className='text-muted-foreground'>
           Be the first to review this product
@@ -76,23 +80,18 @@ export const ProductReviews = ({ sku }: ProductReviewsProps) => {
               />
             ))}
           </div>
-          {!isExpanded || hasNextPage ? (
-            <Button
-              className='self-start'
-              disabled={isFetchingNextPage}
-              onClick={handleShowMore}
-            >
-              {isFetchingNextPage ? 'Loading…' : 'Show more'}
-            </Button>
-          ) : reviews.length > PAGE_SIZE ? (
-            <Button
-              className='self-start'
-              variant='outline'
-              onClick={handleShowLess}
-            >
-              Show less
-            </Button>
-          ) : null}
+          <div className='flex gap-2'>
+            {(visiblePageCount < loadedPageCount || hasNextPage) && (
+              <Button disabled={isFetchingNextPage} onClick={handleShowMore}>
+                {isFetchingNextPage ? 'Loading…' : 'Show more'}
+              </Button>
+            )}
+            {visiblePageCount > 1 && (
+              <Button variant='outline' onClick={handleShowLess}>
+                Show less
+              </Button>
+            )}
+          </div>
         </>
       )}
     </section>

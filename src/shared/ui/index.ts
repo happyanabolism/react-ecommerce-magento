@@ -55,6 +55,7 @@ export {
   PasswordField,
   TelephoneField,
   QuantityField,
+  RatingField,
 } from './Fields';
 export { PageLoader } from './PageLoader/PageLoader';
 export { SidebarLayout } from './SidebarLayout/SidebarLayout';

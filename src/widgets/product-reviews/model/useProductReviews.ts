@@ -15,6 +15,7 @@ const selectProductReviews = (data: InfiniteData<ProductReviewsQuery>) => {
       .filter((item) => item != null),
     reviewCount: product?.review_count ?? 0,
     ratingSummary: product?.rating_summary ?? 0,
+    loadedPageCount: data.pages.length,
   };
 };
 
