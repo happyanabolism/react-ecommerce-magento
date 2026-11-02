@@ -4,36 +4,34 @@ import type { useUpdatePasswordForm } from '../../model/useUpdatePasswordForm';
 type UpdatePasswordForm = ReturnType<typeof useUpdatePasswordForm>;
 
 interface UpdatePasswordFieldsProps {
-  form: UpdatePasswordForm['form'];
+  state: UpdatePasswordForm['state'];
   error?: UpdatePasswordForm['error'];
 }
 
 export const UpdatePasswordFields = ({
-  form,
+  state,
   error,
 }: UpdatePasswordFieldsProps) => {
-  const {
-    register,
-    formState: { errors },
-  } = form;
-
   return (
     <>
       <FieldGroup>
         <PasswordField
           label='Current Password'
-          error={errors?.currentPassword?.message}
-          {...register('currentPassword')}
+          name='currentPassword'
+          error={state.errors?.currentPassword}
+          defaultValue={state.values?.currentPassword}
         />
         <PasswordField
           label='New Password'
-          error={errors?.newPassword?.message}
-          {...register('newPassword')}
+          name='newPassword'
+          error={state.errors?.newPassword}
+          defaultValue={state.values?.newPassword}
         />
         <PasswordField
           label='Confirm New Password'
-          error={errors?.newPasswordConfirm?.message}
-          {...register('newPasswordConfirm')}
+          name='newPasswordConfirm'
+          error={state.errors?.newPasswordConfirm}
+          defaultValue={state.values?.newPasswordConfirm}
         />
       </FieldGroup>
       {error && (

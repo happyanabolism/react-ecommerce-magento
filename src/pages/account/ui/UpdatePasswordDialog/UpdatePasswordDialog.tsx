@@ -17,7 +17,7 @@ import {
 
 export const UpdatePasswordDialog = () => {
   const [open, setOpen] = useState(false);
-  const { form, formProps, submitProps, error, pending, reset } =
+  const { state, formProps, submitProps, error, pending, reset } =
     useUpdatePasswordForm({
       onSuccess: () => setOpen(false),
     });
@@ -38,7 +38,7 @@ export const UpdatePasswordDialog = () => {
           <DialogTitle>Change password</DialogTitle>
         </DialogHeader>
         <form {...formProps}>
-          <UpdatePasswordFields form={form} error={error} />
+          <UpdatePasswordFields state={state} error={error} />
         </form>
         <DialogFooter>
           <DialogClose asChild>
