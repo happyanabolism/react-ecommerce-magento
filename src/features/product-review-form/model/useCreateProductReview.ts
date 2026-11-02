@@ -5,17 +5,25 @@ import {
   type CreateProductReviewMutationVariables,
 } from '@shared/api';
 import { CREATE_PRODUCT_REVIEW } from '../api/api';
+import type { CreateProductReviewFormData } from './createProductReview.schema';
 
-export const useCreateProductReview = () => {
+export const useCreateProductReview = (sku: string) => {
   return useMutation({
-    mutationFn: (variables: CreateProductReviewMutationVariables) => {
+    mutationFn: (data: CreateProductReviewFormData) => {
+      const variables = {
+        input: {
+          ...data,
+          sku,
+          ratings: Object.entries(data.ratings).map(([ratingId, valueId]) => ({
+            id: ratingId,
+            value_id: valueId,
+          })),
+        },
+      };
       return request(CREATE_PRODUCT_REVIEW, variables);
     },
     onSuccess: () => {
-      toast.success('Your review successfully created');
-    },
-    onError: (error) => {
-      toast.error(error.message);
+      toast.success('Your review has been submitted for moderation');
     },
   });
 };

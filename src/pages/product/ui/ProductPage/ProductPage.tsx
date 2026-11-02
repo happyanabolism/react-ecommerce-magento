@@ -26,7 +26,7 @@ export const ProductPage = ({ sku }: ProductPageProps) => {
       <ProductMain sku={sku} />
       {/* the wrapper is there while reviews load too, so the link from the rating always has a target */}
       <div id={REVIEWS_ANCHOR}>
-        <ProductReviews sku={sku} form={<ProductReviewForm />} />
+        <ProductReviews sku={sku} form={<ProductReviewForm sku={sku} />} />
       </div>
       <RecentlyViewedProducts exclude={[sku]} />
     </Container>

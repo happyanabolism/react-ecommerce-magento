@@ -52,6 +52,7 @@ export {
 export { Container } from './Container/Container';
 export {
   TextField,
+  TextareaField,
   PasswordField,
   TelephoneField,
   QuantityField,

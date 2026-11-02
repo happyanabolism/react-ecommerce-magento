@@ -24,8 +24,6 @@ export const ReviewRatingFields = ({
       </Alert>
     );
 
-  console.log('ratings', ratings);
-
   return (
     <>
       {ratings.map((rating) => (
