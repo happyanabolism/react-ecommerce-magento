@@ -3,16 +3,21 @@ import { useProducts } from '@entities/product';
 import type { ProductAttributeFilterInput } from '@shared/api';
 
 export interface ProductListingCriteria {
-  filter: ProductAttributeFilterInput;
+  filter?: ProductAttributeFilterInput;
+  search?: string;
 }
 
-export const useProductListing = ({ filter }: ProductListingCriteria) => {
+export const useProductListing = ({
+  filter,
+  search,
+}: ProductListingCriteria) => {
   const [searchParams] = useSearchParams();
 
   const currentPage = parseInt(searchParams.get('page') || '1');
 
   const listing = useProducts({
     filter,
+    search,
     currentPage,
   });
 

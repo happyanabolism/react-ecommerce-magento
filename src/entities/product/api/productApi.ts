@@ -3,10 +3,16 @@ import { graphql } from '@shared/api';
 export const PRODUCTS = graphql(`
   query products(
     $filter: ProductAttributeFilterInput
+    $search: String
     $pageSize: Int
     $currentPage: Int
   ) {
-    products(filter: $filter, pageSize: $pageSize, currentPage: $currentPage) {
+    products(
+      filter: $filter
+      search: $search
+      pageSize: $pageSize
+      currentPage: $currentPage
+    ) {
       items {
         ...ProductCardFields
       }

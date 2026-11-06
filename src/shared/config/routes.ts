@@ -6,5 +6,6 @@ export const ROUTES = {
   ACCOUNT: '/account',
   ACCOUNT_DASHBOARD: '/account/dashboard',
   WISHLIST: '/wishlist',
+  SEARCH: '/search',
   DYNAMIC: '*',
 };

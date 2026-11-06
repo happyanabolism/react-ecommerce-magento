@@ -13,14 +13,16 @@ const selectProducts = (data: ProductsQuery) => ({
 
 export const useProducts = ({
   filter,
+  search,
   pageSize,
   currentPage,
 }: ProductsQueryVariables) => {
   return useQuery({
-    queryKey: ['products', { filter, pageSize, currentPage }],
+    queryKey: ['products', { filter, search, pageSize, currentPage }],
     queryFn: () =>
       request(PRODUCTS, {
         filter,
+        search,
         pageSize,
         currentPage,
       }),

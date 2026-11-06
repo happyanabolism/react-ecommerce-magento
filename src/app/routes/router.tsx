@@ -19,6 +19,13 @@ export const router = createBrowserRouter([
         index: true,
       },
       {
+        path: ROUTES.SEARCH,
+        lazy: async () => {
+          const { SearchPage } = await import('@pages/search');
+          return { Component: SearchPage };
+        },
+      },
+      {
         element: <GuestRoute />,
         children: [
           {
